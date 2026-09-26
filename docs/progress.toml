@@ -28,7 +28,7 @@ tasks = [
   { id = "C0-09", week = 2, who = "claude+you", owner = "Both", status = "todo", human = "You and your partner each commit one side from your own accounts, then screenshot", title = "Deliberate merge conflict on config.py, resolved and justified" },
 
   # ---------- Frontend ----------
-  { id = "FE-01", week = 1, who = "claude", owner = "A", status = "todo", title = "Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions" },
+  { id = "FE-01", week = 1, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions" },
   { id = "FE-02", week = 1, who = "claude", owner = "A", status = "todo", title = "Typed API client generated from OpenAPI + drift script" },
   { id = "FE-03", week = 1, who = "claude", owner = "A", status = "todo", title = "MSW handlers and typed fixtures" },
   { id = "FE-04", week = 1, who = "claude", owner = "A", status = "todo", title = "Router, layout, nav rail, error boundary" },
@@ -253,6 +253,7 @@ log = [
   { date = "2026-09-27", text = "EV-01: main branch protection on (PR, 1 approval, code owners, conversation resolution, no bypass); screenshots in docs/evidence/." },
   { date = "2026-09-27", text = "dev set as default branch and protected (PR required, no approval)." },
   { date = "2026-09-27", text = "C0-02: domain enums and Pydantic request/response/error schemas, with 17 unit tests against the plan §7.4 example payloads." },
+  { date = "2026-09-27", text = "FE-01: Vite 5 + React 18.3 + TS strict scaffold, Tailwind 3.4 with §8.2 tokens, ESLint strictTypeChecked, exact versions; lint, typecheck, build and a smoke test green." },
 ]
 
 # Tables go last in TOML: every top-level key above this line would otherwise belong to [meta].
