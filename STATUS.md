@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    1%   1 of 87 core tasks done
+Project progress  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    2%   2 of 87 core tasks done
 Marks secured     [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    0%   0 of 150 marks  (0 of 175 rubric points)
 ```
 
@@ -15,7 +15,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
 | Partner A (frontend, backend, data) | 1 of 37 | `░░░░░░░░░░` 2% |
-| Partner B (AI layer, DevOps) | 0 of 39 | `░░░░░░░░░░` 0% |
+| Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
 ## Marks by rubric section
@@ -38,12 +38,12 @@ Raw rubric points, as printed in the brief.
 
 ## Working on now
 
-Nothing in progress right now.
+- 🔄 **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A)
 
 ## Needs you
 
-- [ ] Enable the GitHub connector in Claude so the repo can be created and pushed (C0-01). _(needed for C0-01)_
-- [ ] Pick the repo name (default: civicpulse) and visibility; private is fine while working. _(needed for C0-01)_
+- [ ] Set dev as the default branch (Settings -> General) and add a light PR-only rule for dev. _(needed for C0-01)_
+- [ ] Before turning in: make the repo public, or add both instructors as collaborators. _(needed for SUB-03)_
 - [ ] Send your partner's GitHub username for the collaborator invite and CODEOWNERS. _(needed for C0-01)_
 - [ ] Ask the instructor which endpoint is the 'tenth' (plan §1.3) and note the answer. _(needed for C0-05)_
 - [ ] Ask the instructor: the rubric sections add up to 175, but the header says 150. Is it scaled to 150 or out of 175?
@@ -53,10 +53,10 @@ Nothing in progress right now.
 
 **Partner A (frontend, backend, data)**
 
-- ⬜ **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS — Claude builds, you run it (week 1)
 - ⬜ **C0-02** Domain enums and Pydantic schemas — Claude (week 1)
 - ⬜ **C0-05** Stub routes and committed openapi.json — Claude (week 1)
 - ⬜ **FE-01** Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions — Claude (week 1)
+- ⬜ **FE-02** Typed API client generated from OpenAPI + drift script — Claude (week 1)
 
 **Partner B (AI layer, DevOps)**
 
@@ -71,11 +71,10 @@ Claude does every task marked "Claude". These are the ones that need a person. C
 
 | Week | Task | Who | What you do |
 |---:|---|---|---|
-| 1 | ⬜ **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS | Claude builds, you run it | Create the repo (or connect GitHub), add your partner, turn on branch protection |
+| 1 | 🔄 **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS | Claude builds, you run it | Create the repo (or connect GitHub), add your partner, turn on branch protection |
 | 1 | ⬜ **DK-01** Backend multi-stage non-root Dockerfile | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 1 | ⬜ **DK-02** .dockerignore per context + before/after sizes | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 1 | ⬜ **DK-03** compose.yaml data tier, internal network, AOF volume | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 1 | ⬜ **EV-01** Branch protection screenshot | you, step by step | All of it, following Claude's steps |
 | 2 | ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified | Claude builds, you run it | You and your partner each commit one side from your own accounts, then screenshot |
 | 2 | ⬜ **FE-11** nginx runtime config template, frontend Dockerfile, .dockerignore | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 2 | ⬜ **AI-04** Groq provider, JSON mode, strict output validation | Claude builds, you run it | Create a Groq key, put it in .env only, run one live call |
@@ -122,7 +121,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 **0 of 8 ready.**
 
 - ⬜ Before turning in: check_submission.py runs clean — waiting on SUB-01
-- ⬜ GitHub repository URL (public, or private with both instructors added) — waiting on C0-01, SUB-03
+- 🔄 GitHub repository URL (public, or private with both instructors added) — waiting on C0-01, SUB-03
 - ⬜ Link to a successful cd.yml run that tested, published and deployed — waiting on CI-04, CI-05
 - ⬜ Links to both GHCR images showing SHA tags — waiting on CI-04
 - ⬜ Demo video link (unlisted) — waiting on DOC-10
@@ -134,6 +133,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 | Done on | Task | Owner |
 |---|---|---|
+| 2026-09-27 | **EV-01** Branch protection screenshot | B |
 | 2026-09-27 | **C0-00** Implementation plan and progress tracker | A |
 
 <details>
@@ -141,8 +141,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 | Line | Marks | State | Still needed |
 |---|---:|---|---|
-| A1 main protected, PR + CI + approval required, screenshot | 3 | ⬜ | C0-01, CI-07, EV-01 |
-| A2 dev + feature branches, nothing committed directly to main | 2 | ⬜ | C0-01, EV-04 |
+| A1 main protected, PR + CI + approval required, screenshot | 3 | 🔄 | C0-01, CI-07 |
+| A2 dev + feature branches, nothing committed directly to main | 2 | 🔄 | C0-01, EV-04 |
 | A3 >= 5 merged PRs, each linked to an Issue, substantive partner review | 4 | ⬜ | EV-02 |
 | A4 >= 35 conventional commits, neither partner below 35% | 3 | ⬜ | EV-04 |
 | A5 Deliberate merge conflict with evidence and justification | 3 | ⬜ | C0-09, EV-03 |
@@ -211,7 +211,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 **Setup and contract** — 1 of 7 done
 
 - ✅ C0-00 Implementation plan and progress tracker (A, Claude, week 1)
-- ⬜ C0-01 GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A, Claude builds, you run it, week 1)
+- 🔄 C0-01 GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A, Claude builds, you run it, week 1)
 - ⬜ C0-02 Domain enums and Pydantic schemas (A, Claude, week 1)
 - ⬜ C0-03 Backend pyproject, uv lockfile, ruff, mypy (B, Claude, week 1)
 - ⬜ C0-04 Freeze TriageProvider / TriageResult / TriageOutcome seam (B, Claude, week 1)
@@ -316,9 +316,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ DOC-09 TRIAGE.md: prompt, latency, accuracy, hit rate (B, Claude builds, you run it, week 3)
 - ⬜ DOC-10 Demo video (<= 5 min, both partners) (Both, you, step by step, week 4)
 
-**Evidence** — 0 of 7 done
+**Evidence** — 1 of 7 done
 
-- ⬜ EV-01 Branch protection screenshot (B, you, step by step, week 1)
+- ✅ EV-01 Branch protection screenshot (B, you, step by step, week 1)
 - ⬜ EV-02 5+ merged PRs linked to Issues with substantive reviews (Both, your partner, week 3)
 - ⬜ EV-03 Merge conflict markers / resolution / merge screenshots (Both, you, step by step, week 2)
 - ⬜ EV-04 Commit audit: 35+ conventional commits, both partners >= 35% (A, Claude builds, you run it, week 4)
@@ -343,6 +343,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: EV-01: main branch protection on (PR, 1 approval, code owners, conversation resolution, no bypass); screenshots in docs/evidence/.
+- 2026-09-27: Repo ibrahimshaykh/civicpulse created (private) with main, dev and PR #2 carrying the plan, templates and CODEOWNERS.
 - 2026-09-27: Added who-does-what for every task and the course-portal checklist from brief §5.8.
 - 2026-09-27: Progress tracker added: docs/progress.toml + scripts/update_status.py -> STATUS.md.
 - 2026-09-27: Implementation plan written (docs/IMPLEMENTATION_PLAN.md) and checked line by line against the brief's rubric.
