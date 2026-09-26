@@ -42,7 +42,6 @@ Raw rubric points, as printed in the brief.
 
 ## Needs you
 
-- [ ] Set dev as the default branch (Settings -> General) and add a light PR-only rule for dev. _(needed for C0-01)_
 - [ ] Before turning in: make the repo public, or add both instructors as collaborators. _(needed for SUB-03)_
 - [ ] Send your partner's GitHub username for the collaborator invite and CODEOWNERS. _(needed for C0-01)_
 - [ ] Ask the instructor which endpoint is the 'tenth' (plan §1.3) and note the answer. _(needed for C0-05)_
@@ -343,6 +342,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: dev set as default branch and protected (PR required, no approval).
 - 2026-09-27: EV-01: main branch protection on (PR, 1 approval, code owners, conversation resolution, no bypass); screenshots in docs/evidence/.
 - 2026-09-27: Repo ibrahimshaykh/civicpulse created (private) with main, dev and PR #2 carrying the plan, templates and CODEOWNERS.
 - 2026-09-27: Added who-does-what for every task and the course-portal checklist from brief §5.8.
