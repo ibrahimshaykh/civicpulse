@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    2%   2 of 87 core tasks done
+Project progress  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    3%   3 of 87 core tasks done
 Marks secured     [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    0%   0 of 150 marks  (0 of 175 rubric points)
 ```
 
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 1 of 37 | `░░░░░░░░░░` 2% |
+| Partner A (frontend, backend, data) | 2 of 37 | `░░░░░░░░░░` 5% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -52,10 +52,10 @@ Raw rubric points, as printed in the brief.
 
 **Partner A (frontend, backend, data)**
 
-- ⬜ **C0-02** Domain enums and Pydantic schemas — Claude (week 1)
 - ⬜ **C0-05** Stub routes and committed openapi.json — Claude (week 1)
 - ⬜ **FE-01** Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions — Claude (week 1)
 - ⬜ **FE-02** Typed API client generated from OpenAPI + drift script — Claude (week 1)
+- ⬜ **FE-03** MSW handlers and typed fixtures — Claude (week 1)
 
 **Partner B (AI layer, DevOps)**
 
@@ -133,6 +133,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | Done on | Task | Owner |
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
+| 2026-09-27 | **C0-02** Domain enums and Pydantic schemas | A |
 | 2026-09-27 | **C0-00** Implementation plan and progress tracker | A |
 
 <details>
@@ -207,11 +208,11 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 <details>
 <summary><strong>All tasks by phase</strong></summary>
 
-**Setup and contract** — 1 of 7 done
+**Setup and contract** — 2 of 7 done
 
 - ✅ C0-00 Implementation plan and progress tracker (A, Claude, week 1)
 - 🔄 C0-01 GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A, Claude builds, you run it, week 1)
-- ⬜ C0-02 Domain enums and Pydantic schemas (A, Claude, week 1)
+- ✅ C0-02 Domain enums and Pydantic schemas (A, Claude, week 1)
 - ⬜ C0-03 Backend pyproject, uv lockfile, ruff, mypy (B, Claude, week 1)
 - ⬜ C0-04 Freeze TriageProvider / TriageResult / TriageOutcome seam (B, Claude, week 1)
 - ⬜ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
@@ -342,6 +343,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: C0-02: domain enums and Pydantic request/response/error schemas, with 17 unit tests against the plan §7.4 example payloads.
 - 2026-09-27: dev set as default branch and protected (PR required, no approval).
 - 2026-09-27: EV-01: main branch protection on (PR, 1 approval, code owners, conversation resolution, no bypass); screenshots in docs/evidence/.
 - 2026-09-27: Repo ibrahimshaykh/civicpulse created (private) with main, dev and PR #2 carrying the plan, templates and CODEOWNERS.

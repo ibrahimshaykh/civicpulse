@@ -21,7 +21,7 @@ tasks = [
   # ---------- Setup and contract ----------
   { id = "C0-00", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Implementation plan and progress tracker" },
   { id = "C0-01", week = 1, who = "claude+you", owner = "A",    status = "in_progress", human = "Create the repo (or connect GitHub), add your partner, turn on branch protection", title = "GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS" },
-  { id = "C0-02", week = 1, who = "claude", owner = "A",    status = "todo", title = "Domain enums and Pydantic schemas" },
+  { id = "C0-02", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Domain enums and Pydantic schemas" },
   { id = "C0-03", week = 1, who = "claude", owner = "B",    status = "todo", title = "Backend pyproject, uv lockfile, ruff, mypy" },
   { id = "C0-04", week = 1, who = "claude", owner = "B",    status = "todo", title = "Freeze TriageProvider / TriageResult / TriageOutcome seam" },
   { id = "C0-05", week = 1, who = "claude", owner = "A",    status = "todo", title = "Stub routes and committed openapi.json" },
@@ -252,6 +252,7 @@ log = [
   { date = "2026-09-27", text = "Repo ibrahimshaykh/civicpulse created (private) with main, dev and PR #2 carrying the plan, templates and CODEOWNERS." },
   { date = "2026-09-27", text = "EV-01: main branch protection on (PR, 1 approval, code owners, conversation resolution, no bypass); screenshots in docs/evidence/." },
   { date = "2026-09-27", text = "dev set as default branch and protected (PR required, no approval)." },
+  { date = "2026-09-27", text = "C0-02: domain enums and Pydantic request/response/error schemas, with 17 unit tests against the plan §7.4 example payloads." },
 ]
 
 # Tables go last in TOML: every top-level key above this line would otherwise belong to [meta].

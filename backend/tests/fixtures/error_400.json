@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "validation_error",
+    "message": "Request validation failed",
+    "request_id": "c1d2e3f4",
+    "fields": [
+      {"field": "text", "message": "String should have at least 10 characters", "type": "string_too_short"}
+    ]
+  }
+}
