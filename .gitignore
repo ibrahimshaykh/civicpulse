@@ -1,0 +1,31 @@
+# Secrets — never commit (plan §18: −20 if any of these reach Git history)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.kubeconfig
+k8s/overlays/prod/secret.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Node / frontend
+node_modules/
+dist/
+coverage/
+*.log
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

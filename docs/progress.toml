@@ -1,0 +1,265 @@
+# CivicPulse progress — the single source of truth for STATUS.md.
+#
+# After every task:
+#   1. set its status ("todo" | "in_progress" | "done" | "blocked") and, when done, done = "YYYY-MM-DD"
+#   2. add a [[log]] entry
+#   3. run:  python scripts/update_status.py
+#   4. commit docs/progress.toml and STATUS.md in the same PR as the work
+#
+# Owners: "A" = frontend + backend + data layer, "B" = AI layer + DevOps, "Both".
+#   owner = whose GitHub account commits the work and who defends it first at the viva.
+# who   = who does the hands-on work (IMPLEMENTATION_PLAN.md §0.6):
+#   "claude"      Claude writes it, runs its tests, prepares the commit and PR
+#   "claude+you"  Claude writes it; you run commands on your machine / GitHub and paste the output back
+#   "you"         needs you personally; Claude gives step-by-step instructions at the time
+#   "partner"     needs your partner personally (his reviews, his commits)
+# human = optional: exactly what the person does, when it isn't just "run the commands and paste the output"
+# week = planned week (1-4) from IMPLEMENTATION_PLAN.md §6; used to order "Up next".
+# bonus = true tasks never move the project-progress bar.
+
+tasks = [
+  # ---------- Setup and contract ----------
+  { id = "C0-00", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Implementation plan and progress tracker" },
+  { id = "C0-01", week = 1, who = "claude+you", owner = "A",    status = "in_progress", human = "Create the repo (or connect GitHub), add your partner, turn on branch protection", title = "GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS" },
+  { id = "C0-02", week = 1, who = "claude", owner = "A",    status = "todo", title = "Domain enums and Pydantic schemas" },
+  { id = "C0-03", week = 1, who = "claude", owner = "B",    status = "todo", title = "Backend pyproject, uv lockfile, ruff, mypy" },
+  { id = "C0-04", week = 1, who = "claude", owner = "B",    status = "todo", title = "Freeze TriageProvider / TriageResult / TriageOutcome seam" },
+  { id = "C0-05", week = 1, who = "claude", owner = "A",    status = "todo", title = "Stub routes and committed openapi.json" },
+  { id = "C0-09", week = 2, who = "claude+you", owner = "Both", status = "todo", human = "You and your partner each commit one side from your own accounts, then screenshot", title = "Deliberate merge conflict on config.py, resolved and justified" },
+
+  # ---------- Frontend ----------
+  { id = "FE-01", week = 1, who = "claude", owner = "A", status = "todo", title = "Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions" },
+  { id = "FE-02", week = 1, who = "claude", owner = "A", status = "todo", title = "Typed API client generated from OpenAPI + drift script" },
+  { id = "FE-03", week = 1, who = "claude", owner = "A", status = "todo", title = "MSW handlers and typed fixtures" },
+  { id = "FE-04", week = 1, who = "claude", owner = "A", status = "todo", title = "Router, layout, nav rail, error boundary" },
+  { id = "FE-05", week = 1, who = "claude", owner = "A", status = "todo", title = "Submit view: form, zod validation, honest loading, result ticket" },
+  { id = "FE-06", week = 1, who = "claude", owner = "A", status = "todo", title = "Submit view: 400 field mapping, 429 countdown, network errors" },
+  { id = "FE-07", week = 2, who = "claude", owner = "A", status = "todo", title = "Dashboard: table, URL filters, pagination" },
+  { id = "FE-08", week = 2, who = "claude", owner = "A", status = "todo", title = "Dashboard: server-driven transitions, verbatim 409" },
+  { id = "FE-09", week = 2, who = "claude", owner = "A", status = "todo", title = "Stats view: aggregates, X-Cache indicator, providers panel" },
+  { id = "FE-10", week = 2, who = "claude", owner = "A", status = "todo", title = "Component test suite (12 tests) passing in CI" },
+  { id = "FE-11", week = 2, who = "claude+you", owner = "A", status = "todo", title = "nginx runtime config template, frontend Dockerfile, .dockerignore" },
+  { id = "FE-12", week = 3, who = "claude+you", owner = "A", status = "todo", title = "Switch from MSW to the real API, fix contract mismatches" },
+
+  # ---------- Data layer ----------
+  { id = "DB-01", week = 2, who = "claude", owner = "A", status = "todo", title = "SQLAlchemy base, naming convention, ORM model" },
+  { id = "DB-02", week = 2, who = "claude", owner = "A", status = "todo", title = "Alembic async env with advisory lock, migration 0001" },
+  { id = "DB-03", week = 2, who = "claude", owner = "A", status = "todo", title = "Idempotent seed CLI with 33 complaints" },
+  { id = "DB-04", week = 2, who = "claude", owner = "A", status = "todo", title = "EXPLAIN evidence for both indexes at 200k rows" },
+  { id = "DB-05", week = 4, who = "you", owner = "A", status = "todo", title = "Persistence demos (Compose and Kubernetes)" },
+
+  # ---------- Backend ----------
+  { id = "BE-01", week = 2, who = "claude", owner = "A", status = "todo", title = "Settings, JSON logging, request-id middleware, error handlers" },
+  { id = "BE-02", week = 2, who = "claude", owner = "A", status = "todo", title = "Repositories and unit of work" },
+  { id = "BE-03", week = 3, who = "claude", owner = "A", status = "todo", title = "Complaint service + create/get/list routes" },
+  { id = "BE-04", week = 3, who = "claude", owner = "A", status = "todo", title = "State machine table, PATCH status, race guard" },
+  { id = "BE-05", week = 3, who = "claude", owner = "A", status = "todo", title = "/health, /ready, /metrics" },
+  { id = "BE-06", week = 3, who = "claude", owner = "A", status = "todo", title = "SIGTERM graceful server and lifespan" },
+  { id = "BE-07", week = 3, who = "claude", owner = "A", status = "todo", title = "Backend test suite (30+ tests, coverage >= 70%)" },
+  { id = "BE-08", week = 3, who = "claude", owner = "A", status = "todo", title = "Architecture test, ruff banned-api, OpenAPI 400 cleanup" },
+
+  # ---------- Cache ----------
+  { id = "CA-01", week = 3, who = "claude", owner = "A", status = "todo", title = "Stats read-through cache, X-Cache, invalidation on write" },
+  { id = "CA-02", week = 3, who = "claude", owner = "A", status = "todo", title = "Distributed Redis rate limiter, 429 + Retry-After" },
+
+  # ---------- AI layer ----------
+  { id = "AI-01", week = 1, who = "claude", owner = "B", status = "todo", title = "RuleBasedTriage + tests" },
+  { id = "AI-02", week = 1, who = "claude", owner = "B", status = "todo", title = "SimulatedTriage with failure injection" },
+  { id = "AI-03", week = 1, who = "claude", owner = "B", status = "todo", title = "TriageService skeleton + fallback + the fallback test" },
+  { id = "AI-04", week = 2, who = "claude+you", owner = "B", status = "todo", human = "Create a Groq key, put it in .env only, run one live call", title = "Groq provider, JSON mode, strict output validation" },
+  { id = "AI-05", week = 2, who = "claude", owner = "B", status = "todo", title = "10 s timeout + single jittered retry on retryable errors only" },
+  { id = "AI-06", week = 2, who = "claude", owner = "B", status = "todo", title = "Prompt, injection guardrail, safety floor, injection test" },
+  { id = "AI-07", week = 2, who = "claude", owner = "B", status = "todo", title = "PII redaction (feeds ADR 0004)" },
+  { id = "AI-08", week = 2, who = "claude+you", owner = "B", status = "todo", human = "Run the hit-rate replay with your Groq key and paste the numbers", title = "Content-hash triage cache + measured hit rate" },
+  { id = "AI-09", week = 3, who = "claude+you", owner = "B", status = "todo", human = "Install Ollama's model via make offline and paste the latency numbers", title = "Ollama provider, offline profile, warm-up" },
+  { id = "AI-10", week = 3, who = "claude", owner = "B", status = "todo", title = "Outcome ring buffer + /api/meta/providers" },
+  { id = "AI-11", week = 3, who = "claude", owner = "B", status = "todo", title = "Provider factory selected by TRIAGE_PROVIDER" },
+
+  # ---------- Docker and Compose ----------
+  { id = "DK-01", week = 1, who = "claude+you", owner = "B",    status = "todo", title = "Backend multi-stage non-root Dockerfile" },
+  { id = "DK-02", week = 1, who = "claude+you", owner = "B",    status = "todo", title = ".dockerignore per context + before/after sizes" },
+  { id = "DK-03", week = 1, who = "claude+you", owner = "B",    status = "todo", title = "compose.yaml data tier, internal network, AOF volume" },
+  { id = "DK-04", week = 2, who = "claude+you", owner = "B",    status = "todo", title = "migrate + seed services, healthchecks, make up" },
+  { id = "DK-05", week = 3, who = "claude+you", owner = "B",    status = "todo", title = "compose.prod.yaml (image by tag, no build, no DB/cache ports)" },
+  { id = "DK-06", week = 3, who = "claude+you", owner = "B",    status = "todo", title = "Offline profile with ollama_models volume" },
+  { id = "DK-07", week = 3, who = "claude+you", owner = "Both", status = "todo", title = "Image size report (build stage vs final)" },
+
+  # ---------- Kubernetes ----------
+  { id = "K8-01", week = 3, who = "claude+you", owner = "B", status = "todo", title = "k3d cluster, namespace, ConfigMap, placeholder Secret, Postgres StatefulSet, Redis" },
+  { id = "K8-02", week = 3, who = "claude+you", owner = "B", status = "todo", title = "Backend/frontend Deployments: three probes, preStop, requests/limits" },
+  { id = "K8-03", week = 3, who = "claude+you", owner = "B", status = "todo", title = "ClusterIP Services + Ingress for / and /api" },
+  { id = "K8-04", week = 3, who = "claude+you", owner = "B", status = "todo", title = "HPA v2 with behavior, PDB, VPA (Off)" },
+  { id = "K8-05", week = 4, who = "claude+you", owner = "B", status = "todo", title = "k6 load test, hpa -w capture, replicas-vs-load chart, lag analysis" },
+  { id = "K8-06", week = 4, who = "claude+you", owner = "B", status = "todo", title = "VPA loop: guess, load, recommend, update requests, re-test" },
+  { id = "K8-08", week = 4, who = "claude+you", owner = "B", status = "todo", title = "Rollback, imperative and declarative" },
+
+  # ---------- CI/CD ----------
+  { id = "CI-01", week = 1, who = "claude", owner = "B", status = "todo", title = "ci.yml: lint, types, contract, status, tests" },
+  { id = "CI-02", week = 3, who = "claude", owner = "B", status = "todo", title = "Compose integration smoke job (MISS then HIT)" },
+  { id = "CI-03", week = 3, who = "claude", owner = "B", status = "todo", title = "Image build, Trivy scan, kubeconform" },
+  { id = "CI-04", week = 3, who = "claude", owner = "B", status = "todo", title = "cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions" },
+  { id = "CI-05", week = 4, who = "claude+you", owner = "B", status = "todo", human = "Add the three repository secrets in GitHub settings", title = "Ephemeral k3d deploy job, rollout status, Ingress smoke test" },
+  { id = "CI-06", week = 4, who = "claude", owner = "B", status = "todo", title = "release.yml retagging the SHA image on v* tags" },
+  { id = "CI-07", week = 2, who = "you", owner = "B", status = "todo", title = "Required status checks wired into branch protection" },
+
+  # ---------- Documentation ----------
+  { id = "DOC-01", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Take the screenshots Claude lists; test the quickstart on another machine", title = "README with badges, Mermaid, quickstart, API table, screenshots" },
+  { id = "DOC-02", week = 4, who = "claude", owner = "B",    status = "todo", title = "ADR 0001 provider interface" },
+  { id = "DOC-03", week = 4, who = "claude", owner = "A",    status = "todo", title = "ADR 0002 frontend runtime config" },
+  { id = "DOC-04", week = 4, who = "claude", owner = "B",    status = "todo", title = "ADR 0003 deploy by SHA" },
+  { id = "DOC-05", week = 2, who = "claude", owner = "B",    status = "todo", title = "ADR 0004 PII and data governance" },
+  { id = "DOC-06", week = 4, who = "claude", owner = "Both", status = "todo", title = "RUNBOOK: deploy, roll back, logs, triage failing" },
+  { id = "DOC-07", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Tell Claude your real Q8 failure story; check every answer is true", title = "ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations" },
+  { id = "DOC-08", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Confirm the AI-USAGE account of what Claude wrote is accurate", title = "AI-USAGE.md" },
+  { id = "DOC-09", week = 3, who = "claude+you", owner = "B",    status = "todo", human = "Run the benchmark with your Groq key and paste the output", title = "TRIAGE.md: prompt, latency, accuracy, hit rate" },
+  { id = "DOC-10", week = 4, who = "you", owner = "Both", status = "todo", title = "Demo video (<= 5 min, both partners)" },
+
+  # ---------- Evidence ----------
+  { id = "EV-01", week = 1, who = "you", owner = "B",    status = "done", done = "2026-09-27", title = "Branch protection screenshot" },
+  { id = "EV-02", week = 3, who = "partner", owner = "Both", status = "todo", title = "5+ merged PRs linked to Issues with substantive reviews" },
+  { id = "EV-03", week = 2, who = "you", owner = "Both", status = "todo", title = "Merge conflict markers / resolution / merge screenshots" },
+  { id = "EV-04", week = 4, who = "claude+you", owner = "A",    status = "todo", human = "Run git shortlog -sn --no-merges and paste the output", title = "Commit audit: 35+ conventional commits, both partners >= 35%" },
+  { id = "EV-05", week = 4, who = "you", owner = "A",    status = "todo", title = "Persistence transcripts" },
+  { id = "EV-06", week = 4, who = "you", owner = "A",    status = "todo", title = "Network isolation transcript" },
+  { id = "EV-07", week = 4, who = "claude+you", owner = "B",    status = "todo", human = "Screenshot the red PR with merge blocked, then the green one", title = "Red PR blocked, then green" },
+
+  # ---------- Submission ----------
+  { id = "SUB-01", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Run check_submission.py and paste the output; clone on a second machine and run make up", title = "check_submission.py clean, clean-clone quickstart tested elsewhere" },
+  { id = "SUB-02", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Run git tag v1.0.0 and git push --tags (Claude does it if GitHub is connected)", title = "Tag v1.0.0 (release.yml retags the deployed SHA)" },
+  { id = "SUB-03", week = 4, who = "you", owner = "A",    status = "todo", title = "Instructor access: repo public, or both instructors added as collaborators" },
+  { id = "SUB-04", week = 4, who = "you", owner = "A",    status = "todo", title = "Turn in the six items on the course portal (brief §5.8)" },
+
+  # ---------- Bonus (never moves the project bar) ----------
+  { id = "K8-07", week = 4, who = "claude+you", owner = "B", status = "todo", bonus = true, title = "Zero-downtime rollout under live load" },
+  { id = "CI-08", week = 4, who = "claude", owner = "B", status = "todo", bonus = true, title = "Deploy by digest, Cosign sign and verify, SHA-pinned actions" },
+  { id = "OB-01", week = 4, who = "claude+you", owner = "B", status = "todo", bonus = true, title = "Prometheus + Grafana dashboard" },
+  { id = "OB-02", week = 4, who = "claude", owner = "A", status = "todo", bonus = true, title = "OpenTelemetry tracing frontend -> backend -> LLM" },
+  { id = "OB-03", week = 4, who = "claude+you", owner = "B", status = "todo", bonus = true, title = "GitOps with Argo CD or Flux" },
+]
+
+# Rubric lines from the brief (§4). A line counts only when EVERY required task is done.
+rubric = [
+  # A · Collaboration and version control — 15
+  { id = "A1", section = "A", marks = 3, requires = ["C0-01", "CI-07", "EV-01"], title = "main protected, PR + CI + approval required, screenshot" },
+  { id = "A2", section = "A", marks = 2, requires = ["C0-01", "EV-04"],          title = "dev + feature branches, nothing committed directly to main" },
+  { id = "A3", section = "A", marks = 4, requires = ["EV-02"],                   title = ">= 5 merged PRs, each linked to an Issue, substantive partner review" },
+  { id = "A4", section = "A", marks = 3, requires = ["EV-04"],                   title = ">= 35 conventional commits, neither partner below 35%" },
+  { id = "A5", section = "A", marks = 3, requires = ["C0-09", "EV-03"],          title = "Deliberate merge conflict with evidence and justification" },
+
+  # B · Frontend — 18
+  { id = "B1", section = "B", marks = 5, requires = ["FE-05", "FE-06"], title = "Submit view: validation, honest loading, category/priority/summary/provider" },
+  { id = "B2", section = "B", marks = 5, requires = ["FE-07", "FE-08"], title = "Dashboard: pagination, filters, transitions, verbatim 409" },
+  { id = "B3", section = "B", marks = 3, requires = ["FE-09"],          title = "Stats view with aggregates and X-Cache state" },
+  { id = "B4", section = "B", marks = 3, requires = ["FE-11"],          title = "Runtime configuration, one image for every environment" },
+  { id = "B5", section = "B", marks = 2, requires = ["FE-10", "CI-01"], title = ">= 5 meaningful component tests passing in CI" },
+
+  # C · Backend — 25
+  { id = "C1", section = "C", marks = 7, requires = ["C0-05", "BE-03", "BE-04", "BE-05", "CA-01", "AI-10", "FE-12"], title = "All ten endpoints to contract, correct codes, field-level errors" },
+  { id = "C2", section = "C", marks = 4, requires = ["BE-02", "BE-08"], title = "Four-layer separation" },
+  { id = "C3", section = "C", marks = 3, requires = ["BE-04"],          title = "Explicit transition table, invalid transitions 409" },
+  { id = "C4", section = "C", marks = 3, requires = ["BE-05"],          title = "/health vs /ready, /health never touches the DB" },
+  { id = "C5", section = "C", marks = 3, requires = ["BE-01"],          title = "Structured JSON logs with propagated request_id" },
+  { id = "C6", section = "C", marks = 2, requires = ["BE-06"],          title = "SIGTERM drains in-flight requests" },
+  { id = "C7", section = "C", marks = 3, requires = ["BE-07", "CI-01"], title = ">= 14 deterministic tests, coverage >= 65%" },
+
+  # D · Data layer — 12
+  { id = "D1", section = "D", marks = 4, requires = ["DB-02"],            title = "Alembic migrations, no DDL at startup" },
+  { id = "D2", section = "D", marks = 3, requires = ["DB-01", "DB-02"],   title = "Complete schema incl. triaged_by, ai_summary, latency, timestamptz" },
+  { id = "D3", section = "D", marks = 2, requires = ["DB-04", "DOC-07"],  title = "Two indexes, each justified by a named query" },
+  { id = "D4", section = "D", marks = 3, requires = ["DB-03"],            title = "Idempotent seed of >= 30 complaints" },
+
+  # E · Cache layer — 10
+  { id = "E1", section = "E", marks = 3, requires = ["CA-01"],           title = "/api/stats read-through cache, 30 s TTL, X-Cache" },
+  { id = "E2", section = "E", marks = 2, requires = ["CA-01"],           title = "Invalidated on write" },
+  { id = "E3", section = "E", marks = 4, requires = ["CA-02"],           title = "Distributed Redis rate limiter, 429 + Retry-After" },
+  { id = "E4", section = "E", marks = 1, requires = ["DK-03", "DOC-07"], title = "Redis AOF on a named volume, justified" },
+
+  # F · AI layer — 25
+  { id = "F1", section = "F", marks = 5, requires = ["AI-01", "AI-02", "AI-04", "AI-11"], title = "TriageProvider with >= 3 implementations selected by env var" },
+  { id = "F2", section = "F", marks = 5, requires = ["AI-04"],            title = "Structured output validated by Pydantic, malformed rejected safely" },
+  { id = "F3", section = "F", marks = 6, requires = ["AI-03", "AI-05"],   title = "Timeout, single jittered retry, fallback, triaged_by recorded" },
+  { id = "F4", section = "F", marks = 3, requires = ["AI-08", "DOC-09"],  title = "Content-hash cache with measured, reported hit rate" },
+  { id = "F5", section = "F", marks = 3, requires = ["AI-06"],            title = "Prompt-injection guardrail + injection test" },
+  { id = "F6", section = "F", marks = 2, requires = ["AI-10"],            title = "triage_latency_ms surfaced via /api/meta/providers" },
+  { id = "F7", section = "F", marks = 1, requires = ["AI-07", "DOC-05"],  title = "PII / data-governance ADR" },
+
+  # G · Docker and Compose — 15
+  { id = "G1", section = "G", marks = 4, requires = ["DK-01", "FE-11"],  title = "Both images multi-stage, pinned, non-root, exec CMD, cache-correct" },
+  { id = "G2", section = "G", marks = 2, requires = ["DK-02"],           title = ".dockerignore per context with before/after sizes" },
+  { id = "G3", section = "G", marks = 4, requires = ["DK-03", "EV-06"],  title = "Two networks, internal: true, frontend provably can't reach DB" },
+  { id = "G4", section = "G", marks = 2, requires = ["DK-04", "DK-06"],  title = "Three named volumes justified, dev bind mount only in dev" },
+  { id = "G5", section = "G", marks = 2, requires = ["DK-04"],           title = "Healthchecks + depends_on service_healthy" },
+  { id = "G6", section = "G", marks = 1, requires = ["DK-05"],           title = "compose.prod.yaml: image tag, no build, no DB/cache port" },
+
+  # H · Kubernetes — 20
+  { id = "H1", section = "H", marks = 5, requires = ["K8-01", "K8-02", "K8-03"], title = "Namespace, Deployments, StatefulSet + PVC, ClusterIP, Ingress / and /api" },
+  { id = "H2", section = "H", marks = 2, requires = ["K8-01"],           title = "ConfigMap and Secret separated, placeholders only" },
+  { id = "H3", section = "H", marks = 4, requires = ["K8-02"],           title = "Three probes wired correctly" },
+  { id = "H4", section = "H", marks = 2, requires = ["K8-02"],           title = "requests and limits on every container" },
+  { id = "H5", section = "H", marks = 4, requires = ["K8-04", "K8-05"],  title = "HPA v2 with behavior, hpa -w capture, replicas-vs-load chart" },
+  { id = "H6", section = "H", marks = 3, requires = ["K8-04", "K8-06"],  title = "VPA recommender, requests updated, conflict explained" },
+
+  # I · CI/CD — 20
+  { id = "I1", section = "I", marks = 4, requires = ["CI-01", "CI-07"],  title = "ci.yml lint, types, tests on every PR, required checks" },
+  { id = "I2", section = "I", marks = 3, requires = ["CI-02"],           title = "Compose integration smoke job" },
+  { id = "I3", section = "I", marks = 3, requires = ["CI-03"],           title = "Trivy + kubeconform in CI" },
+  { id = "I4", section = "I", marks = 4, requires = ["CI-04", "CI-06"],  title = "cd.yml needs-gated, GHCR images tagged by SHA" },
+  { id = "I5", section = "I", marks = 3, requires = ["CI-05"],           title = "Ephemeral cluster deploy, rollout status, Ingress smoke test" },
+  { id = "I6", section = "I", marks = 2, requires = ["CI-04", "CI-05"],  title = "GitHub Secrets, scoped token, least-privilege permissions" },
+  { id = "I7", section = "I", marks = 1, requires = ["EV-07"],           title = "Red pipeline blocking a merge, then green" },
+
+  # J · Documentation — 15
+  { id = "J1", section = "J", marks = 4, requires = ["DOC-01"],          title = "README: problem, badges, Mermaid, quickstart, API table, screenshots" },
+  { id = "J2", section = "J", marks = 4, requires = ["DOC-02", "DOC-03", "DOC-04", "DOC-05"], title = "Four ADRs" },
+  { id = "J3", section = "J", marks = 2, requires = ["DOC-06"],          title = "RUNBOOK" },
+  { id = "J4", section = "J", marks = 3, requires = ["DOC-10", "K8-08"], title = "Demo video <= 5 min, both partners, all six segments" },
+  { id = "J5", section = "J", marks = 2, requires = ["DOC-07"],          title = "ENGINEERING-NOTES answering all eight questions with file:line refs" },
+]
+
+bonus = [
+  { id = "X1", marks = 4, requires = ["K8-07"], title = "Zero-downtime rolling update under live load" },
+  { id = "X2", marks = 4, requires = ["OB-03"], title = "GitOps with Argo CD or Flux" },
+  { id = "X3", marks = 3, requires = ["CI-08"], title = "Deploy by digest with Cosign sign + verify" },
+  { id = "X4", marks = 2, requires = ["OB-01"], title = "Prometheus + Grafana, screenshot committed" },
+  { id = "X5", marks = 2, requires = ["OB-02"], title = "OpenTelemetry frontend -> backend -> LLM" },
+]
+
+# What goes on the course portal (brief §5.8). Each item is ready when every required task is done.
+submission = [
+  { id = "P0", requires = ["SUB-01"],           title = "Before turning in: check_submission.py runs clean" },
+  { id = "P1", requires = ["C0-01", "SUB-03"],  title = "GitHub repository URL (public, or private with both instructors added)" },
+  { id = "P2", requires = ["CI-04", "CI-05"],   title = "Link to a successful cd.yml run that tested, published and deployed" },
+  { id = "P3", requires = ["CI-04"],            title = "Links to both GHCR images showing SHA tags" },
+  { id = "P4", requires = ["DOC-10"],           title = "Demo video link (unlisted)" },
+  { id = "P5", requires = ["EV-04"],            title = "git shortlog -sn output, pasted" },
+  { id = "P6", requires = ["K8-05"],            title = "kubectl get hpa -w capture and the replicas-vs-load chart" },
+  { id = "P7", requires = ["SUB-04"],           title = "Turned in on the portal" },
+]
+
+# Things only a human can do. Remove an entry when it's handled.
+needs_you = [
+  { text = "Before turning in: make the repo public, or add both instructors as collaborators.", task = "SUB-03" },
+  { text = "Send your partner's GitHub username for the collaborator invite and CODEOWNERS.", task = "C0-01" },
+  { text = "Ask the instructor which endpoint is the 'tenth' (plan §1.3) and note the answer.", task = "C0-05" },
+  { text = "Ask the instructor: the rubric sections add up to 175, but the header says 150. Is it scaled to 150 or out of 175?" },
+  { text = "Week 2: create a Groq API key; it goes only in your local .env and in GitHub Secrets, never in the repo.", task = "AI-04" },
+]
+
+log = [
+  { date = "2026-09-27", text = "Implementation plan written (docs/IMPLEMENTATION_PLAN.md) and checked line by line against the brief's rubric." },
+  { date = "2026-09-27", text = "Progress tracker added: docs/progress.toml + scripts/update_status.py -> STATUS.md." },
+  { date = "2026-09-27", text = "Added who-does-what for every task and the course-portal checklist from brief §5.8." },
+  { date = "2026-09-27", text = "Repo ibrahimshaykh/civicpulse created (private) with main, dev and PR #2 carrying the plan, templates and CODEOWNERS." },
+  { date = "2026-09-27", text = "EV-01: main branch protection on (PR, 1 approval, code owners, conversation resolution, no bypass); screenshots in docs/evidence/." },
+  { date = "2026-09-27", text = "dev set as default branch and protected (PR required, no approval)." },
+]
+
+# Tables go last in TOML: every top-level key above this line would otherwise belong to [meta].
+[meta]
+project = "CivicPulse"
+course = "CS4032 Software Construction and Design — Assignment 01"
+updated = "2026-09-27"
+# The brief says 150, but its rubric sections sum to 175. STATUS.md scales points to this number.
+total_marks = 150
+partner_a = "Partner A (frontend, backend, data)"
+partner_b = "Partner B (AI layer, DevOps)"
