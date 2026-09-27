@@ -29,7 +29,7 @@ tasks = [
 
   # ---------- Frontend ----------
   { id = "FE-01", week = 1, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions" },
-  { id = "FE-02", week = 1, who = "claude", owner = "A", status = "todo", title = "Typed API client generated from OpenAPI + drift script" },
+  { id = "FE-02", week = 1, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Typed API client generated from OpenAPI + drift script" },
   { id = "FE-03", week = 1, who = "claude", owner = "A", status = "todo", title = "MSW handlers and typed fixtures" },
   { id = "FE-04", week = 1, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Router, layout, nav rail, error boundary" },
   { id = "FE-05", week = 1, who = "claude", owner = "A", status = "todo", title = "Submit view: form, zod validation, honest loading, result ticket" },
@@ -258,6 +258,8 @@ log = [
   { date = "2026-09-27", text = "Ownership swap: A took C0-03 (to unblock the contract), B takes FE-10 (frontend test suite) to keep the commit split balanced." },
   { date = "2026-09-27", text = "C0-03: backend pyproject.toml + uv.lock (FastAPI 0.115.14, Pydantic 2.9.2, SQLAlchemy 2.0.54), ruff with the no-SQL-outside-repositories ban, mypy --strict." },
   { date = "2026-09-27", text = "C0-05: stub routes for all 7 schema-visible endpoints (complaints CRUD+list, stats, providers, health/ready) plus /metrics; custom_openapi drops the automatic 422s; backend/openapi.json committed; CLI export-openapi; 7 new contract tests including a drift check against the committed file." },
+  { date = "2026-09-27", text = "Fixed a merge process bug: 5 stacked PRs had landed on intermediate branches instead of dev; recovered with one corrective PR (#13), no work lost, leftover branches deleted. All future PRs target dev directly." },
+  { date = "2026-09-27", text = "FE-02: generated typed client (src/api/schema.d.ts) from backend/openapi.json; client.ts (relative baseUrl, X-Request-ID middleware), errors.ts (ApiError), enums.ts (compile-time-exact enum lists), complaints/stats/meta React Query hooks; scripts/check-contract-drift.mjs for CI; 6 new tests." },
 ]
 
 # Tables go last in TOML: every top-level key above this line would otherwise belong to [meta].

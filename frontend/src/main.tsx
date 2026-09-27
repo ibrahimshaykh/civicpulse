@@ -6,11 +6,19 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
+import { ApiError } from "./api/errors";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { router } from "./router";
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
+  defaultOptions: {
+    queries: {
+      retry: (count, err) => err instanceof ApiError && err.status >= 500 && count < 2,
+      refetchOnWindowFocus: false,
+      staleTime: 5_000,
+    },
+    mutations: { retry: 0 },
+  },
 });
 
 const root = document.getElementById("root");
