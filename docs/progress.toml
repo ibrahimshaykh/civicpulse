@@ -24,7 +24,7 @@ tasks = [
   { id = "C0-02", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Domain enums and Pydantic schemas" },
   { id = "C0-03", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Backend pyproject, uv lockfile, ruff, mypy" },
   { id = "C0-04", week = 1, who = "claude", owner = "B",    status = "todo", title = "Freeze TriageProvider / TriageResult / TriageOutcome seam" },
-  { id = "C0-05", week = 1, who = "claude", owner = "A",    status = "todo", title = "Stub routes and committed openapi.json" },
+  { id = "C0-05", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Stub routes and committed openapi.json" },
   { id = "C0-09", week = 2, who = "claude+you", owner = "Both", status = "todo", human = "You and your partner each commit one side from your own accounts, then screenshot", title = "Deliberate merge conflict on config.py, resolved and justified" },
 
   # ---------- Frontend ----------
@@ -257,6 +257,7 @@ log = [
   { date = "2026-09-27", text = "FE-04: routes, layout with nav rail (top bar under 768 px), skip link, root + per-route error boundaries, self-hosted Public Sans; 5 routing tests." },
   { date = "2026-09-27", text = "Ownership swap: A took C0-03 (to unblock the contract), B takes FE-10 (frontend test suite) to keep the commit split balanced." },
   { date = "2026-09-27", text = "C0-03: backend pyproject.toml + uv.lock (FastAPI 0.115.14, Pydantic 2.9.2, SQLAlchemy 2.0.54), ruff with the no-SQL-outside-repositories ban, mypy --strict." },
+  { date = "2026-09-27", text = "C0-05: stub routes for all 7 schema-visible endpoints (complaints CRUD+list, stats, providers, health/ready) plus /metrics; custom_openapi drops the automatic 422s; backend/openapi.json committed; CLI export-openapi; 7 new contract tests including a drift check against the committed file." },
 ]
 
 # Tables go last in TOML: every top-level key above this line would otherwise belong to [meta].
