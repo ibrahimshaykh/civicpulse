@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░]   10%   9 of 87 core tasks done
-Marks secured     [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    0%   0 of 150 marks  (0 of 175 rubric points)
+Project progress  [████░░░░░░░░░░░░░░░░░░░░░░░░░░]   16%   14 of 87 core tasks done
+Marks secured     [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    7%   11.1 of 150 marks  (13 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 8 of 37 | `██░░░░░░░░` 21% |
+| Partner A (frontend, backend, data) | 13 of 37 | `███░░░░░░░` 35% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -25,7 +25,7 @@ Raw rubric points, as printed in the brief.
 | Section | Secured | Out of | |
 |---|---:|---:|---|
 | A · Collaboration and version control | 0 | 15 | `░░░░░░░░░░` |
-| B · Frontend | 0 | 18 | `░░░░░░░░░░` |
+| B · Frontend | 13 | 18 | `███████░░░` |
 | C · Backend | 0 | 25 | `░░░░░░░░░░` |
 | D · Data layer | 0 | 12 | `░░░░░░░░░░` |
 | E · Cache layer | 0 | 10 | `░░░░░░░░░░` |
@@ -34,7 +34,7 @@ Raw rubric points, as printed in the brief.
 | H · Kubernetes | 0 | 20 | `░░░░░░░░░░` |
 | I · CI/CD | 0 | 20 | `░░░░░░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **0** | **175** | `░░░░░░░░░░` |
+| **Total** | **13** | **175** | `░░░░░░░░░░` |
 
 ## Working on now
 
@@ -53,10 +53,10 @@ Raw rubric points, as printed in the brief.
 
 **Partner A (frontend, backend, data)**
 
-- ⬜ **FE-05** Submit view: form, zod validation, honest loading, result ticket — Claude (week 1)
-- ⬜ **FE-06** Submit view: 400 field mapping, 429 countdown, network errors — Claude (week 1)
 - ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
-- ⬜ **FE-07** Dashboard: table, URL filters, pagination — Claude (week 2)
+- ⬜ **FE-11** nginx runtime config template, frontend Dockerfile, .dockerignore — Claude builds, you run it (week 2)
+- ⬜ **DB-01** SQLAlchemy base, naming convention, ORM model — Claude (week 2)
+- ⬜ **DB-02** Alembic async env with advisory lock, migration 0001 — Claude (week 2)
 
 **Partner B (AI layer, DevOps)**
 
@@ -134,6 +134,11 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | Done on | Task | Owner |
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
+| 2026-09-27 | **FE-09** Stats view: aggregates, X-Cache indicator, providers panel | A |
+| 2026-09-27 | **FE-08** Dashboard: server-driven transitions, verbatim 409 | A |
+| 2026-09-27 | **FE-07** Dashboard: table, URL filters, pagination | A |
+| 2026-09-27 | **FE-06** Submit view: 400 field mapping, 429 countdown, network errors | A |
+| 2026-09-27 | **FE-05** Submit view: form, zod validation, honest loading, result ticket | A |
 | 2026-09-27 | **FE-04** Router, layout, nav rail, error boundary | A |
 | 2026-09-27 | **FE-03** MSW handlers and typed fixtures | A |
 | 2026-09-27 | **FE-02** Typed API client generated from OpenAPI + drift script | A |
@@ -153,9 +158,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | A3 >= 5 merged PRs, each linked to an Issue, substantive partner review | 4 | ⬜ | EV-02 |
 | A4 >= 35 conventional commits, neither partner below 35% | 3 | ⬜ | EV-04 |
 | A5 Deliberate merge conflict with evidence and justification | 3 | ⬜ | C0-09, EV-03 |
-| B1 Submit view: validation, honest loading, category/priority/summary/provider | 5 | ⬜ | FE-05, FE-06 |
-| B2 Dashboard: pagination, filters, transitions, verbatim 409 | 5 | ⬜ | FE-07, FE-08 |
-| B3 Stats view with aggregates and X-Cache state | 3 | ⬜ | FE-09 |
+| B1 Submit view: validation, honest loading, category/priority/summary/provider | 5 | ✅ | — |
+| B2 Dashboard: pagination, filters, transitions, verbatim 409 | 5 | ✅ | — |
+| B3 Stats view with aggregates and X-Cache state | 3 | ✅ | — |
 | B4 Runtime configuration, one image for every environment | 3 | ⬜ | FE-11 |
 | B5 >= 5 meaningful component tests passing in CI | 2 | ⬜ | FE-10, CI-01 |
 | C1 All ten endpoints to contract, correct codes, field-level errors | 7 | 🔄 | BE-03, BE-04, BE-05, CA-01, AI-10, FE-12 |
@@ -225,17 +230,17 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
 - ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
 
-**Frontend** — 4 of 12 done
+**Frontend** — 9 of 12 done
 
 - ✅ FE-01 Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions (A, Claude, week 1)
 - ✅ FE-02 Typed API client generated from OpenAPI + drift script (A, Claude, week 1)
 - ✅ FE-03 MSW handlers and typed fixtures (A, Claude, week 1)
 - ✅ FE-04 Router, layout, nav rail, error boundary (A, Claude, week 1)
-- ⬜ FE-05 Submit view: form, zod validation, honest loading, result ticket (A, Claude, week 1)
-- ⬜ FE-06 Submit view: 400 field mapping, 429 countdown, network errors (A, Claude, week 1)
-- ⬜ FE-07 Dashboard: table, URL filters, pagination (A, Claude, week 2)
-- ⬜ FE-08 Dashboard: server-driven transitions, verbatim 409 (A, Claude, week 2)
-- ⬜ FE-09 Stats view: aggregates, X-Cache indicator, providers panel (A, Claude, week 2)
+- ✅ FE-05 Submit view: form, zod validation, honest loading, result ticket (A, Claude, week 1)
+- ✅ FE-06 Submit view: 400 field mapping, 429 countdown, network errors (A, Claude, week 1)
+- ✅ FE-07 Dashboard: table, URL filters, pagination (A, Claude, week 2)
+- ✅ FE-08 Dashboard: server-driven transitions, verbatim 409 (A, Claude, week 2)
+- ✅ FE-09 Stats view: aggregates, X-Cache indicator, providers panel (A, Claude, week 2)
 - ⬜ FE-10 Component test suite (12 tests) passing in CI (B, Claude, week 2)
 - ⬜ FE-11 nginx runtime config template, frontend Dockerfile, .dockerignore (A, Claude builds, you run it, week 2)
 - ⬜ FE-12 Switch from MSW to the real API, fix contract mismatches (A, Claude builds, you run it, week 3)

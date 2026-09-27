@@ -1,9 +1,9 @@
 import type { Category, Priority, Status } from "@/lib/enums";
 
 export type ComplaintFilters = {
-  category?: Category;
-  priority?: Priority;
-  status?: Status;
+  category?: Category | undefined;
+  priority?: Priority | undefined;
+  status?: Status | undefined;
   page: number;
   pageSize: number;
 };
