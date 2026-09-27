@@ -21,23 +21,23 @@ tasks = [
   # ---------- Setup and contract ----------
   { id = "C0-00", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Implementation plan and progress tracker" },
   { id = "C0-01", week = 1, who = "claude+you", owner = "A",    status = "in_progress", human = "Create the repo (or connect GitHub), add your partner, turn on branch protection", title = "GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS" },
-  { id = "C0-02", week = 1, who = "claude", owner = "A",    status = "todo", title = "Domain enums and Pydantic schemas" },
-  { id = "C0-03", week = 1, who = "claude", owner = "B",    status = "todo", title = "Backend pyproject, uv lockfile, ruff, mypy" },
+  { id = "C0-02", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Domain enums and Pydantic schemas" },
+  { id = "C0-03", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Backend pyproject, uv lockfile, ruff, mypy" },
   { id = "C0-04", week = 1, who = "claude", owner = "B",    status = "todo", title = "Freeze TriageProvider / TriageResult / TriageOutcome seam" },
-  { id = "C0-05", week = 1, who = "claude", owner = "A",    status = "todo", title = "Stub routes and committed openapi.json" },
+  { id = "C0-05", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Stub routes and committed openapi.json" },
   { id = "C0-09", week = 2, who = "claude+you", owner = "Both", status = "todo", human = "You and your partner each commit one side from your own accounts, then screenshot", title = "Deliberate merge conflict on config.py, resolved and justified" },
 
   # ---------- Frontend ----------
-  { id = "FE-01", week = 1, who = "claude", owner = "A", status = "todo", title = "Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions" },
+  { id = "FE-01", week = 1, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions" },
   { id = "FE-02", week = 1, who = "claude", owner = "A", status = "todo", title = "Typed API client generated from OpenAPI + drift script" },
   { id = "FE-03", week = 1, who = "claude", owner = "A", status = "todo", title = "MSW handlers and typed fixtures" },
-  { id = "FE-04", week = 1, who = "claude", owner = "A", status = "todo", title = "Router, layout, nav rail, error boundary" },
+  { id = "FE-04", week = 1, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Router, layout, nav rail, error boundary" },
   { id = "FE-05", week = 1, who = "claude", owner = "A", status = "todo", title = "Submit view: form, zod validation, honest loading, result ticket" },
   { id = "FE-06", week = 1, who = "claude", owner = "A", status = "todo", title = "Submit view: 400 field mapping, 429 countdown, network errors" },
   { id = "FE-07", week = 2, who = "claude", owner = "A", status = "todo", title = "Dashboard: table, URL filters, pagination" },
   { id = "FE-08", week = 2, who = "claude", owner = "A", status = "todo", title = "Dashboard: server-driven transitions, verbatim 409" },
   { id = "FE-09", week = 2, who = "claude", owner = "A", status = "todo", title = "Stats view: aggregates, X-Cache indicator, providers panel" },
-  { id = "FE-10", week = 2, who = "claude", owner = "A", status = "todo", title = "Component test suite (12 tests) passing in CI" },
+  { id = "FE-10", week = 2, who = "claude", owner = "B", status = "todo", title = "Component test suite (12 tests) passing in CI" },
   { id = "FE-11", week = 2, who = "claude+you", owner = "A", status = "todo", title = "nginx runtime config template, frontend Dockerfile, .dockerignore" },
   { id = "FE-12", week = 3, who = "claude+you", owner = "A", status = "todo", title = "Switch from MSW to the real API, fix contract mismatches" },
 
@@ -252,6 +252,12 @@ log = [
   { date = "2026-09-27", text = "Repo ibrahimshaykh/civicpulse created (private) with main, dev and PR #2 carrying the plan, templates and CODEOWNERS." },
   { date = "2026-09-27", text = "EV-01: main branch protection on (PR, 1 approval, code owners, conversation resolution, no bypass); screenshots in docs/evidence/." },
   { date = "2026-09-27", text = "dev set as default branch and protected (PR required, no approval)." },
+  { date = "2026-09-27", text = "C0-02: domain enums and Pydantic request/response/error schemas, with 17 unit tests against the plan §7.4 example payloads." },
+  { date = "2026-09-27", text = "FE-01: Vite 5 + React 18.3 + TS strict scaffold, Tailwind 3.4 with §8.2 tokens, ESLint strictTypeChecked, exact versions; lint, typecheck, build and a smoke test green." },
+  { date = "2026-09-27", text = "FE-04: routes, layout with nav rail (top bar under 768 px), skip link, root + per-route error boundaries, self-hosted Public Sans; 5 routing tests." },
+  { date = "2026-09-27", text = "Ownership swap: A took C0-03 (to unblock the contract), B takes FE-10 (frontend test suite) to keep the commit split balanced." },
+  { date = "2026-09-27", text = "C0-03: backend pyproject.toml + uv.lock (FastAPI 0.115.14, Pydantic 2.9.2, SQLAlchemy 2.0.54), ruff with the no-SQL-outside-repositories ban, mypy --strict." },
+  { date = "2026-09-27", text = "C0-05: stub routes for all 7 schema-visible endpoints (complaints CRUD+list, stats, providers, health/ready) plus /metrics; custom_openapi drops the automatic 422s; backend/openapi.json committed; CLI export-openapi; 7 new contract tests including a drift check against the committed file." },
 ]
 
 # Tables go last in TOML: every top-level key above this line would otherwise belong to [meta].

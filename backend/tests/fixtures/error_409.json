@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "invalid_transition",
+    "message": "Invalid status transition: resolved → open. 'resolved' is terminal.",
+    "request_id": "9a8b7c6d",
+    "from_status": "resolved",
+    "to_status": "open",
+    "allowed": []
+  }
+}
