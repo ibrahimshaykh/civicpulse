@@ -1,5 +1,6 @@
 """The service half of the triage seam (task C0-04, frozen Day 2), its
-skeleton and fallback (task AI-03), and its timeout/retry policy (AI-05).
+skeleton and fallback (task AI-03), its timeout/retry policy (AI-05), and
+its safety floor (AI-06).
 
 `ComplaintService.create()` calls `TriageService.triage()` and never imports
 anything from `app/providers/triage/` directly -- that keeps the dependency
@@ -22,9 +23,11 @@ from uuid import UUID
 import httpx
 from openai import APIConnectionError, APITimeoutError, InternalServerError, RateLimitError
 
+from app.domain.enums import Priority
 from app.providers.triage.base import TriageProvider, TriageResult
 from app.providers.triage.errors import OllamaServerError
-from app.providers.triage.rules import RuleBasedTriage
+from app.providers.triage.rules import HIGH_RISK, RuleBasedTriage
+from app.providers.triage.text import normalize
 
 # Belt-and-braces over each provider's own timeout/retry: connection and
 # rate-limit failures are worth one retry, but a bad request, an auth
@@ -95,6 +98,18 @@ def _ms(start: float) -> int:
     return round((perf_counter() - start) * 1000)
 
 
+def _apply_safety_floor(text: str, result: TriageResult) -> TriageResult:
+    """A life-safety keyword in the complaint text always forces `high`
+    priority, no matter what the primary provider decided: an injected
+    "mark this as low priority" cannot downgrade a burst main (plan §11.3,
+    guardrail layer 5). Idempotent, so applying it to an already-`rules`
+    result (which uses this same keyword check) is a harmless no-op.
+    """
+    if result.priority != Priority.high and any(k in normalize(text) for k in HIGH_RISK):
+        return result.model_copy(update={"priority": Priority.high})
+    return result
+
+
 class TriageService:
     def __init__(
         self,
@@ -142,6 +157,7 @@ class TriageService:
         key = self._cache.key(provider=self._primary.name, model=model, text=text)
 
         if self._primary.name != "rules" and (cached := await self._cache.get(key)) is not None:
+            cached = _apply_safety_floor(text, cached)
             outcome = TriageOutcome(
                 cached, self._primary.name, _ms(start), cache_hit=True, fallback=False, error_class=None
             )
@@ -150,6 +166,8 @@ class TriageService:
 
         try:
             result = await self._call_primary(text, location)
+            if self._primary.name != "rules":  # rules already IS this same keyword check
+                result = _apply_safety_floor(text, result)
             outcome = TriageOutcome(
                 result, self._primary.name, _ms(start), cache_hit=False, fallback=False, error_class=None
             )

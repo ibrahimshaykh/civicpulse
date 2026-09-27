@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [█████████░░░░░░░░░░░░░░░░░░░░░]   32%   28 of 87 core tasks done
-Marks secured     [███████░░░░░░░░░░░░░░░░░░░░░░░]   24%   36 of 150 marks  (42 of 175 rubric points)
+Project progress  [██████████░░░░░░░░░░░░░░░░░░░░]   33%   29 of 87 core tasks done
+Marks secured     [███████░░░░░░░░░░░░░░░░░░░░░░░]   25%   38.6 of 150 marks  (45 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -15,7 +15,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
 | Partner A (frontend, backend, data) | 21 of 38 | `█████░░░░░` 55% |
-| Partner B (AI layer, DevOps) | 7 of 38 | `█░░░░░░░░░` 18% |
+| Partner B (AI layer, DevOps) | 8 of 38 | `██░░░░░░░░` 21% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
 ## Marks by rubric section
@@ -29,12 +29,12 @@ Raw rubric points, as printed in the brief.
 | C · Backend | 6 | 25 | `██░░░░░░░░` |
 | D · Data layer | 10 | 12 | `████████░░` |
 | E · Cache layer | 5 | 10 | `█████░░░░░` |
-| F · AI layer | 6 | 25 | `██░░░░░░░░` |
+| F · AI layer | 9 | 25 | `███░░░░░░░` |
 | G · Docker and Compose | 0 | 15 | `░░░░░░░░░░` |
 | H · Kubernetes | 0 | 20 | `░░░░░░░░░░` |
 | I · CI/CD | 0 | 20 | `░░░░░░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **42** | **175** | `██░░░░░░░░` |
+| **Total** | **45** | **175** | `██░░░░░░░░` |
 
 ## Working on now
 
@@ -135,6 +135,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
 | 2026-09-27 | **CI-01** ci.yml: lint, types, contract, status, tests | B |
+| 2026-09-27 | **AI-06** Prompt, injection guardrail, safety floor, injection test | B |
 | 2026-09-27 | **AI-05** 10 s timeout + single jittered retry on retryable errors only | B |
 | 2026-09-27 | **AI-03** TriageService skeleton + fallback + the fallback test | B |
 | 2026-09-27 | **AI-02** SimulatedTriage with failure injection | B |
@@ -196,7 +197,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | F2 Structured output validated by Pydantic, malformed rejected safely | 5 | ⬜ | AI-04 |
 | F3 Timeout, single jittered retry, fallback, triaged_by recorded | 6 | ✅ | — |
 | F4 Content-hash cache with measured, reported hit rate | 3 | ⬜ | AI-08, DOC-09 |
-| F5 Prompt-injection guardrail + injection test | 3 | ⬜ | AI-06 |
+| F5 Prompt-injection guardrail + injection test | 3 | ✅ | — |
 | F6 triage_latency_ms surfaced via /api/meta/providers | 2 | ⬜ | AI-10 |
 | F7 PII / data-governance ADR | 1 | ⬜ | AI-07, DOC-05 |
 | G1 Both images multi-stage, pinned, non-root, exec CMD, cache-correct | 4 | ⬜ | DK-01, FE-11 |
@@ -283,14 +284,14 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ CA-01 Stats read-through cache, X-Cache, invalidation on write (A, Claude, week 3)
 - ⬜ CA-02 Distributed Redis rate limiter, 429 + Retry-After (A, Claude, week 3)
 
-**AI layer** — 4 of 11 done
+**AI layer** — 5 of 11 done
 
 - ✅ AI-01 RuleBasedTriage + tests (B, Claude, week 1)
 - ✅ AI-02 SimulatedTriage with failure injection (B, Claude, week 1)
 - ✅ AI-03 TriageService skeleton + fallback + the fallback test (B, Claude, week 1)
 - ⬜ AI-04 Groq provider, JSON mode, strict output validation (B, Claude builds, you run it, week 2)
 - ✅ AI-05 10 s timeout + single jittered retry on retryable errors only (B, Claude, week 2)
-- ⬜ AI-06 Prompt, injection guardrail, safety floor, injection test (B, Claude, week 2)
+- ✅ AI-06 Prompt, injection guardrail, safety floor, injection test (B, Claude, week 2)
 - ⬜ AI-07 PII redaction (feeds ADR 0004) (B, Claude, week 2)
 - ⬜ AI-08 Content-hash triage cache + measured hit rate (B, Claude builds, you run it, week 2)
 - ⬜ AI-09 Ollama provider, offline profile, warm-up (B, Claude builds, you run it, week 3)
@@ -369,6 +370,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: AI-06: prompt module (app/providers/triage/prompt.py, PROMPT_VERSION + SYSTEM + build_messages with delimiter neutralization) and the safety floor (_apply_safety_floor in triage_service.py): a HIGH_RISK keyword in the complaint text always forces priority=high, regardless of what the primary returned, applied on both a fresh primary success and a cache hit (proven with a cache seeded directly, bypassing write-time application, to show the read-time floor also catches it). A11 (the brief's injection test) needed no new mechanism at all: an LLM asked to return category='hacked' produces an invalid enum value, which is already MalformedOutput under AI-02/AI-03's existing validation, so it already falls back to rules -- the injection test is really proving the fallback path, not a new guardrail. 9 tests: A11, A12 (delimiter neutralization, both directions), A13 (safety floor overriding a valid-but-wrong low priority), plus that the floor leaves a correct high priority and ordinary text alone.
 - 2026-09-27: FE-10 revisited: the ownership-swap plan (above) had B write the frontend test suite, but in practice A's own FE-05/06/07/08/09 PRs already wrote all 12 tests plan section 8.14 names for this task (6 in SubmitPage, 4 in Dashboard, the X-Cache test in Stats, and a crash-and-recover test already in routing.test.tsx covering the same behavior section 8.14 names ErrorBoundary.test.tsx for) -- 29 tests total, confirmed green in CI. Rather than write a redundant test file just to have a B-owned commit against this task ID, marking it done under owner A, since that's who actually holds the commits: task-ID ownership is bookkeeping, but A2/A4 (commit-split >= 35% each) is graded on real commit authorship, and this would have misrepresented it.
 - 2026-09-27: AI-05: TriageService timeout and retry policy (_call_primary() under asyncio.timeout(10s), exactly one retry for the RETRYABLE set only; sleep/rng injectable for deterministic tests). OllamaServerError moved to its own app/providers/triage/errors.py since RETRYABLE needs it ahead of AI-09. 14 tests (A3-A7 plus one for the successful-retry path); added S311 to the tests ruff ignore list (seeded random.Random() for deterministic timing, the same kind of case S106 already covers).
 - 2026-09-27: CI-01: .github/workflows/ci.yml with the five checks that don't need Docker or Kubernetes yet -- lint-and-type, contract, status, test-backend, test-frontend (build/scan/manifests/integration wait for CI-02/CI-03 once DK-01..03 exist). Before shipping it, ran every job's exact commands locally to make sure a clean PR is actually green, not just plausible, and that surfaced two more pre-existing issues: a real mypy error in complaint_repository.py (get_status_stmt was typed Select[Any], so get_status() silently returned Any instead of Status | None -- fixed by typing it Select[Status]), and a Node-version trap in the frontend test job (this sandbox's Node 24 fails 2 tests with an AbortSignal cross-realm error from MSW's interceptor against Node's undici; confirmed clean on a portable Node 22.20.0, which is what ci.yml actually pins, so left the test code untouched). Full local dry run once both were fixed: backend ruff/format/mypy clean, 102 tests passing at 87.9% coverage; frontend lint/typecheck clean, 29 tests passing, build succeeds; openapi.json and schema.d.ts both drift-free; STATUS.md in sync.
@@ -383,4 +385,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: CA-01: StatsCache (Redis read-through, fails open on RedisError so a Redis blip degrades to always-compute rather than an outage) and ComplaintRepository.aggregate() (one GROUPING SETS query for category/priority/status/grand-total, zero-filled against every enum member in Python). StatsService wires the two together (HIT returns cached, MISS computes+populates) and app/api/deps.py + a real lifespan (app/core/lifecycle.py now actually builds the Postgres engine, sessionmaker and Redis client and stores them on app.state, closing both on shutdown) wire the real GET /api/stats route, replacing the C0-05 stub. No Docker/Postgres/Redis in this sandbox, so verified three ways that need no live infrastructure: the GROUPING SETS SQL compiled and read directly (WHERE/GROUP BY/grouping() calls all checked), the row-to-aggregate bucketing logic against hand-built rows including the empty-table case, and the cache itself against fakeredis (an in-process Redis-protocol implementation, not a hand-rolled fake) covering get/set/TTL/invalidate and the fail-open path. The real route is tested via FastAPI's own dependency_overrides (the standard way to test a route apart from its infrastructure, not a workaround). A real request that actually reaches Redis and Postgres together is still open once Docker exists.
 - 2026-09-27: DB-03: idempotent seed CLI (uv run python -m app.cli seed). SEED_NAMESPACE + uuid5(slug) gives every row a stable, deterministic id across machines and runs; insert_if_absent does ON CONFLICT (id) DO NOTHING via Postgres, so seeding twice inserts 0 rows the second time. 33 hand-written rows in app/seed/complaints.json (Urdu-English mixed text like the brief asks for, hand-written English summaries), covering every category (water 6, electricity 6, sanitation 6, roads 6, streetlights 5, other 4) and every status (open 17, in_progress 9, resolved 4, rejected 3), created_at spread over the last 14 days. The seed never calls an LLM: triaged_by is always rules, latency 0. Minimal ComplaintRepository added with just insert_if_absent (BE-02 extends it with get/list/update_status). No Docker/Postgres here, so verified two ways that need no live database: the seed algorithm itself against a fake in-memory repository (first run inserts 33, second run inserts 0, deterministic ids confirmed across two calls), and the real repository's SQL compiled against the postgresql dialect to confirm the ON CONFLICT/RETURNING clauses are correct. A live seed-twice-against-real-Postgres run is still needed once Docker exists.
 - 2026-09-27: DB-01: app/db/base.py (naming convention, timestamptz type map), app/db/models.py (ComplaintORM matching plan section 9.1's table exactly -- verified by compiling every column against the real Postgres dialect), app/db/session.py (engine/sessionmaker factories). No Docker/Postgres in this sandbox, so verified via SQLAlchemy metadata introspection instead of a live database: 11 tests check column types, check-constraint names against the naming convention, both indexes, and that CreateTable DDL alone never emits CREATE TYPE (that only happens via metadata.create_all(), which app code never calls). DB-02 (Alembic) and a real Postgres round-trip are still needed before this is fully proven end to end.
-- 2026-09-27: BE-01: Settings (env-only, SecretStr for passwords/API key), structlog JSON-to-stdout logging, a pure-ASGI RequestContextMiddleware (X-Request-ID echo/generate, Prometheus HTTP metrics via a dedicated CollectorRegistry, request_completed log line), the DomainError hierarchy + handlers (400/404/409/429/500, one envelope), a minimal lifecycle.py, create_app() wiring. Fixed a real bug in the plan's own literal code: computed_field(repr=False) is required or Settings.__repr__ leaks the DB password in plaintext through the assembled URL. Also swapped sqlalchemy.URL for a hand-built DSN, since app/core may not import sqlalchemy at all under our own layering rule. 3 new tests (U8, U10, I15-equivalent using capsys since structlog.testing.capture_logs bypasses the real processor chain).
