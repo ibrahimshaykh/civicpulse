@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [██████░░░░░░░░░░░░░░░░░░░░░░░░]   21%   19 of 87 core tasks done
-Marks secured     [████░░░░░░░░░░░░░░░░░░░░░░░░░░]   14%   22.3 of 150 marks  (26 of 175 rubric points)
+Project progress  [██████░░░░░░░░░░░░░░░░░░░░░░░░]   22%   20 of 87 core tasks done
+Marks secured     [█████░░░░░░░░░░░░░░░░░░░░░░░░░]   17%   26.6 of 150 marks  (31 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 18 of 37 | `████░░░░░░` 48% |
+| Partner A (frontend, backend, data) | 19 of 37 | `█████░░░░░` 51% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -28,13 +28,13 @@ Raw rubric points, as printed in the brief.
 | B · Frontend | 13 | 18 | `███████░░░` |
 | C · Backend | 3 | 25 | `█░░░░░░░░░` |
 | D · Data layer | 10 | 12 | `████████░░` |
-| E · Cache layer | 0 | 10 | `░░░░░░░░░░` |
+| E · Cache layer | 5 | 10 | `█████░░░░░` |
 | F · AI layer | 0 | 25 | `░░░░░░░░░░` |
 | G · Docker and Compose | 0 | 15 | `░░░░░░░░░░` |
 | H · Kubernetes | 0 | 20 | `░░░░░░░░░░` |
 | I · CI/CD | 0 | 20 | `░░░░░░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **26** | **175** | `█░░░░░░░░░` |
+| **Total** | **31** | **175** | `█░░░░░░░░░` |
 
 ## Working on now
 
@@ -134,6 +134,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | Done on | Task | Owner |
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
+| 2026-09-27 | **CA-01** Stats read-through cache, X-Cache, invalidation on write | A |
 | 2026-09-27 | **BE-02** Repositories and unit of work | A |
 | 2026-09-27 | **BE-01** Settings, JSON logging, request-id middleware, error handlers | A |
 | 2026-09-27 | **DB-03** Idempotent seed CLI with 33 complaints | A |
@@ -168,7 +169,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | B3 Stats view with aggregates and X-Cache state | 3 | ✅ | — |
 | B4 Runtime configuration, one image for every environment | 3 | ⬜ | FE-11 |
 | B5 >= 5 meaningful component tests passing in CI | 2 | ⬜ | FE-10, CI-01 |
-| C1 All ten endpoints to contract, correct codes, field-level errors | 7 | 🔄 | BE-03, BE-04, BE-05, CA-01, AI-10, FE-12 |
+| C1 All ten endpoints to contract, correct codes, field-level errors | 7 | 🔄 | BE-03, BE-04, BE-05, AI-10, FE-12 |
 | C2 Four-layer separation | 4 | 🔄 | BE-08 |
 | C3 Explicit transition table, invalid transitions 409 | 3 | ⬜ | BE-04 |
 | C4 /health vs /ready, /health never touches the DB | 3 | ⬜ | BE-05 |
@@ -179,8 +180,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | D2 Complete schema incl. triaged_by, ai_summary, latency, timestamptz | 3 | ✅ | — |
 | D3 Two indexes, each justified by a named query | 2 | ⬜ | DB-04, DOC-07 |
 | D4 Idempotent seed of >= 30 complaints | 3 | ✅ | — |
-| E1 /api/stats read-through cache, 30 s TTL, X-Cache | 3 | ⬜ | CA-01 |
-| E2 Invalidated on write | 2 | ⬜ | CA-01 |
+| E1 /api/stats read-through cache, 30 s TTL, X-Cache | 3 | ✅ | — |
+| E2 Invalidated on write | 2 | ✅ | — |
 | E3 Distributed Redis rate limiter, 429 + Retry-After | 4 | ⬜ | CA-02 |
 | E4 Redis AOF on a named volume, justified | 1 | ⬜ | DK-03, DOC-07 |
 | F1 TriageProvider with >= 3 implementations selected by env var | 5 | ⬜ | AI-01, AI-02, AI-04, AI-11 |
@@ -269,9 +270,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ BE-07 Backend test suite (30+ tests, coverage >= 70%) (A, Claude, week 3)
 - ⬜ BE-08 Architecture test, ruff banned-api, OpenAPI 400 cleanup (A, Claude, week 3)
 
-**Cache** — 0 of 2 done
+**Cache** — 1 of 2 done
 
-- ⬜ CA-01 Stats read-through cache, X-Cache, invalidation on write (A, Claude, week 3)
+- ✅ CA-01 Stats read-through cache, X-Cache, invalidation on write (A, Claude, week 3)
 - ⬜ CA-02 Distributed Redis rate limiter, 429 + Retry-After (A, Claude, week 3)
 
 **AI layer** — 0 of 11 done
@@ -362,6 +363,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 - 2026-09-27: DB-02: async Alembic env.py (target_metadata=Base.metadata, compare_type/compare_server_default, an advisory lock around do_run_migrations so two backend pods cannot migrate concurrently, URL from Settings() not alembic.ini). Migration 0001 creates the three Postgres enums, the complaints table with all six check constraints and both indexes, and the updated_at trigger. Found and fixed a real bug while testing offline: hand-writing constraint names as the full ck_complaints_* form in the migration produced double-prefixed names (ck_complaints_ck_complaints_text_length), because op.create_table re-applies the naming convention on top of an already-given name; switched to the same short names the ORM model uses. No Docker/Postgres here, so verified with alembic upgrade/downgrade --sql (offline mode, no DBAPI needed) plus a new regression test that diffs the migration's generated DDL against the model's own compiled DDL byte-for-byte -- confirmed it actually catches drift by deliberately breaking a column length and watching the test fail, then restored it. This stands in for alembic check, which needs a live database; a real up/down/up cycle (I21) still needs to run once Docker exists.
 - 2026-09-27: BE-02: full ComplaintRepository (insert, insert_if_absent, get, get_status, list_page with filters/pagination/id-DESC tiebreaker, update_status_if using optimistic concurrency -- the WHERE clause requires the row to still be in the expected status, so two operators racing on the same complaint cannot both succeed), plus ComplaintRecord (app/domain/records.py, a frozen dataclass -- repositories never return the ORM object, so services can never trigger a lazy-load outside a session) and the UnitOfWork split (app/services/uow.py holds a Protocol with no sqlalchemy import at all -- verified the ban still fires by probing it directly; app/repositories/uow.py holds the real SqlAlchemyUoW). Every query is a standalone statement-builder function, separate from the async execute call, specifically so it can be compiled and checked without a database connection. No Docker/Postgres in this sandbox, so BE-02's stated acceptance (I4, I5, both live-database integration tests) could not be run end to end here: verified instead by compiling every statement against the real Postgres dialect (WHERE/ORDER BY/LIMIT/OFFSET/ON CONFLICT/RETURNING all checked), and by testing the row-to-record mapping and the UoW's delegation against fakes. A real GET/LIST round-trip against Postgres (I4, I5) still needs to run once Docker exists.
+- 2026-09-27: CA-01: StatsCache (Redis read-through, fails open on RedisError so a Redis blip degrades to always-compute rather than an outage) and ComplaintRepository.aggregate() (one GROUPING SETS query for category/priority/status/grand-total, zero-filled against every enum member in Python). StatsService wires the two together (HIT returns cached, MISS computes+populates) and app/api/deps.py + a real lifespan (app/core/lifecycle.py now actually builds the Postgres engine, sessionmaker and Redis client and stores them on app.state, closing both on shutdown) wire the real GET /api/stats route, replacing the C0-05 stub. No Docker/Postgres/Redis in this sandbox, so verified three ways that need no live infrastructure: the GROUPING SETS SQL compiled and read directly (WHERE/GROUP BY/grouping() calls all checked), the row-to-aggregate bucketing logic against hand-built rows including the empty-table case, and the cache itself against fakeredis (an in-process Redis-protocol implementation, not a hand-rolled fake) covering get/set/TTL/invalidate and the fail-open path. The real route is tested via FastAPI's own dependency_overrides (the standard way to test a route apart from its infrastructure, not a workaround). A real request that actually reaches Redis and Postgres together is still open once Docker exists.
 - 2026-09-27: DB-03: idempotent seed CLI (uv run python -m app.cli seed). SEED_NAMESPACE + uuid5(slug) gives every row a stable, deterministic id across machines and runs; insert_if_absent does ON CONFLICT (id) DO NOTHING via Postgres, so seeding twice inserts 0 rows the second time. 33 hand-written rows in app/seed/complaints.json (Urdu-English mixed text like the brief asks for, hand-written English summaries), covering every category (water 6, electricity 6, sanitation 6, roads 6, streetlights 5, other 4) and every status (open 17, in_progress 9, resolved 4, rejected 3), created_at spread over the last 14 days. The seed never calls an LLM: triaged_by is always rules, latency 0. Minimal ComplaintRepository added with just insert_if_absent (BE-02 extends it with get/list/update_status). No Docker/Postgres here, so verified two ways that need no live database: the seed algorithm itself against a fake in-memory repository (first run inserts 33, second run inserts 0, deterministic ids confirmed across two calls), and the real repository's SQL compiled against the postgresql dialect to confirm the ON CONFLICT/RETURNING clauses are correct. A live seed-twice-against-real-Postgres run is still needed once Docker exists.
 - 2026-09-27: DB-01: app/db/base.py (naming convention, timestamptz type map), app/db/models.py (ComplaintORM matching plan section 9.1's table exactly -- verified by compiling every column against the real Postgres dialect), app/db/session.py (engine/sessionmaker factories). No Docker/Postgres in this sandbox, so verified via SQLAlchemy metadata introspection instead of a live database: 11 tests check column types, check-constraint names against the naming convention, both indexes, and that CreateTable DDL alone never emits CREATE TYPE (that only happens via metadata.create_all(), which app code never calls). DB-02 (Alembic) and a real Postgres round-trip are still needed before this is fully proven end to end.
 - 2026-09-27: BE-01: Settings (env-only, SecretStr for passwords/API key), structlog JSON-to-stdout logging, a pure-ASGI RequestContextMiddleware (X-Request-ID echo/generate, Prometheus HTTP metrics via a dedicated CollectorRegistry, request_completed log line), the DomainError hierarchy + handlers (400/404/409/429/500, one envelope), a minimal lifecycle.py, create_app() wiring. Fixed a real bug in the plan's own literal code: computed_field(repr=False) is required or Settings.__repr__ leaks the DB password in plaintext through the assembled URL. Also swapped sqlalchemy.URL for a hand-built DSN, since app/core may not import sqlalchemy at all under our own layering rule. 3 new tests (U8, U10, I15-equivalent using capsys since structlog.testing.capture_logs bypasses the real processor chain).
@@ -374,4 +376,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: Fixed a merge process bug: 5 stacked PRs had landed on intermediate branches instead of dev; recovered with one corrective PR (#13), no work lost, leftover branches deleted. All future PRs target dev directly.
 - 2026-09-27: C0-05: stub routes for all 7 schema-visible endpoints (complaints CRUD+list, stats, providers, health/ready) plus /metrics; custom_openapi drops the automatic 422s; backend/openapi.json committed; CLI export-openapi; 7 new contract tests including a drift check against the committed file.
 - 2026-09-27: C0-03: backend pyproject.toml + uv.lock (FastAPI 0.115.14, Pydantic 2.9.2, SQLAlchemy 2.0.54), ruff with the no-SQL-outside-repositories ban, mypy --strict.
-- 2026-09-27: Ownership swap: A took C0-03 (to unblock the contract), B takes FE-10 (frontend test suite) to keep the commit split balanced.

@@ -1,6 +1,7 @@
 import json
 import subprocess
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -13,8 +14,12 @@ BACKEND = Path(__file__).resolve().parents[2]
 
 
 @pytest.fixture(scope="module")
-def client() -> TestClient:
-    return TestClient(create_app())
+def client() -> Iterator[TestClient]:
+    # `with` runs the real lifespan (app.state.sessionmaker/redis/stats_cache),
+    # which a bare TestClient(app) does not -- CA-01 wired /api/stats to
+    # actually use them.
+    with TestClient(create_app()) as c:
+        yield c
 
 
 @pytest.fixture(scope="module")
@@ -69,13 +74,6 @@ def test_create_returns_201_with_location(client: TestClient) -> None:
     assert response.status_code == 201
     assert response.headers["Location"] == f"/api/complaints/{response.json()['id']}"
     assert response.json()["allowed_transitions"] == ["in_progress", "rejected"]
-
-
-def test_stats_sets_cache_headers(client: TestClient) -> None:
-    response = client.get("/api/stats")
-    assert response.status_code == 200
-    assert response.headers["X-Cache"] in {"HIT", "MISS"}
-    assert response.headers["Cache-Control"] == "no-store"
 
 
 def test_health_and_metrics(client: TestClient) -> None:

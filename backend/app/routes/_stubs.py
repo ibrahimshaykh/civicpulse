@@ -1,8 +1,9 @@
-"""Fixture data for the C0-05 stub routes.
+"""Fixture data for the still-stubbed C0-05 routes.
 
-Temporary: BE-03, BE-05 and the cache/triage tasks replace every use of this module
-with real services. Reading from tests/fixtures keeps one copy of each example
-payload (plan §7.4), shared with the unit tests and the frontend's MSW handlers.
+Temporary: BE-03 and the triage tasks replace the remaining uses of this
+module with real services (CA-01 already replaced /api/stats). Reading from
+tests/fixtures keeps one copy of each example payload (plan §7.4), shared with
+the unit tests and the frontend's MSW handlers.
 """
 
 import json
@@ -10,7 +11,7 @@ from functools import cache
 from pathlib import Path
 from typing import Any
 
-from app.schemas import ComplaintOut, ProvidersOut, StatsOut
+from app.schemas import ComplaintOut, ProvidersOut
 
 FIXTURES = Path(__file__).resolve().parents[2] / "tests" / "fixtures"
 
@@ -22,10 +23,6 @@ def _load(name: str) -> Any:
 
 def complaint() -> ComplaintOut:
     return ComplaintOut.model_validate(_load("complaint_201.json"))
-
-
-def stats() -> StatsOut:
-    return StatsOut.model_validate(_load("stats_200.json"))
 
 
 def providers() -> ProvidersOut:

@@ -25,3 +25,17 @@ class ComplaintRecord:
     triage_confidence: Decimal | None
     created_at: datetime
     updated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class StatsAggregate:
+    """What ComplaintRepository.aggregate() returns -- not StatsOut itself, so
+    the repository never imports app.schemas (a presentation-layer package),
+    matching the same records-not-schemas split as ComplaintRecord. The
+    service layer adds generated_at and returns the real StatsOut.
+    """
+
+    total: int
+    by_category: dict[Category, int]
+    by_priority: dict[Priority, int]
+    by_status: dict[Status, int]

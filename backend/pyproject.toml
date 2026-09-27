@@ -63,10 +63,19 @@ ignore = ["S101"] # assert in tests
 [tool.ruff.lint.flake8-tidy-imports.banned-api]
 "sqlalchemy".msg = "SQLAlchemy is only allowed in app/repositories and app/db"
 
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI's own DI pattern: Depends(...) as an argument default is how it's
+# designed to be used, not the mutable-default footgun B008 exists to catch.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Path", "fastapi.Body"]
+
 [tool.ruff.lint.per-file-ignores]
 # "No SQL outside repositories" is a lint failure, not just a review comment (plan §10.1).
 "app/repositories/**" = ["TID251"]
 "app/db/**" = ["TID251"]
+# api/deps.py wires a real AsyncSession into a repository per request -- the one
+# place outside repositories/db that legitimately needs the type (plan §10.8:
+# "get_session lives in api/deps.py and the route never sees it").
+"app/api/**" = ["TID251"]
 "alembic/**" = ["TID251"]
 "tests/**" = ["TID251", "S106"] # S106: obviously-fake passwords used to prove they're hidden
 
