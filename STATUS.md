@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [████████░░░░░░░░░░░░░░░░░░░░░░]   29%   26 of 87 core tasks done
-Marks secured     [█████░░░░░░░░░░░░░░░░░░░░░░░░░]   19%   29.1 of 150 marks  (34 of 175 rubric points)
+Project progress  [█████████░░░░░░░░░░░░░░░░░░░░░]   32%   28 of 87 core tasks done
+Marks secured     [███████░░░░░░░░░░░░░░░░░░░░░░░]   24%   36 of 150 marks  (42 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -14,8 +14,8 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 20 of 37 | `█████░░░░░` 54% |
-| Partner B (AI layer, DevOps) | 6 of 39 | `█░░░░░░░░░` 15% |
+| Partner A (frontend, backend, data) | 21 of 38 | `█████░░░░░` 55% |
+| Partner B (AI layer, DevOps) | 7 of 38 | `█░░░░░░░░░` 18% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
 ## Marks by rubric section
@@ -25,16 +25,16 @@ Raw rubric points, as printed in the brief.
 | Section | Secured | Out of | |
 |---|---:|---:|---|
 | A · Collaboration and version control | 0 | 15 | `░░░░░░░░░░` |
-| B · Frontend | 13 | 18 | `███████░░░` |
+| B · Frontend | 15 | 18 | `████████░░` |
 | C · Backend | 6 | 25 | `██░░░░░░░░` |
 | D · Data layer | 10 | 12 | `████████░░` |
 | E · Cache layer | 5 | 10 | `█████░░░░░` |
-| F · AI layer | 0 | 25 | `░░░░░░░░░░` |
+| F · AI layer | 6 | 25 | `██░░░░░░░░` |
 | G · Docker and Compose | 0 | 15 | `░░░░░░░░░░` |
 | H · Kubernetes | 0 | 20 | `░░░░░░░░░░` |
 | I · CI/CD | 0 | 20 | `░░░░░░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **34** | **175** | `█░░░░░░░░░` |
+| **Total** | **42** | **175** | `██░░░░░░░░` |
 
 ## Working on now
 
@@ -135,6 +135,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
 | 2026-09-27 | **CI-01** ci.yml: lint, types, contract, status, tests | B |
+| 2026-09-27 | **AI-05** 10 s timeout + single jittered retry on retryable errors only | B |
 | 2026-09-27 | **AI-03** TriageService skeleton + fallback + the fallback test | B |
 | 2026-09-27 | **AI-02** SimulatedTriage with failure injection | B |
 | 2026-09-27 | **AI-01** RuleBasedTriage + tests | B |
@@ -145,6 +146,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | 2026-09-27 | **DB-03** Idempotent seed CLI with 33 complaints | A |
 | 2026-09-27 | **DB-02** Alembic async env with advisory lock, migration 0001 | A |
 | 2026-09-27 | **DB-01** SQLAlchemy base, naming convention, ORM model | A |
+| 2026-09-27 | **FE-10** Component test suite (12 tests) passing in CI | A |
 | 2026-09-27 | **FE-09** Stats view: aggregates, X-Cache indicator, providers panel | A |
 | 2026-09-27 | **FE-08** Dashboard: server-driven transitions, verbatim 409 | A |
 | 2026-09-27 | **FE-07** Dashboard: table, URL filters, pagination | A |
@@ -174,7 +176,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | B2 Dashboard: pagination, filters, transitions, verbatim 409 | 5 | ✅ | — |
 | B3 Stats view with aggregates and X-Cache state | 3 | ✅ | — |
 | B4 Runtime configuration, one image for every environment | 3 | ⬜ | FE-11 |
-| B5 >= 5 meaningful component tests passing in CI | 2 | 🔄 | FE-10 |
+| B5 >= 5 meaningful component tests passing in CI | 2 | ✅ | — |
 | C1 All ten endpoints to contract, correct codes, field-level errors | 7 | 🔄 | BE-03, BE-04, AI-10, FE-12 |
 | C2 Four-layer separation | 4 | 🔄 | BE-08 |
 | C3 Explicit transition table, invalid transitions 409 | 3 | ⬜ | BE-04 |
@@ -192,7 +194,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | E4 Redis AOF on a named volume, justified | 1 | ⬜ | DK-03, DOC-07 |
 | F1 TriageProvider with >= 3 implementations selected by env var | 5 | 🔄 | AI-04, AI-11 |
 | F2 Structured output validated by Pydantic, malformed rejected safely | 5 | ⬜ | AI-04 |
-| F3 Timeout, single jittered retry, fallback, triaged_by recorded | 6 | 🔄 | AI-05 |
+| F3 Timeout, single jittered retry, fallback, triaged_by recorded | 6 | ✅ | — |
 | F4 Content-hash cache with measured, reported hit rate | 3 | ⬜ | AI-08, DOC-09 |
 | F5 Prompt-injection guardrail + injection test | 3 | ⬜ | AI-06 |
 | F6 triage_latency_ms surfaced via /api/meta/providers | 2 | ⬜ | AI-10 |
@@ -242,7 +244,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
 - ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
 
-**Frontend** — 9 of 12 done
+**Frontend** — 10 of 12 done
 
 - ✅ FE-01 Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions (A, Claude, week 1)
 - ✅ FE-02 Typed API client generated from OpenAPI + drift script (A, Claude, week 1)
@@ -253,7 +255,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ FE-07 Dashboard: table, URL filters, pagination (A, Claude, week 2)
 - ✅ FE-08 Dashboard: server-driven transitions, verbatim 409 (A, Claude, week 2)
 - ✅ FE-09 Stats view: aggregates, X-Cache indicator, providers panel (A, Claude, week 2)
-- ⬜ FE-10 Component test suite (12 tests) passing in CI (B, Claude, week 2)
+- ✅ FE-10 Component test suite (12 tests) passing in CI (A, Claude, week 2)
 - ⬜ FE-11 nginx runtime config template, frontend Dockerfile, .dockerignore (A, Claude builds, you run it, week 2)
 - ⬜ FE-12 Switch from MSW to the real API, fix contract mismatches (A, Claude builds, you run it, week 3)
 
@@ -281,13 +283,13 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ CA-01 Stats read-through cache, X-Cache, invalidation on write (A, Claude, week 3)
 - ⬜ CA-02 Distributed Redis rate limiter, 429 + Retry-After (A, Claude, week 3)
 
-**AI layer** — 3 of 11 done
+**AI layer** — 4 of 11 done
 
 - ✅ AI-01 RuleBasedTriage + tests (B, Claude, week 1)
 - ✅ AI-02 SimulatedTriage with failure injection (B, Claude, week 1)
 - ✅ AI-03 TriageService skeleton + fallback + the fallback test (B, Claude, week 1)
 - ⬜ AI-04 Groq provider, JSON mode, strict output validation (B, Claude builds, you run it, week 2)
-- ⬜ AI-05 10 s timeout + single jittered retry on retryable errors only (B, Claude, week 2)
+- ✅ AI-05 10 s timeout + single jittered retry on retryable errors only (B, Claude, week 2)
 - ⬜ AI-06 Prompt, injection guardrail, safety floor, injection test (B, Claude, week 2)
 - ⬜ AI-07 PII redaction (feeds ADR 0004) (B, Claude, week 2)
 - ⬜ AI-08 Content-hash triage cache + measured hit rate (B, Claude builds, you run it, week 2)
@@ -367,6 +369,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: FE-10 revisited: the ownership-swap plan (above) had B write the frontend test suite, but in practice A's own FE-05/06/07/08/09 PRs already wrote all 12 tests plan section 8.14 names for this task (6 in SubmitPage, 4 in Dashboard, the X-Cache test in Stats, and a crash-and-recover test already in routing.test.tsx covering the same behavior section 8.14 names ErrorBoundary.test.tsx for) -- 29 tests total, confirmed green in CI. Rather than write a redundant test file just to have a B-owned commit against this task ID, marking it done under owner A, since that's who actually holds the commits: task-ID ownership is bookkeeping, but A2/A4 (commit-split >= 35% each) is graded on real commit authorship, and this would have misrepresented it.
+- 2026-09-27: AI-05: TriageService timeout and retry policy (_call_primary() under asyncio.timeout(10s), exactly one retry for the RETRYABLE set only; sleep/rng injectable for deterministic tests). OllamaServerError moved to its own app/providers/triage/errors.py since RETRYABLE needs it ahead of AI-09. 14 tests (A3-A7 plus one for the successful-retry path); added S311 to the tests ruff ignore list (seeded random.Random() for deterministic timing, the same kind of case S106 already covers).
 - 2026-09-27: CI-01: .github/workflows/ci.yml with the five checks that don't need Docker or Kubernetes yet -- lint-and-type, contract, status, test-backend, test-frontend (build/scan/manifests/integration wait for CI-02/CI-03 once DK-01..03 exist). Before shipping it, ran every job's exact commands locally to make sure a clean PR is actually green, not just plausible, and that surfaced two more pre-existing issues: a real mypy error in complaint_repository.py (get_status_stmt was typed Select[Any], so get_status() silently returned Any instead of Status | None -- fixed by typing it Select[Status]), and a Node-version trap in the frontend test job (this sandbox's Node 24 fails 2 tests with an AbortSignal cross-realm error from MSW's interceptor against Node's undici; confirmed clean on a portable Node 22.20.0, which is what ci.yml actually pins, so left the test code untouched). Full local dry run once both were fixed: backend ruff/format/mypy clean, 102 tests passing at 87.9% coverage; frontend lint/typecheck clean, 29 tests passing, build succeeds; openapi.json and schema.d.ts both drift-free; STATUS.md in sync.
 - 2026-09-27: AI-03: TriageService skeleton + fallback (app/services/triage_service.py). Writing the fallback test surfaced a real bug in the plan's own literal code: its triage() snippet caches the primary's result unconditionally on success, contradicting its own stated design ("no cache is used [for rules], since rules are cheaper than Redis") -- a rules-as-primary run would still round-trip Redis on every request. Guarded the cache write with the same `primary.name != "rules"` check already used on the read side. 8 tests: A1 (AlwaysRaisesProvider -> rules:fallback), successful/cached/rules-primary paths, and that CancelledError propagates instead of being swallowed (needed for BE-06's graceful shutdown later).
 - 2026-09-27: AI-02: SimulatedTriage (app/providers/triage/simulated.py) and the shared parse_triage_output/MalformedOutput (app/providers/triage/parsing.py, which AI-04's GroqTriage will reuse as-is). All four failure modes (raise, timeout, malformed, rate_limited) produce the exact exception types TriageService's retry policy (AI-05) will need to distinguish, including a real openai.RateLimitError built from a fake httpx.Response rather than a hand-rolled stand-in. 7 tests, including a monkeypatched socket.socket that asserts a normal call opens no socket at all ("no network, ever").
@@ -380,5 +384,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: DB-03: idempotent seed CLI (uv run python -m app.cli seed). SEED_NAMESPACE + uuid5(slug) gives every row a stable, deterministic id across machines and runs; insert_if_absent does ON CONFLICT (id) DO NOTHING via Postgres, so seeding twice inserts 0 rows the second time. 33 hand-written rows in app/seed/complaints.json (Urdu-English mixed text like the brief asks for, hand-written English summaries), covering every category (water 6, electricity 6, sanitation 6, roads 6, streetlights 5, other 4) and every status (open 17, in_progress 9, resolved 4, rejected 3), created_at spread over the last 14 days. The seed never calls an LLM: triaged_by is always rules, latency 0. Minimal ComplaintRepository added with just insert_if_absent (BE-02 extends it with get/list/update_status). No Docker/Postgres here, so verified two ways that need no live database: the seed algorithm itself against a fake in-memory repository (first run inserts 33, second run inserts 0, deterministic ids confirmed across two calls), and the real repository's SQL compiled against the postgresql dialect to confirm the ON CONFLICT/RETURNING clauses are correct. A live seed-twice-against-real-Postgres run is still needed once Docker exists.
 - 2026-09-27: DB-01: app/db/base.py (naming convention, timestamptz type map), app/db/models.py (ComplaintORM matching plan section 9.1's table exactly -- verified by compiling every column against the real Postgres dialect), app/db/session.py (engine/sessionmaker factories). No Docker/Postgres in this sandbox, so verified via SQLAlchemy metadata introspection instead of a live database: 11 tests check column types, check-constraint names against the naming convention, both indexes, and that CreateTable DDL alone never emits CREATE TYPE (that only happens via metadata.create_all(), which app code never calls). DB-02 (Alembic) and a real Postgres round-trip are still needed before this is fully proven end to end.
 - 2026-09-27: BE-01: Settings (env-only, SecretStr for passwords/API key), structlog JSON-to-stdout logging, a pure-ASGI RequestContextMiddleware (X-Request-ID echo/generate, Prometheus HTTP metrics via a dedicated CollectorRegistry, request_completed log line), the DomainError hierarchy + handlers (400/404/409/429/500, one envelope), a minimal lifecycle.py, create_app() wiring. Fixed a real bug in the plan's own literal code: computed_field(repr=False) is required or Settings.__repr__ leaks the DB password in plaintext through the assembled URL. Also swapped sqlalchemy.URL for a hand-built DSN, since app/core may not import sqlalchemy at all under our own layering rule. 3 new tests (U8, U10, I15-equivalent using capsys since structlog.testing.capture_logs bypasses the real processor chain).
-- 2026-09-27: FE-09: Stats page -- CacheIndicator (HIT/MISS, fetched time, Refresh, 10s auto-refresh toggle), CSS-only CountBars for category/priority/status (no chart library), providers panel (active provider, model, cache hit rate, last-20 outcomes table with the fallback dashed-outline styling reused from ProviderTag). 3 component tests. Checked visually with Playwright, zero console errors.
-- 2026-09-27: FE-07 + FE-08: Dashboard table (priority rail, category glyph, provider tag), URL-driven filters/pagination with defensive enum parsing, StatusActions with zero client-side transition table (primary buttons from allowed_transitions, Other-status menu, verbatim 409). Fixed MSW fixture dates from static future dates to dynamic offsets so relative time renders correctly; made relativeTime() robust to any date sign. 4 component tests (plan section 8.14 tests 7-10), checked visually end to end with Playwright including the 409 flow and a live URL-sync check.
