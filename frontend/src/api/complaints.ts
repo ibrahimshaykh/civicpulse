@@ -28,7 +28,7 @@ export function useComplaints(f: ComplaintFilters) {
           },
         },
       });
-      if (error) throw toApiError(response, error);
+      if (!response.ok) throw toApiError(response, error);
       return data;
     },
     placeholderData: keepPreviousData, // no flash to empty between pages
@@ -42,7 +42,7 @@ export function useComplaint(id: string) {
       const { data, error, response } = await api.GET("/api/complaints/{complaint_id}", {
         params: { path: { complaint_id: id } },
       });
-      if (error) throw toApiError(response, error);
+      if (!response.ok) throw toApiError(response, error);
       return data;
     },
   });
@@ -53,7 +53,7 @@ export function useCreateComplaint() {
   return useMutation({
     mutationFn: async (body: ComplaintCreate) => {
       const { data, error, response } = await api.POST("/api/complaints", { body });
-      if (error) throw toApiError(response, error);
+      if (!response.ok) throw toApiError(response, error);
       return data;
     },
     retry: 0, // never retry a POST: it would create a duplicate complaint
@@ -72,7 +72,7 @@ export function useUpdateStatus() {
         params: { path: { complaint_id: id } },
         body: { status },
       });
-      if (error) throw toApiError(response, error);
+      if (!response.ok) throw toApiError(response, error);
       return data;
     },
     retry: 0,
