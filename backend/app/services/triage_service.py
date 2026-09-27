@@ -1,24 +1,44 @@
-"""The service half of the triage seam (task C0-04, frozen Day 2) and its
-first real implementation (task AI-03: skeleton + fallback).
+"""The service half of the triage seam (task C0-04, frozen Day 2), its
+skeleton and fallback (task AI-03), and its timeout/retry policy (AI-05).
 
 `ComplaintService.create()` calls `TriageService.triage()` and never imports
 anything from `app/providers/triage/` directly -- that keeps the dependency
 arrows one-way: routes -> services -> (repositories | providers) (plan §2.2).
 
-This skeleton does not yet retry (`AI-05`), cache (`AI-08`) or persist
-outcomes anywhere durable (`AI-10`): a primary failure of any kind falls
-back to `RuleBasedTriage` right away. `TriageCache` and `OutcomeSink` are
-Protocols so those later tasks can plug in a Redis-backed implementation
-without changing this class's constructor signature or its callers.
+This does not yet cache (`AI-08`) or persist outcomes anywhere durable
+(`AI-10`): `TriageCache` and `OutcomeSink` are Protocols so those later
+tasks can plug in a Redis-backed implementation without changing this
+class's constructor signature or its callers.
 """
 
+import asyncio
+import random
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
 from time import perf_counter
 from typing import Protocol
 from uuid import UUID
 
+import httpx
+from openai import APIConnectionError, APITimeoutError, InternalServerError, RateLimitError
+
 from app.providers.triage.base import TriageProvider, TriageResult
+from app.providers.triage.errors import OllamaServerError
 from app.providers.triage.rules import RuleBasedTriage
+
+# Belt-and-braces over each provider's own timeout/retry: connection and
+# rate-limit failures are worth one retry, but a bad request, an auth
+# failure or a MalformedOutput never is (plan §11.5).
+RETRYABLE: tuple[type[BaseException], ...] = (
+    TimeoutError,  # asyncio.timeout raises this (an alias since Python 3.11)
+    APITimeoutError,
+    APIConnectionError,
+    RateLimitError,
+    InternalServerError,
+    httpx.TimeoutException,
+    httpx.ConnectError,
+    OllamaServerError,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -83,11 +103,19 @@ class TriageService:
         fallback: RuleBasedTriage | None = None,
         cache: TriageCache | None = None,
         outcomes: OutcomeSink | None = None,
+        timeout_s: float = 10.0,
+        jitter_s: tuple[float, float] = (0.2, 0.8),
+        sleep: Callable[[float], Awaitable[None]] | None = None,
+        rng: random.Random | None = None,
     ) -> None:
         self._primary = primary
         self._fallback = fallback or RuleBasedTriage()
         self._cache = cache or NullTriageCache()
         self._outcomes = outcomes or NullOutcomeSink()
+        self._timeout_s = timeout_s
+        self._jitter_s = jitter_s
+        self._sleep = sleep or asyncio.sleep
+        self._rng = rng or random.Random()  # noqa: S311 -- jitter timing, not cryptographic
 
     @property
     def active_provider(self) -> str:
@@ -95,6 +123,18 @@ class TriageService:
 
     async def recent_outcomes(self) -> list[dict[str, object]]:
         return await self._outcomes.recent()
+
+    async def _call_primary(self, text: str, location: str) -> TriageResult:
+        attempts = 0
+        while True:
+            attempts += 1
+            try:
+                async with asyncio.timeout(self._timeout_s):
+                    return await self._primary.triage(text, location)
+            except RETRYABLE:
+                if attempts >= 2:  # exactly one retry, ever
+                    raise
+                await self._sleep(self._rng.uniform(*self._jitter_s))
 
     async def triage(self, *, complaint_id: UUID, text: str, location: str) -> TriageOutcome:
         start = perf_counter()
@@ -109,7 +149,7 @@ class TriageService:
             return outcome
 
         try:
-            result = await self._primary.triage(text, location)
+            result = await self._call_primary(text, location)
             outcome = TriageOutcome(
                 result, self._primary.name, _ms(start), cache_hit=False, fallback=False, error_class=None
             )
