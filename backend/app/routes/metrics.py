@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Response
-from prometheus_client import CONTENT_TYPE_LATEST, REGISTRY, generate_latest
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+
+from app.core.metrics import REGISTRY
 
 router = APIRouter()
 

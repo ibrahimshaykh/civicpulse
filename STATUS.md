@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [████░░░░░░░░░░░░░░░░░░░░░░░░░░]   16%   14 of 87 core tasks done
-Marks secured     [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    7%   11.1 of 150 marks  (13 of 175 rubric points)
+Project progress  [█████░░░░░░░░░░░░░░░░░░░░░░░░░]   17%   15 of 87 core tasks done
+Marks secured     [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    9%   13.7 of 150 marks  (16 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 13 of 37 | `███░░░░░░░` 35% |
+| Partner A (frontend, backend, data) | 14 of 37 | `███░░░░░░░` 37% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -26,7 +26,7 @@ Raw rubric points, as printed in the brief.
 |---|---:|---:|---|
 | A · Collaboration and version control | 0 | 15 | `░░░░░░░░░░` |
 | B · Frontend | 13 | 18 | `███████░░░` |
-| C · Backend | 0 | 25 | `░░░░░░░░░░` |
+| C · Backend | 3 | 25 | `█░░░░░░░░░` |
 | D · Data layer | 0 | 12 | `░░░░░░░░░░` |
 | E · Cache layer | 0 | 10 | `░░░░░░░░░░` |
 | F · AI layer | 0 | 25 | `░░░░░░░░░░` |
@@ -34,7 +34,7 @@ Raw rubric points, as printed in the brief.
 | H · Kubernetes | 0 | 20 | `░░░░░░░░░░` |
 | I · CI/CD | 0 | 20 | `░░░░░░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **13** | **175** | `░░░░░░░░░░` |
+| **Total** | **16** | **175** | `░░░░░░░░░░` |
 
 ## Working on now
 
@@ -134,6 +134,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | Done on | Task | Owner |
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
+| 2026-09-27 | **BE-01** Settings, JSON logging, request-id middleware, error handlers | A |
 | 2026-09-27 | **FE-09** Stats view: aggregates, X-Cache indicator, providers panel | A |
 | 2026-09-27 | **FE-08** Dashboard: server-driven transitions, verbatim 409 | A |
 | 2026-09-27 | **FE-07** Dashboard: table, URL filters, pagination | A |
@@ -167,7 +168,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | C2 Four-layer separation | 4 | ⬜ | BE-02, BE-08 |
 | C3 Explicit transition table, invalid transitions 409 | 3 | ⬜ | BE-04 |
 | C4 /health vs /ready, /health never touches the DB | 3 | ⬜ | BE-05 |
-| C5 Structured JSON logs with propagated request_id | 3 | ⬜ | BE-01 |
+| C5 Structured JSON logs with propagated request_id | 3 | ✅ | — |
 | C6 SIGTERM drains in-flight requests | 2 | ⬜ | BE-06 |
 | C7 >= 14 deterministic tests, coverage >= 65% | 3 | ⬜ | BE-07, CI-01 |
 | D1 Alembic migrations, no DDL at startup | 4 | ⬜ | DB-02 |
@@ -253,9 +254,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ DB-04 EXPLAIN evidence for both indexes at 200k rows (A, Claude, week 2)
 - ⬜ DB-05 Persistence demos (Compose and Kubernetes) (A, you, step by step, week 4)
 
-**Backend** — 0 of 8 done
+**Backend** — 1 of 8 done
 
-- ⬜ BE-01 Settings, JSON logging, request-id middleware, error handlers (A, Claude, week 2)
+- ✅ BE-01 Settings, JSON logging, request-id middleware, error handlers (A, Claude, week 2)
 - ⬜ BE-02 Repositories and unit of work (A, Claude, week 2)
 - ⬜ BE-03 Complaint service + create/get/list routes (A, Claude, week 3)
 - ⬜ BE-04 State machine table, PATCH status, race guard (A, Claude, week 3)
