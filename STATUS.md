@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    9%   8 of 87 core tasks done
+Project progress  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░]   10%   9 of 87 core tasks done
 Marks secured     [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    0%   0 of 150 marks  (0 of 175 rubric points)
 ```
 
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 7 of 37 | `█░░░░░░░░░` 18% |
+| Partner A (frontend, backend, data) | 8 of 37 | `██░░░░░░░░` 21% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -42,8 +42,9 @@ Raw rubric points, as printed in the brief.
 
 ## Needs you
 
+- [ ] Add SalmanAsadDev as a collaborator (Settings -> Collaborators -> Add people); he must accept the invite before he can push or review. _(needed for C0-01)_
+- [ ] Ask Salman to connect his own Claude Code session to his own GitHub account (or at minimum run git with his own name/email), so his tasks commit as him, not through this session. _(needed for C0-01)_
 - [ ] Before turning in: make the repo public, or add both instructors as collaborators. _(needed for SUB-03)_
-- [ ] Send your partner's GitHub username for the collaborator invite and CODEOWNERS. _(needed for C0-01)_
 - [ ] Ask the instructor which endpoint is the 'tenth' (plan §1.3) and note the answer. _(needed for C0-05)_
 - [ ] Ask the instructor: the rubric sections add up to 175, but the header says 150. Is it scaled to 150 or out of 175?
 - [ ] Week 2: create a Groq API key; it goes only in your local .env and in GitHub Secrets, never in the repo. _(needed for AI-04)_
@@ -52,10 +53,10 @@ Raw rubric points, as printed in the brief.
 
 **Partner A (frontend, backend, data)**
 
-- ⬜ **FE-03** MSW handlers and typed fixtures — Claude (week 1)
 - ⬜ **FE-05** Submit view: form, zod validation, honest loading, result ticket — Claude (week 1)
 - ⬜ **FE-06** Submit view: 400 field mapping, 429 countdown, network errors — Claude (week 1)
 - ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
+- ⬜ **FE-07** Dashboard: table, URL filters, pagination — Claude (week 2)
 
 **Partner B (AI layer, DevOps)**
 
@@ -134,6 +135,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
 | 2026-09-27 | **FE-04** Router, layout, nav rail, error boundary | A |
+| 2026-09-27 | **FE-03** MSW handlers and typed fixtures | A |
 | 2026-09-27 | **FE-02** Typed API client generated from OpenAPI + drift script | A |
 | 2026-09-27 | **FE-01** Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions | A |
 | 2026-09-27 | **C0-05** Stub routes and committed openapi.json | A |
@@ -223,11 +225,11 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
 - ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
 
-**Frontend** — 3 of 12 done
+**Frontend** — 4 of 12 done
 
 - ✅ FE-01 Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions (A, Claude, week 1)
 - ✅ FE-02 Typed API client generated from OpenAPI + drift script (A, Claude, week 1)
-- ⬜ FE-03 MSW handlers and typed fixtures (A, Claude, week 1)
+- ✅ FE-03 MSW handlers and typed fixtures (A, Claude, week 1)
 - ✅ FE-04 Router, layout, nav rail, error boundary (A, Claude, week 1)
 - ⬜ FE-05 Submit view: form, zod validation, honest loading, result ticket (A, Claude, week 1)
 - ⬜ FE-06 Submit view: 400 field mapping, 429 countdown, network errors (A, Claude, week 1)

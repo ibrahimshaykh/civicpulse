@@ -24,12 +24,23 @@ const queryClient = new QueryClient({
 const root = document.getElementById("root");
 if (!root) throw new Error("#root element missing from index.html");
 
-createRoot(root).render(
-  <StrictMode>
-    <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} future={{ v7_startTransition: true }} />
-      </QueryClientProvider>
-    </ErrorBoundary>
-  </StrictMode>,
-);
+// Dynamic import so msw/browser (and its handlers) is dead code in a production
+// build: DEV is a compile-time constant, so the whole branch is eliminated
+// (plan §8.13). Run with VITE_USE_MSW=true npm run dev before the backend exists.
+async function enableMocking(): Promise<void> {
+  if (!(import.meta.env.DEV && import.meta.env.VITE_USE_MSW === "true")) return;
+  const { worker } = await import("../tests/msw/browser");
+  await worker.start({ onUnhandledRequest: "bypass" });
+}
+
+void enableMocking().then(() => {
+  createRoot(root).render(
+    <StrictMode>
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} future={{ v7_startTransition: true }} />
+        </QueryClientProvider>
+      </ErrorBoundary>
+    </StrictMode>,
+  );
+});

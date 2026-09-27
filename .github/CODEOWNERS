@@ -1,5 +1,5 @@
 # Plan §5.4. Partner A = @ibrahimshaykh (frontend, backend, data).
-# Partner B (AI layer, DevOps): replace @PARTNER_B with their GitHub username, then uncomment.
+# Partner B = @SalmanAsadDev (AI layer, DevOps).
 
 /frontend/                       @ibrahimshaykh
 /backend/app/routes/             @ibrahimshaykh
@@ -8,10 +8,10 @@
 /backend/alembic/                @ibrahimshaykh
 /docs/adr/0002-*                 @ibrahimshaykh
 
-# /backend/app/services/triage_service.py @PARTNER_B
-# /backend/app/providers/triage/   @PARTNER_B
-# /k8s/                            @PARTNER_B
-# /.github/                        @PARTNER_B
-# /compose*.yaml                   @PARTNER_B
-# /docs/adr/0001-*                 @PARTNER_B
-# /README.md                       @ibrahimshaykh @PARTNER_B
+/backend/app/services/triage_service.py @SalmanAsadDev
+/backend/app/providers/triage/   @SalmanAsadDev
+/k8s/                            @SalmanAsadDev
+/.github/                        @SalmanAsadDev
+/compose*.yaml                   @SalmanAsadDev
+/docs/adr/0001-*                 @SalmanAsadDev
+/README.md                       @ibrahimshaykh @SalmanAsadDev
