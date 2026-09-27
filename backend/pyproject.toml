@@ -78,6 +78,8 @@ extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Path", "f
 "app/api/**" = ["TID251"]
 "alembic/**" = ["TID251"]
 "tests/**" = ["TID251", "S106", "S311"] # S106: obviously-fake passwords used to prove they're hidden
+# The literal LLM prompt text: its wording and wrapping is the plan's exact spec, not code style.
+"app/providers/triage/prompt.py" = ["E501"]
 # S311: seeded random.Random() for deterministic test fixtures, never for cryptography
 
 [tool.mypy]
