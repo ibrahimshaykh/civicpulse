@@ -95,7 +95,7 @@ def get_stmt(id: uuid.UUID) -> Select[Any]:
     return select(ComplaintORM.__table__).where(ComplaintORM.id == id)
 
 
-def get_status_stmt(id: uuid.UUID) -> Select[Any]:
+def get_status_stmt(id: uuid.UUID) -> Select[Status]:
     return select(ComplaintORM.status).where(ComplaintORM.id == id)
 
 

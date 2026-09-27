@@ -77,7 +77,8 @@ extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Path", "f
 # "get_session lives in api/deps.py and the route never sees it").
 "app/api/**" = ["TID251"]
 "alembic/**" = ["TID251"]
-"tests/**" = ["TID251", "S106"] # S106: obviously-fake passwords used to prove they're hidden
+"tests/**" = ["TID251", "S106", "S311"] # S106: obviously-fake passwords used to prove they're hidden
+# S311: seeded random.Random() for deterministic test fixtures, never for cryptography
 
 [tool.mypy]
 python_version = "3.12"

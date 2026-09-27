@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [███████░░░░░░░░░░░░░░░░░░░░░░░]   24%   21 of 87 core tasks done
+Project progress  [████████░░░░░░░░░░░░░░░░░░░░░░]   29%   26 of 87 core tasks done
 Marks secured     [█████░░░░░░░░░░░░░░░░░░░░░░░░░]   19%   29.1 of 150 marks  (34 of 175 rubric points)
 ```
 
@@ -15,7 +15,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
 | Partner A (frontend, backend, data) | 20 of 37 | `█████░░░░░` 54% |
-| Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
+| Partner B (AI layer, DevOps) | 6 of 39 | `█░░░░░░░░░` 15% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
 ## Marks by rubric section
@@ -60,10 +60,10 @@ Raw rubric points, as printed in the brief.
 
 **Partner B (AI layer, DevOps)**
 
-- ⬜ **C0-04** Freeze TriageProvider / TriageResult / TriageOutcome seam — Claude (week 1)
-- ⬜ **AI-01** RuleBasedTriage + tests — Claude (week 1)
-- ⬜ **AI-02** SimulatedTriage with failure injection — Claude (week 1)
-- ⬜ **AI-03** TriageService skeleton + fallback + the fallback test — Claude (week 1)
+- ⬜ **DK-01** Backend multi-stage non-root Dockerfile — Claude builds, you run it (week 1)
+- ⬜ **DK-02** .dockerignore per context + before/after sizes — Claude builds, you run it (week 1)
+- ⬜ **DK-03** compose.yaml data tier, internal network, AOF volume — Claude builds, you run it (week 1)
+- ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
 
 ## Hands-on work for you and your partner
 
@@ -134,6 +134,10 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | Done on | Task | Owner |
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
+| 2026-09-27 | **CI-01** ci.yml: lint, types, contract, status, tests | B |
+| 2026-09-27 | **AI-03** TriageService skeleton + fallback + the fallback test | B |
+| 2026-09-27 | **AI-02** SimulatedTriage with failure injection | B |
+| 2026-09-27 | **AI-01** RuleBasedTriage + tests | B |
 | 2026-09-27 | **CA-01** Stats read-through cache, X-Cache, invalidation on write | A |
 | 2026-09-27 | **BE-05** /health, /ready, /metrics | A |
 | 2026-09-27 | **BE-02** Repositories and unit of work | A |
@@ -151,6 +155,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | 2026-09-27 | **FE-02** Typed API client generated from OpenAPI + drift script | A |
 | 2026-09-27 | **FE-01** Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions | A |
 | 2026-09-27 | **C0-05** Stub routes and committed openapi.json | A |
+| 2026-09-27 | **C0-04** Freeze TriageProvider / TriageResult / TriageOutcome seam | B |
 | 2026-09-27 | **C0-03** Backend pyproject, uv lockfile, ruff, mypy | A |
 | 2026-09-27 | **C0-02** Domain enums and Pydantic schemas | A |
 | 2026-09-27 | **C0-00** Implementation plan and progress tracker | A |
@@ -169,14 +174,14 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | B2 Dashboard: pagination, filters, transitions, verbatim 409 | 5 | ✅ | — |
 | B3 Stats view with aggregates and X-Cache state | 3 | ✅ | — |
 | B4 Runtime configuration, one image for every environment | 3 | ⬜ | FE-11 |
-| B5 >= 5 meaningful component tests passing in CI | 2 | ⬜ | FE-10, CI-01 |
+| B5 >= 5 meaningful component tests passing in CI | 2 | 🔄 | FE-10 |
 | C1 All ten endpoints to contract, correct codes, field-level errors | 7 | 🔄 | BE-03, BE-04, AI-10, FE-12 |
 | C2 Four-layer separation | 4 | 🔄 | BE-08 |
 | C3 Explicit transition table, invalid transitions 409 | 3 | ⬜ | BE-04 |
 | C4 /health vs /ready, /health never touches the DB | 3 | ✅ | — |
 | C5 Structured JSON logs with propagated request_id | 3 | ✅ | — |
 | C6 SIGTERM drains in-flight requests | 2 | ⬜ | BE-06 |
-| C7 >= 14 deterministic tests, coverage >= 65% | 3 | ⬜ | BE-07, CI-01 |
+| C7 >= 14 deterministic tests, coverage >= 65% | 3 | 🔄 | BE-07 |
 | D1 Alembic migrations, no DDL at startup | 4 | ✅ | — |
 | D2 Complete schema incl. triaged_by, ai_summary, latency, timestamptz | 3 | ✅ | — |
 | D3 Two indexes, each justified by a named query | 2 | ⬜ | DB-04, DOC-07 |
@@ -185,9 +190,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | E2 Invalidated on write | 2 | ✅ | — |
 | E3 Distributed Redis rate limiter, 429 + Retry-After | 4 | ⬜ | CA-02 |
 | E4 Redis AOF on a named volume, justified | 1 | ⬜ | DK-03, DOC-07 |
-| F1 TriageProvider with >= 3 implementations selected by env var | 5 | ⬜ | AI-01, AI-02, AI-04, AI-11 |
+| F1 TriageProvider with >= 3 implementations selected by env var | 5 | 🔄 | AI-04, AI-11 |
 | F2 Structured output validated by Pydantic, malformed rejected safely | 5 | ⬜ | AI-04 |
-| F3 Timeout, single jittered retry, fallback, triaged_by recorded | 6 | ⬜ | AI-03, AI-05 |
+| F3 Timeout, single jittered retry, fallback, triaged_by recorded | 6 | 🔄 | AI-05 |
 | F4 Content-hash cache with measured, reported hit rate | 3 | ⬜ | AI-08, DOC-09 |
 | F5 Prompt-injection guardrail + injection test | 3 | ⬜ | AI-06 |
 | F6 triage_latency_ms surfaced via /api/meta/providers | 2 | ⬜ | AI-10 |
@@ -204,7 +209,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | H4 requests and limits on every container | 2 | ⬜ | K8-02 |
 | H5 HPA v2 with behavior, hpa -w capture, replicas-vs-load chart | 4 | ⬜ | K8-04, K8-05 |
 | H6 VPA recommender, requests updated, conflict explained | 3 | ⬜ | K8-04, K8-06 |
-| I1 ci.yml lint, types, tests on every PR, required checks | 4 | ⬜ | CI-01, CI-07 |
+| I1 ci.yml lint, types, tests on every PR, required checks | 4 | 🔄 | CI-07 |
 | I2 Compose integration smoke job | 3 | ⬜ | CI-02 |
 | I3 Trivy + kubeconform in CI | 3 | ⬜ | CI-03 |
 | I4 cd.yml needs-gated, GHCR images tagged by SHA | 4 | ⬜ | CI-04, CI-06 |
@@ -227,13 +232,13 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 <details>
 <summary><strong>All tasks by phase</strong></summary>
 
-**Setup and contract** — 4 of 7 done
+**Setup and contract** — 5 of 7 done
 
 - ✅ C0-00 Implementation plan and progress tracker (A, Claude, week 1)
 - 🔄 C0-01 GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A, Claude builds, you run it, week 1)
 - ✅ C0-02 Domain enums and Pydantic schemas (A, Claude, week 1)
 - ✅ C0-03 Backend pyproject, uv lockfile, ruff, mypy (A, Claude, week 1)
-- ⬜ C0-04 Freeze TriageProvider / TriageResult / TriageOutcome seam (B, Claude, week 1)
+- ✅ C0-04 Freeze TriageProvider / TriageResult / TriageOutcome seam (B, Claude, week 1)
 - ✅ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
 - ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
 
@@ -276,11 +281,11 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ CA-01 Stats read-through cache, X-Cache, invalidation on write (A, Claude, week 3)
 - ⬜ CA-02 Distributed Redis rate limiter, 429 + Retry-After (A, Claude, week 3)
 
-**AI layer** — 0 of 11 done
+**AI layer** — 3 of 11 done
 
-- ⬜ AI-01 RuleBasedTriage + tests (B, Claude, week 1)
-- ⬜ AI-02 SimulatedTriage with failure injection (B, Claude, week 1)
-- ⬜ AI-03 TriageService skeleton + fallback + the fallback test (B, Claude, week 1)
+- ✅ AI-01 RuleBasedTriage + tests (B, Claude, week 1)
+- ✅ AI-02 SimulatedTriage with failure injection (B, Claude, week 1)
+- ✅ AI-03 TriageService skeleton + fallback + the fallback test (B, Claude, week 1)
 - ⬜ AI-04 Groq provider, JSON mode, strict output validation (B, Claude builds, you run it, week 2)
 - ⬜ AI-05 10 s timeout + single jittered retry on retryable errors only (B, Claude, week 2)
 - ⬜ AI-06 Prompt, injection guardrail, safety floor, injection test (B, Claude, week 2)
@@ -311,9 +316,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ K8-08 Rollback, imperative and declarative (B, Claude builds, you run it, week 4)
 - ⬜ K8-07 Zero-downtime rollout under live load (B, Claude builds, you run it, week 4) ⭐
 
-**CI/CD** — 0 of 8 done
+**CI/CD** — 1 of 8 done
 
-- ⬜ CI-01 ci.yml: lint, types, contract, status, tests (B, Claude, week 1)
+- ✅ CI-01 ci.yml: lint, types, contract, status, tests (B, Claude, week 1)
 - ⬜ CI-02 Compose integration smoke job (MISS then HIT) (B, Claude, week 3)
 - ⬜ CI-03 Image build, Trivy scan, kubeconform (B, Claude, week 3)
 - ⬜ CI-04 cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions (B, Claude, week 3)
@@ -362,6 +367,12 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: CI-01: .github/workflows/ci.yml with the five checks that don't need Docker or Kubernetes yet -- lint-and-type, contract, status, test-backend, test-frontend (build/scan/manifests/integration wait for CI-02/CI-03 once DK-01..03 exist). Before shipping it, ran every job's exact commands locally to make sure a clean PR is actually green, not just plausible, and that surfaced two more pre-existing issues: a real mypy error in complaint_repository.py (get_status_stmt was typed Select[Any], so get_status() silently returned Any instead of Status | None -- fixed by typing it Select[Status]), and a Node-version trap in the frontend test job (this sandbox's Node 24 fails 2 tests with an AbortSignal cross-realm error from MSW's interceptor against Node's undici; confirmed clean on a portable Node 22.20.0, which is what ci.yml actually pins, so left the test code untouched). Full local dry run once both were fixed: backend ruff/format/mypy clean, 102 tests passing at 87.9% coverage; frontend lint/typecheck clean, 29 tests passing, build succeeds; openapi.json and schema.d.ts both drift-free; STATUS.md in sync.
+- 2026-09-27: AI-03: TriageService skeleton + fallback (app/services/triage_service.py). Writing the fallback test surfaced a real bug in the plan's own literal code: its triage() snippet caches the primary's result unconditionally on success, contradicting its own stated design ("no cache is used [for rules], since rules are cheaper than Redis") -- a rules-as-primary run would still round-trip Redis on every request. Guarded the cache write with the same `primary.name != "rules"` check already used on the read side. 8 tests: A1 (AlwaysRaisesProvider -> rules:fallback), successful/cached/rules-primary paths, and that CancelledError propagates instead of being swallowed (needed for BE-06's graceful shutdown later).
+- 2026-09-27: AI-02: SimulatedTriage (app/providers/triage/simulated.py) and the shared parse_triage_output/MalformedOutput (app/providers/triage/parsing.py, which AI-04's GroqTriage will reuse as-is). All four failure modes (raise, timeout, malformed, rate_limited) produce the exact exception types TriageService's retry policy (AI-05) will need to distinguish, including a real openai.RateLimitError built from a fake httpx.Response rather than a hand-rolled stand-in. 7 tests, including a monkeypatched socket.socket that asserts a normal call opens no socket at all ("no network, ever").
+- 2026-09-27: AI-01: RuleBasedTriage (app/providers/triage/rules.py), matching the plan's keyword table verbatim -- 93.9% category accuracy (31/33) against the seed set, well over the required 70%, so no tuning was needed. Shared normalize()/first_sentence() helpers split into app/providers/triage/text.py so AI-08's cache can reuse the same normalize() later. 6 tests: the accuracy threshold, determinism, high-risk and low-hint priority rules, the other-category fallback, and totality against 6 edge-case strings (max length, punctuation-only, non-Latin script, mixed case, combining-character normalization).
+- 2026-09-27: C0-04: froze the triage seam -- app/providers/triage/base.py (TriageResult, the TriageProvider Protocol) and app/services/triage_service.py (TriageOutcome, TriageService.triage()/recent_outcomes()/active_provider). TriageCache and OutcomeSink are Protocols with Null* default implementations, so the skeleton works today without AI-08's Redis cache or AI-10's Redis outcome log -- both will satisfy the same Protocols later without touching TriageService's constructor or callers. tests/fakes.py::StubTriageService added per the plan so ComplaintService (BE-03) can be coded against the seam before AI-04 lands.
+- 2026-09-27: Partner B (Salman) starts picking up Partner B's backlog directly, since Ibrahim is stepping back from active contribution for a while. Before starting on the prescribed AI-layer work, fixed a real bug Salman hit running the app locally: every page other than Submit crashed with the app's own "This page stopped working" boundary as soon as the backend was unreachable (e.g. no Docker running). Root cause: stats.ts/meta.ts/complaints.ts treated the parsed error body's truthiness, not response.ok, as the signal that a request had failed; the dev proxy answers an unreachable backend with a 500 that has an empty, non-JSON body, which parses to a falsy `error`, so the check silently passed and StatsPage crashed reading `.stats.total` off a `data` object that looked loaded but was not. Fixed by checking `error || !response.ok` everywhere (keeping the `error` check too, since openapi-fetch's TS types only narrow `data` to defined off that check, not off response.ok -- dropping it re-broke typecheck across four files). Committed separately on fix/stats-page-crash-on-api-failure pending push.
 - 2026-09-27: DB-02: async Alembic env.py (target_metadata=Base.metadata, compare_type/compare_server_default, an advisory lock around do_run_migrations so two backend pods cannot migrate concurrently, URL from Settings() not alembic.ini). Migration 0001 creates the three Postgres enums, the complaints table with all six check constraints and both indexes, and the updated_at trigger. Found and fixed a real bug while testing offline: hand-writing constraint names as the full ck_complaints_* form in the migration produced double-prefixed names (ck_complaints_ck_complaints_text_length), because op.create_table re-applies the naming convention on top of an already-given name; switched to the same short names the ORM model uses. No Docker/Postgres here, so verified with alembic upgrade/downgrade --sql (offline mode, no DBAPI needed) plus a new regression test that diffs the migration's generated DDL against the model's own compiled DDL byte-for-byte -- confirmed it actually catches drift by deliberately breaking a column length and watching the test fail, then restored it. This stands in for alembic check, which needs a live database; a real up/down/up cycle (I21) still needs to run once Docker exists.
 - 2026-09-27: BE-02: full ComplaintRepository (insert, insert_if_absent, get, get_status, list_page with filters/pagination/id-DESC tiebreaker, update_status_if using optimistic concurrency -- the WHERE clause requires the row to still be in the expected status, so two operators racing on the same complaint cannot both succeed), plus ComplaintRecord (app/domain/records.py, a frozen dataclass -- repositories never return the ORM object, so services can never trigger a lazy-load outside a session) and the UnitOfWork split (app/services/uow.py holds a Protocol with no sqlalchemy import at all -- verified the ban still fires by probing it directly; app/repositories/uow.py holds the real SqlAlchemyUoW). Every query is a standalone statement-builder function, separate from the async execute call, specifically so it can be compiled and checked without a database connection. No Docker/Postgres in this sandbox, so BE-02's stated acceptance (I4, I5, both live-database integration tests) could not be run end to end here: verified instead by compiling every statement against the real Postgres dialect (WHERE/ORDER BY/LIMIT/OFFSET/ON CONFLICT/RETURNING all checked), and by testing the row-to-record mapping and the UoW's delegation against fakes. A real GET/LIST round-trip against Postgres (I4, I5) still needs to run once Docker exists.
 - 2026-09-27: BE-05: real /ready (HealthRepository.ping_db doing SELECT 1, ReadinessService probing Postgres and Redis concurrently under a timeout, a shutting_down check that skips both probes and fails immediately so a draining pod leaves the Service's endpoint list fast). /health stays a plain no-Depends, no-I/O liveness check. /metrics was already wired in BE-01. This is the strongest verification so far without Docker: rather than only simulating failures, the readiness tests connect a real (though unreachable) Postgres engine and a real Redis client to 10.255.255.1 -- a private, unrouted address -- and confirm the connect timeout actually fires within 0.3-0.5s and /ready correctly names which dependency failed. Also covered with fast fakes: both-ok, either/both failing, a hung dependency timing out instead of hanging the whole check, and the shutting_down short-circuit (proven to never even touch either dependency). The real route is tested via dependency_overrides, including that /health genuinely never builds or touches a database session. Regenerated backend/openapi.json (the /ready response shape changed) and the frontend's generated schema.d.ts to match, keeping both sides of the contract honest.
@@ -371,9 +382,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: BE-01: Settings (env-only, SecretStr for passwords/API key), structlog JSON-to-stdout logging, a pure-ASGI RequestContextMiddleware (X-Request-ID echo/generate, Prometheus HTTP metrics via a dedicated CollectorRegistry, request_completed log line), the DomainError hierarchy + handlers (400/404/409/429/500, one envelope), a minimal lifecycle.py, create_app() wiring. Fixed a real bug in the plan's own literal code: computed_field(repr=False) is required or Settings.__repr__ leaks the DB password in plaintext through the assembled URL. Also swapped sqlalchemy.URL for a hand-built DSN, since app/core may not import sqlalchemy at all under our own layering rule. 3 new tests (U8, U10, I15-equivalent using capsys since structlog.testing.capture_logs bypasses the real processor chain).
 - 2026-09-27: FE-09: Stats page -- CacheIndicator (HIT/MISS, fetched time, Refresh, 10s auto-refresh toggle), CSS-only CountBars for category/priority/status (no chart library), providers panel (active provider, model, cache hit rate, last-20 outcomes table with the fallback dashed-outline styling reused from ProviderTag). 3 component tests. Checked visually with Playwright, zero console errors.
 - 2026-09-27: FE-07 + FE-08: Dashboard table (priority rail, category glyph, provider tag), URL-driven filters/pagination with defensive enum parsing, StatusActions with zero client-side transition table (primary buttons from allowed_transitions, Other-status menu, verbatim 409). Fixed MSW fixture dates from static future dates to dynamic offsets so relative time renders correctly; made relativeTime() robust to any date sign. 4 component tests (plan section 8.14 tests 7-10), checked visually end to end with Playwright including the 409 flow and a live URL-sync check.
-- 2026-09-27: FE-05 + FE-06: full Submit page in one PR (zod validation mirroring the server, honest loading with the 8s hint, result ticket, 400 field mapping + focus, 429 countdown, network-error alert, fallback provider styling). 6 component tests (plan section 8.14 tests 1-6), checked visually with Playwright.
-- 2026-09-27: FE-03: MSW handlers + typed fixtures (tests/msw/), a dev-only VITE_USE_MSW toggle (tree-shaken from prod, verified via Playwright), 5 new tests.
-- 2026-09-27: Added SalmanAsadDev as Partner B in CODEOWNERS; repo invite and his own git/Claude Code setup still needed from him (see needs_you).
-- 2026-09-27: FE-02: generated typed client (src/api/schema.d.ts) from backend/openapi.json; client.ts (relative baseUrl, X-Request-ID middleware), errors.ts (ApiError), enums.ts (compile-time-exact enum lists), complaints/stats/meta React Query hooks; scripts/check-contract-drift.mjs for CI; 6 new tests.
-- 2026-09-27: Fixed a merge process bug: 5 stacked PRs had landed on intermediate branches instead of dev; recovered with one corrective PR (#13), no work lost, leftover branches deleted. All future PRs target dev directly.
-- 2026-09-27: C0-05: stub routes for all 7 schema-visible endpoints (complaints CRUD+list, stats, providers, health/ready) plus /metrics; custom_openapi drops the automatic 422s; backend/openapi.json committed; CLI export-openapi; 7 new contract tests including a drift check against the committed file.
