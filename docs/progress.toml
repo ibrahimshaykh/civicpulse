@@ -36,7 +36,7 @@ tasks = [
   { id = "FE-06", week = 1, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Submit view: 400 field mapping, 429 countdown, network errors" },
   { id = "FE-07", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Dashboard: table, URL filters, pagination" },
   { id = "FE-08", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Dashboard: server-driven transitions, verbatim 409" },
-  { id = "FE-09", week = 2, who = "claude", owner = "A", status = "todo", title = "Stats view: aggregates, X-Cache indicator, providers panel" },
+  { id = "FE-09", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Stats view: aggregates, X-Cache indicator, providers panel" },
   { id = "FE-10", week = 2, who = "claude", owner = "B", status = "todo", title = "Component test suite (12 tests) passing in CI" },
   { id = "FE-11", week = 2, who = "claude+you", owner = "A", status = "todo", title = "nginx runtime config template, frontend Dockerfile, .dockerignore" },
   { id = "FE-12", week = 3, who = "claude+you", owner = "A", status = "todo", title = "Switch from MSW to the real API, fix contract mismatches" },
