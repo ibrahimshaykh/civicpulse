@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    8%   7 of 87 core tasks done
+Project progress  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    9%   8 of 87 core tasks done
 Marks secured     [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    0%   0 of 150 marks  (0 of 175 rubric points)
 ```
 
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 6 of 37 | `█░░░░░░░░░` 16% |
+| Partner A (frontend, backend, data) | 7 of 37 | `█░░░░░░░░░` 18% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -52,10 +52,10 @@ Raw rubric points, as printed in the brief.
 
 **Partner A (frontend, backend, data)**
 
-- ⬜ **FE-02** Typed API client generated from OpenAPI + drift script — Claude (week 1)
 - ⬜ **FE-03** MSW handlers and typed fixtures — Claude (week 1)
 - ⬜ **FE-05** Submit view: form, zod validation, honest loading, result ticket — Claude (week 1)
 - ⬜ **FE-06** Submit view: 400 field mapping, 429 countdown, network errors — Claude (week 1)
+- ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
 
 **Partner B (AI layer, DevOps)**
 
@@ -134,6 +134,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
 | 2026-09-27 | **FE-04** Router, layout, nav rail, error boundary | A |
+| 2026-09-27 | **FE-02** Typed API client generated from OpenAPI + drift script | A |
 | 2026-09-27 | **FE-01** Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions | A |
 | 2026-09-27 | **C0-05** Stub routes and committed openapi.json | A |
 | 2026-09-27 | **C0-03** Backend pyproject, uv lockfile, ruff, mypy | A |
@@ -222,10 +223,10 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
 - ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
 
-**Frontend** — 2 of 12 done
+**Frontend** — 3 of 12 done
 
 - ✅ FE-01 Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions (A, Claude, week 1)
-- ⬜ FE-02 Typed API client generated from OpenAPI + drift script (A, Claude, week 1)
+- ✅ FE-02 Typed API client generated from OpenAPI + drift script (A, Claude, week 1)
 - ⬜ FE-03 MSW handlers and typed fixtures (A, Claude, week 1)
 - ✅ FE-04 Router, layout, nav rail, error boundary (A, Claude, week 1)
 - ⬜ FE-05 Submit view: form, zod validation, honest loading, result ticket (A, Claude, week 1)
@@ -347,6 +348,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: FE-02: generated typed client (src/api/schema.d.ts) from backend/openapi.json; client.ts (relative baseUrl, X-Request-ID middleware), errors.ts (ApiError), enums.ts (compile-time-exact enum lists), complaints/stats/meta React Query hooks; scripts/check-contract-drift.mjs for CI; 6 new tests.
+- 2026-09-27: Fixed a merge process bug: 5 stacked PRs had landed on intermediate branches instead of dev; recovered with one corrective PR (#13), no work lost, leftover branches deleted. All future PRs target dev directly.
 - 2026-09-27: C0-05: stub routes for all 7 schema-visible endpoints (complaints CRUD+list, stats, providers, health/ready) plus /metrics; custom_openapi drops the automatic 422s; backend/openapi.json committed; CLI export-openapi; 7 new contract tests including a drift check against the committed file.
 - 2026-09-27: C0-03: backend pyproject.toml + uv.lock (FastAPI 0.115.14, Pydantic 2.9.2, SQLAlchemy 2.0.54), ruff with the no-SQL-outside-repositories ban, mypy --strict.
 - 2026-09-27: Ownership swap: A took C0-03 (to unblock the contract), B takes FE-10 (frontend test suite) to keep the commit split balanced.

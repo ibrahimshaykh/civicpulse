@@ -32,3 +32,4 @@ Thumbs.db
 
 # Local browser automation output
 .playwright-mcp/
+.vite/
