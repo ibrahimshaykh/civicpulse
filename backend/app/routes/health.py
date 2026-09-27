@@ -1,4 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
+
+from app.api.deps import get_readiness_service
+from app.services.readiness_service import ReadinessService
 
 router = APIRouter(tags=["health"])
 
@@ -9,6 +13,8 @@ async def health() -> dict[str, str]:
 
 
 @router.get("/ready")
-async def ready() -> dict[str, object]:
-    # Stub (C0-05). BE-05 checks Postgres and Redis and returns 503 when either fails.
-    return {"status": "ready", "checks": {"postgres": "ok", "redis": "ok"}}
+async def ready(svc: ReadinessService = Depends(get_readiness_service)) -> JSONResponse:
+    r = await svc.check()
+    if r.ok:
+        return JSONResponse({"status": "ready", "checks": r.checks})
+    return JSONResponse({"status": "unavailable", "checks": r.checks, "failed": r.failed}, status_code=503)

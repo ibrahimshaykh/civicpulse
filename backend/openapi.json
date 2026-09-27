@@ -843,10 +843,7 @@
           "200": {
             "content": {
               "application/json": {
-                "schema": {
-                  "title": "Response Ready Ready Get",
-                  "type": "object"
-                }
+                "schema": {}
               }
             },
             "description": "Successful Response"
