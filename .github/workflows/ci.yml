@@ -73,12 +73,15 @@ jobs:
         working-directory: backend
         env:
           TRIAGE_PROVIDER: simulated
-          HTTPS_PROXY: http://127.0.0.1:9 # any accidental outbound HTTPS fails fast: proves no network
           POSTGRES_PASSWORD: ci-only-placeholder
           REDIS_PASSWORD: ci-only-placeholder
         run: |
           uv sync --frozen
-          uv run pytest -q --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=65
+          # HTTPS_PROXY scoped to just the test run, not `uv sync` above: uv still
+          # needs real network to fetch packages on a cache miss, but the tests
+          # themselves must make zero outbound calls -- any accidental one now
+          # fails fast instead of silently succeeding against the real network.
+          HTTPS_PROXY=http://127.0.0.1:9 uv run pytest -q --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=65
       - uses: actions/upload-artifact@v4
         with: { name: backend-coverage, path: backend/coverage.xml, retention-days: 7 }
 
