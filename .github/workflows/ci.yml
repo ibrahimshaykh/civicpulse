@@ -1,0 +1,95 @@
+name: ci
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TRIAGE_PROVIDER: simulated
+
+jobs:
+  lint-and-type:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { enable-cache: true }
+      - name: Backend lint and types
+        working-directory: backend
+        run: |
+          uv sync --frozen
+          uv run ruff check .
+          uv run ruff format --check .
+          uv run mypy app
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - name: Frontend lint and types
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run lint
+          npm run typecheck
+
+  contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - name: Regenerate OpenAPI and client, fail on drift
+        env:
+          POSTGRES_PASSWORD: ci-only-placeholder
+          REDIS_PASSWORD: ci-only-placeholder
+        run: |
+          cd backend && uv sync --frozen && uv run python -m app.cli export-openapi > openapi.json && cd ..
+          cd frontend && npm ci && npm run gen:api && cd ..
+          git diff --exit-code -- backend/openapi.json frontend/src/api/schema.d.ts
+
+  status:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: STATUS.md must match docs/progress.toml
+        run: python scripts/update_status.py --check
+
+  test-backend:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { enable-cache: true }
+      - name: pytest (testcontainers uses the runner's Docker)
+        working-directory: backend
+        env:
+          TRIAGE_PROVIDER: simulated
+          HTTPS_PROXY: http://127.0.0.1:9 # any accidental outbound HTTPS fails fast: proves no network
+          POSTGRES_PASSWORD: ci-only-placeholder
+          REDIS_PASSWORD: ci-only-placeholder
+        run: |
+          uv sync --frozen
+          uv run pytest -q --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=65
+      - uses: actions/upload-artifact@v4
+        with: { name: backend-coverage, path: backend/coverage.xml, retention-days: 7 }
+
+  test-frontend:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - working-directory: frontend
+        run: |
+          npm ci
+          npm run test:ci
+          npm run build
