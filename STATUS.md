@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    5%   5 of 87 core tasks done
+Project progress  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    6%   6 of 87 core tasks done
 Marks secured     [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    0%   0 of 150 marks  (0 of 175 rubric points)
 ```
 
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 4 of 37 | `█░░░░░░░░░` 10% |
+| Partner A (frontend, backend, data) | 5 of 37 | `█░░░░░░░░░` 13% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -59,10 +59,10 @@ Raw rubric points, as printed in the brief.
 
 **Partner B (AI layer, DevOps)**
 
-- ⬜ **C0-03** Backend pyproject, uv lockfile, ruff, mypy — Claude (week 1)
 - ⬜ **C0-04** Freeze TriageProvider / TriageResult / TriageOutcome seam — Claude (week 1)
 - ⬜ **AI-01** RuleBasedTriage + tests — Claude (week 1)
 - ⬜ **AI-02** SimulatedTriage with failure injection — Claude (week 1)
+- ⬜ **AI-03** TriageService skeleton + fallback + the fallback test — Claude (week 1)
 
 ## Hands-on work for you and your partner
 
@@ -135,6 +135,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
 | 2026-09-27 | **FE-04** Router, layout, nav rail, error boundary | A |
 | 2026-09-27 | **FE-01** Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions | A |
+| 2026-09-27 | **C0-03** Backend pyproject, uv lockfile, ruff, mypy | A |
 | 2026-09-27 | **C0-02** Domain enums and Pydantic schemas | A |
 | 2026-09-27 | **C0-00** Implementation plan and progress tracker | A |
 
@@ -210,12 +211,12 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 <details>
 <summary><strong>All tasks by phase</strong></summary>
 
-**Setup and contract** — 2 of 7 done
+**Setup and contract** — 3 of 7 done
 
 - ✅ C0-00 Implementation plan and progress tracker (A, Claude, week 1)
 - 🔄 C0-01 GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A, Claude builds, you run it, week 1)
 - ✅ C0-02 Domain enums and Pydantic schemas (A, Claude, week 1)
-- ⬜ C0-03 Backend pyproject, uv lockfile, ruff, mypy (B, Claude, week 1)
+- ✅ C0-03 Backend pyproject, uv lockfile, ruff, mypy (A, Claude, week 1)
 - ⬜ C0-04 Freeze TriageProvider / TriageResult / TriageOutcome seam (B, Claude, week 1)
 - ⬜ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
 - ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
@@ -231,7 +232,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ FE-07 Dashboard: table, URL filters, pagination (A, Claude, week 2)
 - ⬜ FE-08 Dashboard: server-driven transitions, verbatim 409 (A, Claude, week 2)
 - ⬜ FE-09 Stats view: aggregates, X-Cache indicator, providers panel (A, Claude, week 2)
-- ⬜ FE-10 Component test suite (12 tests) passing in CI (A, Claude, week 2)
+- ⬜ FE-10 Component test suite (12 tests) passing in CI (B, Claude, week 2)
 - ⬜ FE-11 nginx runtime config template, frontend Dockerfile, .dockerignore (A, Claude builds, you run it, week 2)
 - ⬜ FE-12 Switch from MSW to the real API, fix contract mismatches (A, Claude builds, you run it, week 3)
 
@@ -345,6 +346,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: C0-03: backend pyproject.toml + uv.lock (FastAPI 0.115.14, Pydantic 2.9.2, SQLAlchemy 2.0.54), ruff with the no-SQL-outside-repositories ban, mypy --strict.
+- 2026-09-27: Ownership swap: A took C0-03 (to unblock the contract), B takes FE-10 (frontend test suite) to keep the commit split balanced.
 - 2026-09-27: FE-04: routes, layout with nav rail (top bar under 768 px), skip link, root + per-route error boundaries, self-hosted Public Sans; 5 routing tests.
 - 2026-09-27: FE-01: Vite 5 + React 18.3 + TS strict scaffold, Tailwind 3.4 with §8.2 tokens, ESLint strictTypeChecked, exact versions; lint, typecheck, build and a smoke test green.
 - 2026-09-27: C0-02: domain enums and Pydantic request/response/error schemas, with 17 unit tests against the plan §7.4 example payloads.
