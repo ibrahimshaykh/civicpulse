@@ -4,6 +4,12 @@ type ComplaintOut = components["schemas"]["ComplaintOut"];
 type StatsOut = components["schemas"]["StatsOut"];
 type ProvidersOut = components["schemas"]["ProvidersOut"];
 
+// Computed relative to "now" (whenever the app happens to run) rather than fixed
+// calendar dates, so the Dashboard's relative-time column always reads sensibly
+// instead of showing complaints "from the future".
+const HOUR_MS = 3_600_000;
+const hoursAgo = (h: number): string => new Date(Date.now() - h * HOUR_MS).toISOString();
+
 // `satisfies` means a contract change (a renamed or removed field) breaks these
 // fixtures at compile time, not silently at runtime (plan §8.13).
 export const COMPLAINTS: ComplaintOut[] = [
@@ -19,8 +25,8 @@ export const COMPLAINTS: ComplaintOut[] = [
     triaged_by: "llm:groq",
     triage_latency_ms: 412,
     triage_confidence: 0.93,
-    created_at: "2026-10-05T04:12:33.120Z",
-    updated_at: "2026-10-05T04:12:33.120Z",
+    created_at: hoursAgo(0.5),
+    updated_at: hoursAgo(0.5),
     allowed_transitions: ["in_progress", "rejected"],
   } satisfies ComplaintOut,
   {
@@ -35,8 +41,8 @@ export const COMPLAINTS: ComplaintOut[] = [
     triaged_by: "rules:fallback",
     triage_latency_ms: 10012,
     triage_confidence: null,
-    created_at: "2026-10-04T20:03:11.000Z",
-    updated_at: "2026-10-05T09:00:00.000Z",
+    created_at: hoursAgo(9),
+    updated_at: hoursAgo(1),
     allowed_transitions: ["resolved", "rejected"],
   } satisfies ComplaintOut,
   {
@@ -51,8 +57,8 @@ export const COMPLAINTS: ComplaintOut[] = [
     triaged_by: "llm:groq",
     triage_latency_ms: 388,
     triage_confidence: 0.81,
-    created_at: "2026-10-03T14:22:05.000Z",
-    updated_at: "2026-10-04T08:15:00.000Z",
+    created_at: hoursAgo(30),
+    updated_at: hoursAgo(6),
     allowed_transitions: [],
   } satisfies ComplaintOut,
   {
@@ -67,8 +73,8 @@ export const COMPLAINTS: ComplaintOut[] = [
     triaged_by: "llm:groq",
     triage_latency_ms: 455,
     triage_confidence: 0.88,
-    created_at: "2026-10-05T06:40:00.000Z",
-    updated_at: "2026-10-05T06:40:00.000Z",
+    created_at: hoursAgo(2),
+    updated_at: hoursAgo(2),
     allowed_transitions: ["in_progress", "rejected"],
   } satisfies ComplaintOut,
   {
@@ -83,8 +89,8 @@ export const COMPLAINTS: ComplaintOut[] = [
     triaged_by: "rules",
     triage_latency_ms: 4,
     triage_confidence: null,
-    created_at: "2026-10-02T22:10:00.000Z",
-    updated_at: "2026-10-03T07:00:00.000Z",
+    created_at: hoursAgo(56),
+    updated_at: hoursAgo(47),
     allowed_transitions: [],
   } satisfies ComplaintOut,
   {
@@ -99,8 +105,8 @@ export const COMPLAINTS: ComplaintOut[] = [
     triaged_by: "rules",
     triage_latency_ms: 3,
     triage_confidence: null,
-    created_at: "2026-10-01T11:05:00.000Z",
-    updated_at: "2026-10-01T11:05:00.000Z",
+    created_at: hoursAgo(90),
+    updated_at: hoursAgo(90),
     allowed_transitions: ["in_progress", "rejected"],
   } satisfies ComplaintOut,
 ];
@@ -110,7 +116,7 @@ export const STATS: StatsOut = {
   by_category: { water: 1, electricity: 1, sanitation: 1, roads: 1, streetlights: 1, other: 1 },
   by_priority: { high: 3, normal: 2, low: 1 },
   by_status: { open: 3, in_progress: 1, resolved: 1, rejected: 1 },
-  generated_at: "2026-10-05T09:30:00.000Z",
+  generated_at: hoursAgo(0),
 } satisfies StatsOut;
 
 export const PROVIDERS: ProvidersOut = {
@@ -126,7 +132,7 @@ export const PROVIDERS: ProvidersOut = {
       fallback: false,
       cache_hit: false,
       error_class: null,
-      at: "2026-10-05T04:12:33.120Z",
+      at: hoursAgo(0.5),
     },
     {
       complaint_id: "0b7e9d4c-3a2f-4e61-8c5d-9f1a2b3c4d5e", // COMPLAINTS[1].id
@@ -135,7 +141,7 @@ export const PROVIDERS: ProvidersOut = {
       fallback: true,
       cache_hit: false,
       error_class: "APITimeoutError",
-      at: "2026-10-04T20:03:21.000Z",
+      at: hoursAgo(9),
     },
   ],
 } satisfies ProvidersOut;

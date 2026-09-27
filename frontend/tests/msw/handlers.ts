@@ -29,15 +29,19 @@ function rateLimitedBody(retryAfterS: number): ErrorBody {
   };
 }
 
-function invalidTransitionBody(from: Status, to: Status): ErrorBody {
+function invalidTransitionBody(from: Status, to: Status, allowed: Status[]): ErrorBody {
+  const terminal = allowed.length === 0;
+  const message = terminal
+    ? `Invalid status transition: ${from} → ${to}. '${from}' is terminal.`
+    : `Invalid status transition: ${from} → ${to}.`;
   return {
     error: {
       code: "invalid_transition",
-      message: `Invalid status transition: ${from} → ${to}.`,
+      message,
       request_id: "msw-9a8b7c6d",
       from_status: from,
       to_status: to,
-      allowed: [],
+      allowed,
     },
   };
 }
@@ -133,7 +137,9 @@ export const handlers = [
     const found = complaints.find((c) => c.id === params.id);
     if (!found) return HttpResponse.json(notFoundBody(String(params.id)), { status: 404 });
     if (!found.allowed_transitions.includes(to)) {
-      return HttpResponse.json(invalidTransitionBody(found.status, to), { status: 409 });
+      return HttpResponse.json(invalidTransitionBody(found.status, to, found.allowed_transitions), {
+        status: 409,
+      });
     }
     found.status = to;
     found.updated_at = new Date().toISOString();
