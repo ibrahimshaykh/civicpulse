@@ -16,7 +16,7 @@ export default {
         low: "#5F6B73",
       },
       fontFamily: {
-        sans: ["Public Sans", "system-ui", "sans-serif"],
+        sans: ["Public Sans Variable", "system-ui", "sans-serif"],
       },
       fontSize: {
         sm: ["14px", "1.5"],

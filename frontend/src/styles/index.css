@@ -4,11 +4,17 @@
 
 @layer base {
   :focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-signal;
+    @apply outline outline-[3px] outline-offset-2 outline-signal;
   }
 
   table,
   .tabular {
     font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center rounded border border-ink bg-ink px-4 py-2 text-base font-semibold text-paper hover:bg-ink/90;
   }
 }

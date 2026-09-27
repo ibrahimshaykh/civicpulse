@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    4%   4 of 87 core tasks done
+Project progress  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    5%   5 of 87 core tasks done
 Marks secured     [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    0%   0 of 150 marks  (0 of 175 rubric points)
 ```
 
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 3 of 37 | `░░░░░░░░░░` 8% |
+| Partner A (frontend, backend, data) | 4 of 37 | `█░░░░░░░░░` 10% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -55,7 +55,7 @@ Raw rubric points, as printed in the brief.
 - ⬜ **C0-05** Stub routes and committed openapi.json — Claude (week 1)
 - ⬜ **FE-02** Typed API client generated from OpenAPI + drift script — Claude (week 1)
 - ⬜ **FE-03** MSW handlers and typed fixtures — Claude (week 1)
-- ⬜ **FE-04** Router, layout, nav rail, error boundary — Claude (week 1)
+- ⬜ **FE-05** Submit view: form, zod validation, honest loading, result ticket — Claude (week 1)
 
 **Partner B (AI layer, DevOps)**
 
@@ -133,6 +133,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | Done on | Task | Owner |
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
+| 2026-09-27 | **FE-04** Router, layout, nav rail, error boundary | A |
 | 2026-09-27 | **FE-01** Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions | A |
 | 2026-09-27 | **C0-02** Domain enums and Pydantic schemas | A |
 | 2026-09-27 | **C0-00** Implementation plan and progress tracker | A |
@@ -219,12 +220,12 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
 - ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
 
-**Frontend** — 1 of 12 done
+**Frontend** — 2 of 12 done
 
 - ✅ FE-01 Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions (A, Claude, week 1)
 - ⬜ FE-02 Typed API client generated from OpenAPI + drift script (A, Claude, week 1)
 - ⬜ FE-03 MSW handlers and typed fixtures (A, Claude, week 1)
-- ⬜ FE-04 Router, layout, nav rail, error boundary (A, Claude, week 1)
+- ✅ FE-04 Router, layout, nav rail, error boundary (A, Claude, week 1)
 - ⬜ FE-05 Submit view: form, zod validation, honest loading, result ticket (A, Claude, week 1)
 - ⬜ FE-06 Submit view: 400 field mapping, 429 countdown, network errors (A, Claude, week 1)
 - ⬜ FE-07 Dashboard: table, URL filters, pagination (A, Claude, week 2)
@@ -344,6 +345,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: FE-04: routes, layout with nav rail (top bar under 768 px), skip link, root + per-route error boundaries, self-hosted Public Sans; 5 routing tests.
 - 2026-09-27: FE-01: Vite 5 + React 18.3 + TS strict scaffold, Tailwind 3.4 with §8.2 tokens, ESLint strictTypeChecked, exact versions; lint, typecheck, build and a smoke test green.
 - 2026-09-27: C0-02: domain enums and Pydantic request/response/error schemas, with 17 unit tests against the plan §7.4 example payloads.
 - 2026-09-27: dev set as default branch and protected (PR required, no approval).
