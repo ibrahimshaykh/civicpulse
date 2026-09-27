@@ -11,11 +11,14 @@ export function useStats(opts: { autoRefresh: boolean }) {
     queryKey: qk.stats,
     queryFn: async () => {
       const { data, error, response } = await api.GET("/api/stats");
-      // The OpenAPI schema only documents a 200 for this route (CA-01 adds real error
-      // responses), so TS narrows `error` to always-undefined. The check stays: the
-      // server can still fail at runtime in ways the schema doesn't yet describe.
+      // `error` is what narrows `data` to defined for TS (openapi-fetch's data/error
+      // pair is a discriminated union keyed off `error`, not off response.ok). But a
+      // failed response with an empty/non-JSON body (e.g. the dev proxy when the
+      // backend is unreachable) parses to a falsy `error` even though the request
+      // failed, so `response.ok` is checked too or that case would slip through and
+      // leave `data` undefined inside an object that itself looks "loaded".
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (error) throw toApiError(response, error);
+      if (error || !response.ok) throw toApiError(response, error);
       const header = response.headers.get("X-Cache");
       const cache: CacheState = header === "HIT" || header === "MISS" ? header : "UNKNOWN";
       return { stats: data, cache, fetchedAt: new Date() };
