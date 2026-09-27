@@ -68,7 +68,7 @@ ignore = ["S101"] # assert in tests
 "app/repositories/**" = ["TID251"]
 "app/db/**" = ["TID251"]
 "alembic/**" = ["TID251"]
-"tests/**" = ["TID251"]
+"tests/**" = ["TID251", "S106"] # S106: obviously-fake passwords used to prove they're hidden
 
 [tool.mypy]
 python_version = "3.12"

@@ -49,7 +49,7 @@ tasks = [
   { id = "DB-05", week = 4, who = "you", owner = "A", status = "todo", title = "Persistence demos (Compose and Kubernetes)" },
 
   # ---------- Backend ----------
-  { id = "BE-01", week = 2, who = "claude", owner = "A", status = "todo", title = "Settings, JSON logging, request-id middleware, error handlers" },
+  { id = "BE-01", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Settings, JSON logging, request-id middleware, error handlers" },
   { id = "BE-02", week = 2, who = "claude", owner = "A", status = "todo", title = "Repositories and unit of work" },
   { id = "BE-03", week = 3, who = "claude", owner = "A", status = "todo", title = "Complaint service + create/get/list routes" },
   { id = "BE-04", week = 3, who = "claude", owner = "A", status = "todo", title = "State machine table, PATCH status, race guard" },
