@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [█████░░░░░░░░░░░░░░░░░░░░░░░░░]   19%   17 of 87 core tasks done
-Marks secured     [███░░░░░░░░░░░░░░░░░░░░░░░░░░░]   13%   19.7 of 150 marks  (23 of 175 rubric points)
+Project progress  [██████░░░░░░░░░░░░░░░░░░░░░░░░]   20%   18 of 87 core tasks done
+Marks secured     [████░░░░░░░░░░░░░░░░░░░░░░░░░░]   14%   22.3 of 150 marks  (26 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 16 of 37 | `████░░░░░░` 43% |
+| Partner A (frontend, backend, data) | 17 of 37 | `████░░░░░░` 45% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -27,14 +27,14 @@ Raw rubric points, as printed in the brief.
 | A · Collaboration and version control | 0 | 15 | `░░░░░░░░░░` |
 | B · Frontend | 13 | 18 | `███████░░░` |
 | C · Backend | 3 | 25 | `█░░░░░░░░░` |
-| D · Data layer | 7 | 12 | `█████░░░░░` |
+| D · Data layer | 10 | 12 | `████████░░` |
 | E · Cache layer | 0 | 10 | `░░░░░░░░░░` |
 | F · AI layer | 0 | 25 | `░░░░░░░░░░` |
 | G · Docker and Compose | 0 | 15 | `░░░░░░░░░░` |
 | H · Kubernetes | 0 | 20 | `░░░░░░░░░░` |
 | I · CI/CD | 0 | 20 | `░░░░░░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **23** | **175** | `█░░░░░░░░░` |
+| **Total** | **26** | **175** | `█░░░░░░░░░` |
 
 ## Working on now
 
@@ -55,8 +55,8 @@ Raw rubric points, as printed in the brief.
 
 - ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
 - ⬜ **FE-11** nginx runtime config template, frontend Dockerfile, .dockerignore — Claude builds, you run it (week 2)
-- ⬜ **DB-03** Idempotent seed CLI with 33 complaints — Claude (week 2)
 - ⬜ **DB-04** EXPLAIN evidence for both indexes at 200k rows — Claude (week 2)
+- ⬜ **BE-02** Repositories and unit of work — Claude (week 2)
 
 **Partner B (AI layer, DevOps)**
 
@@ -135,6 +135,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
 | 2026-09-27 | **BE-01** Settings, JSON logging, request-id middleware, error handlers | A |
+| 2026-09-27 | **DB-03** Idempotent seed CLI with 33 complaints | A |
 | 2026-09-27 | **DB-02** Alembic async env with advisory lock, migration 0001 | A |
 | 2026-09-27 | **DB-01** SQLAlchemy base, naming convention, ORM model | A |
 | 2026-09-27 | **FE-09** Stats view: aggregates, X-Cache indicator, providers panel | A |
@@ -176,7 +177,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | D1 Alembic migrations, no DDL at startup | 4 | ✅ | — |
 | D2 Complete schema incl. triaged_by, ai_summary, latency, timestamptz | 3 | ✅ | — |
 | D3 Two indexes, each justified by a named query | 2 | ⬜ | DB-04, DOC-07 |
-| D4 Idempotent seed of >= 30 complaints | 3 | ⬜ | DB-03 |
+| D4 Idempotent seed of >= 30 complaints | 3 | ✅ | — |
 | E1 /api/stats read-through cache, 30 s TTL, X-Cache | 3 | ⬜ | CA-01 |
 | E2 Invalidated on write | 2 | ⬜ | CA-01 |
 | E3 Distributed Redis rate limiter, 429 + Retry-After | 4 | ⬜ | CA-02 |
@@ -248,11 +249,11 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ FE-11 nginx runtime config template, frontend Dockerfile, .dockerignore (A, Claude builds, you run it, week 2)
 - ⬜ FE-12 Switch from MSW to the real API, fix contract mismatches (A, Claude builds, you run it, week 3)
 
-**Data layer** — 2 of 5 done
+**Data layer** — 3 of 5 done
 
 - ✅ DB-01 SQLAlchemy base, naming convention, ORM model (A, Claude, week 2)
 - ✅ DB-02 Alembic async env with advisory lock, migration 0001 (A, Claude, week 2)
-- ⬜ DB-03 Idempotent seed CLI with 33 complaints (A, Claude, week 2)
+- ✅ DB-03 Idempotent seed CLI with 33 complaints (A, Claude, week 2)
 - ⬜ DB-04 EXPLAIN evidence for both indexes at 200k rows (A, Claude, week 2)
 - ⬜ DB-05 Persistence demos (Compose and Kubernetes) (A, you, step by step, week 4)
 
@@ -359,6 +360,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 ## Change log
 
 - 2026-09-27: DB-02: async Alembic env.py (target_metadata=Base.metadata, compare_type/compare_server_default, an advisory lock around do_run_migrations so two backend pods cannot migrate concurrently, URL from Settings() not alembic.ini). Migration 0001 creates the three Postgres enums, the complaints table with all six check constraints and both indexes, and the updated_at trigger. Found and fixed a real bug while testing offline: hand-writing constraint names as the full ck_complaints_* form in the migration produced double-prefixed names (ck_complaints_ck_complaints_text_length), because op.create_table re-applies the naming convention on top of an already-given name; switched to the same short names the ORM model uses. No Docker/Postgres here, so verified with alembic upgrade/downgrade --sql (offline mode, no DBAPI needed) plus a new regression test that diffs the migration's generated DDL against the model's own compiled DDL byte-for-byte -- confirmed it actually catches drift by deliberately breaking a column length and watching the test fail, then restored it. This stands in for alembic check, which needs a live database; a real up/down/up cycle (I21) still needs to run once Docker exists.
+- 2026-09-27: DB-03: idempotent seed CLI (uv run python -m app.cli seed). SEED_NAMESPACE + uuid5(slug) gives every row a stable, deterministic id across machines and runs; insert_if_absent does ON CONFLICT (id) DO NOTHING via Postgres, so seeding twice inserts 0 rows the second time. 33 hand-written rows in app/seed/complaints.json (Urdu-English mixed text like the brief asks for, hand-written English summaries), covering every category (water 6, electricity 6, sanitation 6, roads 6, streetlights 5, other 4) and every status (open 17, in_progress 9, resolved 4, rejected 3), created_at spread over the last 14 days. The seed never calls an LLM: triaged_by is always rules, latency 0. Minimal ComplaintRepository added with just insert_if_absent (BE-02 extends it with get/list/update_status). No Docker/Postgres here, so verified two ways that need no live database: the seed algorithm itself against a fake in-memory repository (first run inserts 33, second run inserts 0, deterministic ids confirmed across two calls), and the real repository's SQL compiled against the postgresql dialect to confirm the ON CONFLICT/RETURNING clauses are correct. A live seed-twice-against-real-Postgres run is still needed once Docker exists.
 - 2026-09-27: DB-01: app/db/base.py (naming convention, timestamptz type map), app/db/models.py (ComplaintORM matching plan section 9.1's table exactly -- verified by compiling every column against the real Postgres dialect), app/db/session.py (engine/sessionmaker factories). No Docker/Postgres in this sandbox, so verified via SQLAlchemy metadata introspection instead of a live database: 11 tests check column types, check-constraint names against the naming convention, both indexes, and that CreateTable DDL alone never emits CREATE TYPE (that only happens via metadata.create_all(), which app code never calls). DB-02 (Alembic) and a real Postgres round-trip are still needed before this is fully proven end to end.
 - 2026-09-27: BE-01: Settings (env-only, SecretStr for passwords/API key), structlog JSON-to-stdout logging, a pure-ASGI RequestContextMiddleware (X-Request-ID echo/generate, Prometheus HTTP metrics via a dedicated CollectorRegistry, request_completed log line), the DomainError hierarchy + handlers (400/404/409/429/500, one envelope), a minimal lifecycle.py, create_app() wiring. Fixed a real bug in the plan's own literal code: computed_field(repr=False) is required or Settings.__repr__ leaks the DB password in plaintext through the assembled URL. Also swapped sqlalchemy.URL for a hand-built DSN, since app/core may not import sqlalchemy at all under our own layering rule. 3 new tests (U8, U10, I15-equivalent using capsys since structlog.testing.capture_logs bypasses the real processor chain).
 - 2026-09-27: FE-09: Stats page -- CacheIndicator (HIT/MISS, fetched time, Refresh, 10s auto-refresh toggle), CSS-only CountBars for category/priority/status (no chart library), providers panel (active provider, model, cache hit rate, last-20 outcomes table with the fallback dashed-outline styling reused from ProviderTag). 3 component tests. Checked visually with Playwright, zero console errors.
@@ -372,4 +374,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: C0-03: backend pyproject.toml + uv.lock (FastAPI 0.115.14, Pydantic 2.9.2, SQLAlchemy 2.0.54), ruff with the no-SQL-outside-repositories ban, mypy --strict.
 - 2026-09-27: Ownership swap: A took C0-03 (to unblock the contract), B takes FE-10 (frontend test suite) to keep the commit split balanced.
 - 2026-09-27: FE-04: routes, layout with nav rail (top bar under 768 px), skip link, root + per-route error boundaries, self-hosted Public Sans; 5 routing tests.
-- 2026-09-27: FE-01: Vite 5 + React 18.3 + TS strict scaffold, Tailwind 3.4 with §8.2 tokens, ESLint strictTypeChecked, exact versions; lint, typecheck, build and a smoke test green.
