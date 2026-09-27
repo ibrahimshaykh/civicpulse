@@ -12,14 +12,14 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Any
 
-from sqlalchemy import ColumnElement, RowMapping, Select, and_, func, insert, select, update
+from sqlalchemy import ColumnElement, RowMapping, Select, and_, func, insert, select, text, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql.dml import ReturningInsert, ReturningUpdate
 
 from app.db.models import ComplaintORM
 from app.domain.enums import Category, Priority, Status
-from app.domain.records import ComplaintRecord
+from app.domain.records import ComplaintRecord, StatsAggregate
 
 
 def insert_stmt(
@@ -150,6 +150,44 @@ def update_status_if_stmt(id: uuid.UUID, *, expected: Status, target: Status) ->
     )
 
 
+def aggregate_stmt() -> Select[Any]:
+    """One query for all three breakdowns plus the grand total, via GROUPING
+    SETS -- cheaper than four separate GROUP BY queries (plan §10.6). GROUPING(col)
+    is 0 when that grouping set includes col, 1 when col is rolled up (NULL).
+    """
+    return (
+        select(
+            ComplaintORM.category,
+            ComplaintORM.priority,
+            ComplaintORM.status,
+            func.count().label("n"),
+            func.grouping(ComplaintORM.category).label("g_cat"),
+            func.grouping(ComplaintORM.priority).label("g_pri"),
+            func.grouping(ComplaintORM.status).label("g_sta"),
+        )
+        .select_from(ComplaintORM.__table__)
+        .group_by(text("GROUPING SETS ((category), (priority), (status), ())"))
+    )
+
+
+def _to_aggregate(rows: list[RowMapping]) -> StatsAggregate:
+    total = 0
+    by_category: dict[Category, int] = dict.fromkeys(Category, 0)
+    by_priority: dict[Priority, int] = dict.fromkeys(Priority, 0)
+    by_status: dict[Status, int] = dict.fromkeys(Status, 0)
+    for row in rows:
+        n = row["n"]
+        if row["g_cat"] == 0:
+            by_category[row["category"]] = n
+        elif row["g_pri"] == 0:
+            by_priority[row["priority"]] = n
+        elif row["g_sta"] == 0:
+            by_status[row["status"]] = n
+        else:
+            total = n  # the "()" grouping set: the grand total, no columns
+    return StatsAggregate(total=total, by_category=by_category, by_priority=by_priority, by_status=by_status)
+
+
 def _to_record(row: RowMapping) -> ComplaintRecord:
     return ComplaintRecord(
         id=row["id"],
@@ -270,3 +308,7 @@ class ComplaintRepository:
             .first()
         )
         return _to_record(row) if row is not None else None
+
+    async def aggregate(self) -> StatsAggregate:
+        rows = (await self._session.execute(aggregate_stmt())).mappings().all()
+        return _to_aggregate(list(rows))

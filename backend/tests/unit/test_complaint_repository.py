@@ -7,9 +7,12 @@ from datetime import datetime
 
 from sqlalchemy.dialects import postgresql
 
+from app.domain.enums import Category, Priority, Status
 from app.domain.records import ComplaintRecord
 from app.repositories.complaint_repository import (
+    _to_aggregate,
     _to_record,
+    aggregate_stmt,
     get_status_stmt,
     get_stmt,
     insert_if_absent_stmt,
@@ -125,6 +128,44 @@ def test_update_status_if_stmt_requires_the_expected_current_status() -> None:
     assert f"complaints.id = '{id_}'" in sql
     assert "complaints.status = 'open'" in sql
     assert "RETURNING complaints." in sql
+
+
+def test_aggregate_stmt_uses_one_grouping_sets_query() -> None:
+    sql = _sql(aggregate_stmt())
+    assert "GROUP BY GROUPING SETS ((category), (priority), (status), ())" in sql
+    assert "grouping(complaints.category)" in sql.lower()
+
+
+def test_to_aggregate_sorts_rows_into_the_right_bucket_by_grouping_flags() -> None:
+    rows = [
+        # the "()" grouping set: every column NULL, all three grouping flags 1 -- the grand total.
+        {"category": None, "priority": None, "status": None, "n": 3, "g_cat": 1, "g_pri": 1, "g_sta": 1},
+        {"category": "water", "priority": None, "status": None, "n": 2, "g_cat": 0, "g_pri": 1, "g_sta": 1},
+        {"category": "other", "priority": None, "status": None, "n": 1, "g_cat": 0, "g_pri": 1, "g_sta": 1},
+        {"category": None, "priority": "high", "status": None, "n": 3, "g_cat": 1, "g_pri": 0, "g_sta": 1},
+        {"category": None, "priority": None, "status": "open", "n": 3, "g_cat": 1, "g_pri": 1, "g_sta": 0},
+    ]
+    agg = _to_aggregate(rows)  # type: ignore[arg-type]
+
+    assert agg.total == 3
+    assert agg.by_category[Category.water] == 2
+    assert agg.by_category[Category.other] == 1
+    # every category not in the rows still appears, zero-filled -- never a missing key.
+    assert agg.by_category[Category.electricity] == 0
+    assert set(agg.by_category) == set(Category)
+    assert agg.by_priority[Priority.high] == 3
+    assert agg.by_priority[Priority.normal] == 0
+    assert agg.by_status[Status.open] == 3
+    assert agg.by_status[Status.resolved] == 0
+
+
+def test_to_aggregate_on_an_empty_table_is_all_zero() -> None:
+    # An empty complaints table: Postgres still returns one row for the "()"
+    # grouping set with count 0, and no rows at all for (category)/(priority)/(status).
+    rows = [{"category": None, "priority": None, "status": None, "n": 0, "g_cat": 1, "g_pri": 1, "g_sta": 1}]
+    agg = _to_aggregate(rows)  # type: ignore[arg-type]
+    assert agg.total == 0
+    assert all(v == 0 for v in agg.by_category.values())
 
 
 def test_to_record_maps_every_field_by_name() -> None:

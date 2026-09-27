@@ -1,14 +1,15 @@
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Depends, Response
 
-from app.routes import _stubs
+from app.api.deps import get_stats_service
 from app.schemas import StatsOut
+from app.services.stats_service import StatsService
 
 router = APIRouter(tags=["stats"])
 
 
 @router.get("/api/stats", response_model=StatsOut)
-async def get_stats(response: Response) -> StatsOut:
-    # Stub (C0-05). CA-01 makes this a Redis read-through cache that reports HIT or MISS.
-    response.headers["X-Cache"] = "MISS"
+async def get_stats(response: Response, svc: StatsService = Depends(get_stats_service)) -> StatsOut:
+    stats, cache = await svc.get()
+    response.headers["X-Cache"] = cache
     response.headers["Cache-Control"] = "no-store"  # browsers must not cache; Redis is the cache
-    return _stubs.stats()
+    return stats
