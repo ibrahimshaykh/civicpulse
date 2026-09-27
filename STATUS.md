@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [█████░░░░░░░░░░░░░░░░░░░░░░░░░]   17%   15 of 87 core tasks done
+Project progress  [█████░░░░░░░░░░░░░░░░░░░░░░░░░]   18%   16 of 87 core tasks done
 Marks secured     [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░]    9%   13.7 of 150 marks  (16 of 175 rubric points)
 ```
 
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 14 of 37 | `███░░░░░░░` 37% |
+| Partner A (frontend, backend, data) | 15 of 37 | `████░░░░░░` 40% |
 | Partner B (AI layer, DevOps) | 1 of 39 | `░░░░░░░░░░` 2% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -55,8 +55,8 @@ Raw rubric points, as printed in the brief.
 
 - ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
 - ⬜ **FE-11** nginx runtime config template, frontend Dockerfile, .dockerignore — Claude builds, you run it (week 2)
-- ⬜ **DB-01** SQLAlchemy base, naming convention, ORM model — Claude (week 2)
 - ⬜ **DB-02** Alembic async env with advisory lock, migration 0001 — Claude (week 2)
+- ⬜ **DB-03** Idempotent seed CLI with 33 complaints — Claude (week 2)
 
 **Partner B (AI layer, DevOps)**
 
@@ -135,6 +135,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 |---|---|---|
 | 2026-09-27 | **EV-01** Branch protection screenshot | B |
 | 2026-09-27 | **BE-01** Settings, JSON logging, request-id middleware, error handlers | A |
+| 2026-09-27 | **DB-01** SQLAlchemy base, naming convention, ORM model | A |
 | 2026-09-27 | **FE-09** Stats view: aggregates, X-Cache indicator, providers panel | A |
 | 2026-09-27 | **FE-08** Dashboard: server-driven transitions, verbatim 409 | A |
 | 2026-09-27 | **FE-07** Dashboard: table, URL filters, pagination | A |
@@ -172,7 +173,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | C6 SIGTERM drains in-flight requests | 2 | ⬜ | BE-06 |
 | C7 >= 14 deterministic tests, coverage >= 65% | 3 | ⬜ | BE-07, CI-01 |
 | D1 Alembic migrations, no DDL at startup | 4 | ⬜ | DB-02 |
-| D2 Complete schema incl. triaged_by, ai_summary, latency, timestamptz | 3 | ⬜ | DB-01, DB-02 |
+| D2 Complete schema incl. triaged_by, ai_summary, latency, timestamptz | 3 | 🔄 | DB-02 |
 | D3 Two indexes, each justified by a named query | 2 | ⬜ | DB-04, DOC-07 |
 | D4 Idempotent seed of >= 30 complaints | 3 | ⬜ | DB-03 |
 | E1 /api/stats read-through cache, 30 s TTL, X-Cache | 3 | ⬜ | CA-01 |
@@ -246,9 +247,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ FE-11 nginx runtime config template, frontend Dockerfile, .dockerignore (A, Claude builds, you run it, week 2)
 - ⬜ FE-12 Switch from MSW to the real API, fix contract mismatches (A, Claude builds, you run it, week 3)
 
-**Data layer** — 0 of 5 done
+**Data layer** — 1 of 5 done
 
-- ⬜ DB-01 SQLAlchemy base, naming convention, ORM model (A, Claude, week 2)
+- ✅ DB-01 SQLAlchemy base, naming convention, ORM model (A, Claude, week 2)
 - ⬜ DB-02 Alembic async env with advisory lock, migration 0001 (A, Claude, week 2)
 - ⬜ DB-03 Idempotent seed CLI with 33 complaints (A, Claude, week 2)
 - ⬜ DB-04 EXPLAIN evidence for both indexes at 200k rows (A, Claude, week 2)
@@ -356,6 +357,13 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-27: DB-01: app/db/base.py (naming convention, timestamptz type map), app/db/models.py (ComplaintORM matching plan section 9.1's table exactly -- verified by compiling every column against the real Postgres dialect), app/db/session.py (engine/sessionmaker factories). No Docker/Postgres in this sandbox, so verified via SQLAlchemy metadata introspection instead of a live database: 11 tests check column types, check-constraint names against the naming convention, both indexes, and that CreateTable DDL alone never emits CREATE TYPE (that only happens via metadata.create_all(), which app code never calls). DB-02 (Alembic) and a real Postgres round-trip are still needed before this is fully proven end to end.
+- 2026-09-27: BE-01: Settings (env-only, SecretStr for passwords/API key), structlog JSON-to-stdout logging, a pure-ASGI RequestContextMiddleware (X-Request-ID echo/generate, Prometheus HTTP metrics via a dedicated CollectorRegistry, request_completed log line), the DomainError hierarchy + handlers (400/404/409/429/500, one envelope), a minimal lifecycle.py, create_app() wiring. Fixed a real bug in the plan's own literal code: computed_field(repr=False) is required or Settings.__repr__ leaks the DB password in plaintext through the assembled URL. Also swapped sqlalchemy.URL for a hand-built DSN, since app/core may not import sqlalchemy at all under our own layering rule. 3 new tests (U8, U10, I15-equivalent using capsys since structlog.testing.capture_logs bypasses the real processor chain).
+- 2026-09-27: FE-09: Stats page -- CacheIndicator (HIT/MISS, fetched time, Refresh, 10s auto-refresh toggle), CSS-only CountBars for category/priority/status (no chart library), providers panel (active provider, model, cache hit rate, last-20 outcomes table with the fallback dashed-outline styling reused from ProviderTag). 3 component tests. Checked visually with Playwright, zero console errors.
+- 2026-09-27: FE-07 + FE-08: Dashboard table (priority rail, category glyph, provider tag), URL-driven filters/pagination with defensive enum parsing, StatusActions with zero client-side transition table (primary buttons from allowed_transitions, Other-status menu, verbatim 409). Fixed MSW fixture dates from static future dates to dynamic offsets so relative time renders correctly; made relativeTime() robust to any date sign. 4 component tests (plan section 8.14 tests 7-10), checked visually end to end with Playwright including the 409 flow and a live URL-sync check.
+- 2026-09-27: FE-05 + FE-06: full Submit page in one PR (zod validation mirroring the server, honest loading with the 8s hint, result ticket, 400 field mapping + focus, 429 countdown, network-error alert, fallback provider styling). 6 component tests (plan section 8.14 tests 1-6), checked visually with Playwright.
+- 2026-09-27: FE-03: MSW handlers + typed fixtures (tests/msw/), a dev-only VITE_USE_MSW toggle (tree-shaken from prod, verified via Playwright), 5 new tests.
+- 2026-09-27: Added SalmanAsadDev as Partner B in CODEOWNERS; repo invite and his own git/Claude Code setup still needed from him (see needs_you).
 - 2026-09-27: FE-02: generated typed client (src/api/schema.d.ts) from backend/openapi.json; client.ts (relative baseUrl, X-Request-ID middleware), errors.ts (ApiError), enums.ts (compile-time-exact enum lists), complaints/stats/meta React Query hooks; scripts/check-contract-drift.mjs for CI; 6 new tests.
 - 2026-09-27: Fixed a merge process bug: 5 stacked PRs had landed on intermediate branches instead of dev; recovered with one corrective PR (#13), no work lost, leftover branches deleted. All future PRs target dev directly.
 - 2026-09-27: C0-05: stub routes for all 7 schema-visible endpoints (complaints CRUD+list, stats, providers, health/ready) plus /metrics; custom_openapi drops the automatic 422s; backend/openapi.json committed; CLI export-openapi; 7 new contract tests including a drift check against the committed file.
@@ -364,9 +372,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: FE-04: routes, layout with nav rail (top bar under 768 px), skip link, root + per-route error boundaries, self-hosted Public Sans; 5 routing tests.
 - 2026-09-27: FE-01: Vite 5 + React 18.3 + TS strict scaffold, Tailwind 3.4 with §8.2 tokens, ESLint strictTypeChecked, exact versions; lint, typecheck, build and a smoke test green.
 - 2026-09-27: C0-02: domain enums and Pydantic request/response/error schemas, with 17 unit tests against the plan §7.4 example payloads.
-- 2026-09-27: dev set as default branch and protected (PR required, no approval).
-- 2026-09-27: EV-01: main branch protection on (PR, 1 approval, code owners, conversation resolution, no bypass); screenshots in docs/evidence/.
-- 2026-09-27: Repo ibrahimshaykh/civicpulse created (private) with main, dev and PR #2 carrying the plan, templates and CODEOWNERS.
-- 2026-09-27: Added who-does-what for every task and the course-portal checklist from brief §5.8.
-- 2026-09-27: Progress tracker added: docs/progress.toml + scripts/update_status.py -> STATUS.md.
-- 2026-09-27: Implementation plan written (docs/IMPLEMENTATION_PLAN.md) and checked line by line against the brief's rubric.
