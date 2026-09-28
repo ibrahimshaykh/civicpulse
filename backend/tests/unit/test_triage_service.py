@@ -1,7 +1,7 @@
 """AI-03 acceptance (plan §11.13, test A1) and the rest of the skeleton's
-fallback contract. Retries (AI-05), the real content-hash cache (AI-08) and
-outcome persistence (AI-10) are separate tasks; here `TriageCache`/
-`OutcomeSink` are exercised only through fakes."""
+fallback contract. Retries (AI-05) are a separate task; the real Redis
+`TriageCache`/`OutcomeSink` implementations (AI-08, AI-10) have their own
+test files -- here they're exercised only through fakes."""
 
 import asyncio
 from uuid import uuid4
@@ -91,6 +91,20 @@ async def test_recent_outcomes_delegates_to_the_outcome_sink() -> None:
     assert len(sink.recorded) == 1
     assert sink.recorded[0][0] == complaint_id
     assert await svc.recent_outcomes() == []  # NullOutcomeSink.recent() default; AI-10 replaces it
+
+
+async def test_cache_hit_rate_is_none_before_ai_08s_cache_is_configured() -> None:
+    svc = TriageService(FixedProvider("llm:groq", RESULT))  # default NullTriageCache
+    assert await svc.cache_hit_rate() is None
+
+
+async def test_cache_hit_rate_delegates_to_the_cache() -> None:
+    class HitRateCache(NullTriageCache):
+        async def hit_rate(self) -> float | None:
+            return 0.36
+
+    svc = TriageService(FixedProvider("llm:groq", RESULT), cache=HitRateCache())
+    assert await svc.cache_hit_rate() == 0.36
 
 
 async def test_cache_hit_skips_the_primary_and_is_flagged() -> None:

@@ -9,6 +9,7 @@ from redis.asyncio import Redis
 
 from app.core.config import Settings
 from app.providers.triage.base import TriageProvider
+from app.providers.triage.cache import TriageResultCache
 from app.providers.triage.llm import GroqTriage
 from app.providers.triage.outcomes import OutcomeLog
 from app.providers.triage.rules import RuleBasedTriage
@@ -48,8 +49,7 @@ def build_triage_service(s: Settings, redis: Redis) -> TriageService:
     return TriageService(
         build_primary(s),
         fallback=RuleBasedTriage(),
+        cache=TriageResultCache(redis),
         outcomes=OutcomeLog(redis),
         timeout_s=s.triage_timeout_s,
-        # cache stays the default NullTriageCache until AI-08's Redis-backed
-        # TriageResultCache lands -- same Protocol, no signature change needed.
     )

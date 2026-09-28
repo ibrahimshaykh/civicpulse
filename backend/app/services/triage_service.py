@@ -6,10 +6,10 @@ its safety floor (AI-06).
 anything from `app/providers/triage/` directly -- that keeps the dependency
 arrows one-way: routes -> services -> (repositories | providers) (plan §2.2).
 
-This does not yet cache (`AI-08`) or persist outcomes anywhere durable
-(`AI-10`): `TriageCache` and `OutcomeSink` are Protocols so those later
-tasks can plug in a Redis-backed implementation without changing this
-class's constructor signature or its callers.
+`TriageCache` and `OutcomeSink` are Protocols, fulfilled for real by
+`providers/triage/cache.py` (AI-08) and `providers/triage/outcomes.py`
+(AI-10); the `Null*` stand-ins below let this class work before either
+lands, without changing its constructor signature or its callers.
 """
 
 import asyncio
@@ -63,6 +63,7 @@ class TriageCache(Protocol):
     def key(self, *, provider: str, model: str, text: str) -> str: ...
     async def get(self, key: str) -> TriageResult | None: ...
     async def set(self, key: str, result: TriageResult) -> None: ...
+    async def hit_rate(self) -> float | None: ...
 
 
 class OutcomeSink(Protocol):
@@ -83,6 +84,9 @@ class NullTriageCache:
         return None
 
     async def set(self, key: str, result: TriageResult) -> None:
+        return None
+
+    async def hit_rate(self) -> float | None:
         return None
 
 
@@ -138,6 +142,9 @@ class TriageService:
 
     async def recent_outcomes(self) -> list[dict[str, object]]:
         return await self._outcomes.recent()
+
+    async def cache_hit_rate(self) -> float | None:
+        return await self._cache.hit_rate()
 
     async def _call_primary(self, text: str, location: str) -> TriageResult:
         attempts = 0
