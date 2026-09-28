@@ -50,7 +50,9 @@ branch = true
 omit = ["app/server.py"]
 
 [tool.coverage.report]
-fail_under = 65
+# Plan's BE-07 acceptance is >= 70%; actual coverage is ~92%, so this is a real
+# floor, not an aspirational one -- raised from 65 (the pre-AI-layer baseline).
+fail_under = 70
 show_missing = true
 
 [tool.ruff]
