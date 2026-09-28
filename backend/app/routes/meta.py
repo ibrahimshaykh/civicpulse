@@ -1,12 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
-from app.routes import _stubs
+from app.api.deps import get_meta_service
 from app.schemas import ProvidersOut
+from app.services.meta_service import MetaService
 
 router = APIRouter(tags=["meta"])
 
 
 @router.get("/api/meta/providers", response_model=ProvidersOut)
-async def get_providers() -> ProvidersOut:
-    # Stub (C0-05). Later reads the active provider and the last 20 outcomes from Redis.
-    return _stubs.providers()
+async def get_providers(svc: MetaService = Depends(get_meta_service)) -> ProvidersOut:
+    return await svc.providers()

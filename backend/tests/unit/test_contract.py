@@ -68,6 +68,7 @@ def test_committed_openapi_json_is_current() -> None:
     )
 
 
+@pytest.mark.integration  # needs a real Postgres: BE-03 wired this to the real ComplaintService
 def test_create_returns_201_with_location(client: TestClient) -> None:
     body = json.loads((BACKEND / "tests" / "fixtures" / "complaint_create.json").read_text(encoding="utf-8"))
     response = client.post("/api/complaints", json=body)
