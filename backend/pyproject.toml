@@ -27,6 +27,7 @@ dev = [
   "pytest-cov",
   "testcontainers[postgres,redis]",
   "fakeredis",
+  "lupa", # fakeredis's Lua backend: CA-02's rate limiter tests exercise the real EVAL/EVALSHA path
   "ruff",
   "mypy",
 ]

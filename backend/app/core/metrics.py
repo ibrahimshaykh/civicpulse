@@ -25,3 +25,9 @@ HTTP_LATENCY = Histogram(
     buckets=(0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10),
     registry=REGISTRY,
 )
+
+RATE_LIMITER_FAIL_OPEN = Counter(
+    "civicpulse_rate_limiter_fail_open_total",
+    "Times the rate limiter fell back to always-allow because Redis was unavailable",
+    registry=REGISTRY,
+)
