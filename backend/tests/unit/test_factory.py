@@ -1,11 +1,12 @@
 """AI-11 acceptance (test A17): each TRIAGE_PROVIDER value selects the right
-class, and `llm`/`ollama` (not yet implemented) degrade to rules with an
-ERROR log rather than crashing the service."""
+class. `llm` without a configured key, and `ollama` (not yet implemented),
+degrade to rules with an ERROR log rather than crashing the service."""
 
 import structlog
 
 from app.core.config import Settings
 from app.providers.triage.factory import build_primary
+from app.providers.triage.llm import GroqTriage
 from app.providers.triage.rules import RuleBasedTriage
 from app.providers.triage.simulated import SimulatedTriage
 
@@ -26,11 +27,25 @@ def test_simulated_selects_simulated_triage_with_settings_seed_and_mode() -> Non
     assert primary._failure_mode == "raise"
 
 
-def test_llm_without_groq_implemented_falls_back_to_rules_with_error_log() -> None:
+def test_llm_without_groq_key_falls_back_to_rules_with_error_log() -> None:
     with structlog.testing.capture_logs() as logs:
         primary = build_primary(_settings(triage_provider="llm"))
     assert isinstance(primary, RuleBasedTriage)
-    assert any(entry.get("event") == "triage_provider_not_yet_implemented" for entry in logs)
+    assert any(entry.get("event") == "groq_key_missing_falling_back_to_rules" for entry in logs)
+
+
+def test_llm_with_groq_key_selects_groq_triage_with_settings_threaded_through() -> None:
+    s = _settings(
+        triage_provider="llm",
+        groq_api_key="gsk-test-key",
+        groq_model="llama-3.1-8b-instant",
+        groq_base_url="https://api.groq.com/openai/v1",
+        triage_timeout_s=5.0,
+    )
+    primary = build_primary(s)
+    assert isinstance(primary, GroqTriage)
+    assert primary.name == "llm:groq"
+    assert primary.model == "llama-3.1-8b-instant"
 
 
 def test_ollama_without_ollama_implemented_falls_back_to_rules() -> None:
