@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [███████████████████░░░░░░░░░░░]   65%   57 of 87 core tasks done
-Marks secured     [██████████████████░░░░░░░░░░░░]   61%   92.6 of 150 marks  (108 of 175 rubric points)
+Project progress  [█████████████████████░░░░░░░░░]   72%   63 of 87 core tasks done
+Marks secured     [████████████████████░░░░░░░░░░]   67%   101.1 of 150 marks  (118 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -14,9 +14,9 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 29 of 38 | `███████░░░` 76% |
-| Partner B (AI layer, DevOps) | 27 of 38 | `███████░░░` 71% |
-| Shared tasks | 1 of 11 | `░░░░░░░░░░` 9% |
+| Partner A (frontend, backend, data) | 30 of 38 | `███████░░░` 78% |
+| Partner B (AI layer, DevOps) | 30 of 38 | `███████░░░` 78% |
+| Shared tasks | 3 of 11 | `██░░░░░░░░` 27% |
 
 ## Marks by rubric section
 
@@ -29,20 +29,16 @@ Raw rubric points, as printed in the brief.
 | C · Backend | 25 | 25 | `██████████` |
 | D · Data layer | 10 | 12 | `████████░░` |
 | E · Cache layer | 9 | 10 | `█████████░` |
-| F · AI layer | 12 | 25 | `████░░░░░░` |
+| F · AI layer | 22 | 25 | `████████░░` |
 | G · Docker and Compose | 11 | 15 | `███████░░░` |
 | H · Kubernetes | 13 | 20 | `██████░░░░` |
 | I · CI/CD | 10 | 20 | `█████░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **108** | **175** | `██████░░░░` |
+| **Total** | **118** | **175** | `██████░░░░` |
 
 ## Working on now
 
-- 🔄 **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A)
-- 🔄 **AI-04** Groq provider, JSON mode, strict output validation (B)
-- 🔄 **AI-08** Content-hash triage cache + measured hit rate (B)
-- 🔄 **AI-09** Ollama provider, offline profile, warm-up (B)
-- 🔄 **DOC-08** AI-USAGE.md (Both)
+Nothing in progress right now.
 
 ## Needs you
 
@@ -75,13 +71,9 @@ Claude does every task marked "Claude". These are the ones that need a person. C
 
 | Week | Task | Who | What you do |
 |---:|---|---|---|
-| 1 | 🔄 **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS | Claude builds, you run it | Create the repo (or connect GitHub), add your partner, turn on branch protection |
 | 2 | ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified | Claude builds, you run it | You and your partner each commit one side from your own accounts, then screenshot |
-| 2 | 🔄 **AI-04** Groq provider, JSON mode, strict output validation | Claude builds, you run it | Create a Groq key, put it in .env only, run one live call |
-| 2 | 🔄 **AI-08** Content-hash triage cache + measured hit rate | Claude builds, you run it | Run the hit-rate replay with your Groq key and paste the numbers |
 | 2 | ⬜ **CI-07** Required status checks wired into branch protection | you, step by step | All of it, following Claude's steps |
 | 2 | ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots | you, step by step | All of it, following Claude's steps |
-| 3 | 🔄 **AI-09** Ollama provider, offline profile, warm-up | Claude builds, you run it | Install Ollama's model via make offline and paste the latency numbers |
 | 3 | ⬜ **DOC-09** TRIAGE.md: prompt, latency, accuracy, hit rate | Claude builds, you run it | Run the benchmark with your Groq key and paste the output |
 | 3 | ⬜ **EV-02** 5+ merged PRs linked to Issues with substantive reviews | your partner | Your partner does it from his own account |
 | 4 | ⬜ **DB-05** Persistence demos (Compose and Kubernetes) | you, step by step | All of it, following Claude's steps |
@@ -91,13 +83,11 @@ Claude does every task marked "Claude". These are the ones that need a person. C
 | 4 | ⬜ **CI-05** Ephemeral k3d deploy job, rollout status, Ingress smoke test | Claude builds, you run it | Add the three repository secrets in GitHub settings |
 | 4 | ⬜ **DOC-01** README with badges, Mermaid, quickstart, API table, screenshots | Claude builds, you run it | Take the screenshots Claude lists; test the quickstart on another machine |
 | 4 | ⬜ **DOC-07** ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations | Claude builds, you run it | Tell Claude your real Q8 failure story; check every answer is true |
-| 4 | 🔄 **DOC-08** AI-USAGE.md | Claude builds, you run it | Confirm the AI-USAGE account of what Claude wrote is accurate; Salman fills in his own AI-tool-usage row |
 | 4 | ⬜ **DOC-10** Demo video (<= 5 min, both partners) | you, step by step | All of it, following Claude's steps |
 | 4 | ⬜ **EV-04** Commit audit: 35+ conventional commits, both partners >= 35% | Claude builds, you run it | Run git shortlog -sn --no-merges and paste the output |
 | 4 | ⬜ **EV-05** Persistence transcripts | you, step by step | All of it, following Claude's steps |
 | 4 | ⬜ **EV-06** Network isolation transcript | you, step by step | All of it, following Claude's steps |
 | 4 | ⬜ **EV-07** Red PR blocked, then green | Claude builds, you run it | Screenshot the red PR with merge blocked, then the green one |
-| 4 | ⬜ **SUB-01** check_submission.py clean, clean-clone quickstart tested elsewhere | Claude builds, you run it | Run check_submission.py and paste the output; clone on a second machine and run make up |
 | 4 | ⬜ **SUB-02** Tag v1.0.0 (release.yml retags the deployed SHA) | Claude builds, you run it | Run git tag v1.0.0 and git push --tags (Claude does it if GitHub is connected) |
 | 4 | ⬜ **SUB-03** Instructor access: repo public, or both instructors added as collaborators | you, step by step | All of it, following Claude's steps |
 | 4 | ⬜ **SUB-04** Turn in the six items on the course portal (brief §5.8) | you, step by step | All of it, following Claude's steps |
@@ -109,10 +99,10 @@ Claude does every task marked "Claude". These are the ones that need a person. C
 
 The portal takes these items (brief §5.8), not files. Every file lives in the GitHub repo.
 
-**1 of 8 ready.**
+**2 of 8 ready.**
 
-- ⬜ Before turning in: check_submission.py runs clean — waiting on SUB-01
-- 🔄 GitHub repository URL (public, or private with both instructors added) — waiting on C0-01, SUB-03
+- ✅ Before turning in: check_submission.py runs clean
+- 🔄 GitHub repository URL (public, or private with both instructors added) — waiting on SUB-03
 - 🔄 Link to a successful cd.yml run that tested, published and deployed — waiting on CI-05
 - ✅ Links to both GHCR images showing SHA tags
 - ⬜ Demo video link (unlisted) — waiting on DOC-10
@@ -124,6 +114,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 | Done on | Task | Owner |
 |---|---|---|
+| 2026-09-29 | **SUB-01** check_submission.py clean, clean-clone quickstart tested elsewhere | Both |
+| 2026-09-29 | **DOC-08** AI-USAGE.md | Both |
 | 2026-09-29 | **DOC-02** ADR 0001 provider interface | B |
 | 2026-09-29 | **CI-06** release.yml retagging the SHA image on v* tags | B |
 | 2026-09-29 | **CI-04** cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions | B |
@@ -140,8 +132,12 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | 2026-09-29 | **DK-03** compose.yaml data tier, internal network, AOF volume | B |
 | 2026-09-29 | **DK-02** .dockerignore per context + before/after sizes | B |
 | 2026-09-29 | **DK-01** Backend multi-stage non-root Dockerfile | B |
+| 2026-09-29 | **AI-09** Ollama provider, offline profile, warm-up | B |
+| 2026-09-29 | **AI-08** Content-hash triage cache + measured hit rate | B |
+| 2026-09-29 | **AI-04** Groq provider, JSON mode, strict output validation | B |
 | 2026-09-29 | **FE-12** Switch from MSW to the real API, fix contract mismatches | A |
 | 2026-09-29 | **FE-11** nginx runtime config template, frontend Dockerfile, .dockerignore | A |
+| 2026-09-29 | **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS | A |
 | 2026-09-28 | **AI-11** Provider factory selected by TRIAGE_PROVIDER | B |
 | 2026-09-28 | **AI-10** Outcome ring buffer + /api/meta/providers | B |
 | 2026-09-28 | **CA-02** Distributed Redis rate limiter, 429 + Retry-After | A |
@@ -187,8 +183,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 | Line | Marks | State | Still needed |
 |---|---:|---|---|
-| A1 main protected, PR + CI + approval required, screenshot | 3 | 🔄 | C0-01, CI-07 |
-| A2 dev + feature branches, nothing committed directly to main | 2 | 🔄 | C0-01, EV-04 |
+| A1 main protected, PR + CI + approval required, screenshot | 3 | 🔄 | CI-07 |
+| A2 dev + feature branches, nothing committed directly to main | 2 | 🔄 | EV-04 |
 | A3 >= 5 merged PRs, each linked to an Issue, substantive partner review | 4 | ⬜ | EV-02 |
 | A4 >= 35 conventional commits, neither partner below 35% | 3 | ⬜ | EV-04 |
 | A5 Deliberate merge conflict with evidence and justification | 3 | ⬜ | C0-09, EV-03 |
@@ -212,10 +208,10 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | E2 Invalidated on write | 2 | ✅ | — |
 | E3 Distributed Redis rate limiter, 429 + Retry-After | 4 | ✅ | — |
 | E4 Redis AOF on a named volume, justified | 1 | 🔄 | DOC-07 |
-| F1 TriageProvider with >= 3 implementations selected by env var | 5 | 🔄 | AI-04 |
-| F2 Structured output validated by Pydantic, malformed rejected safely | 5 | 🔄 | AI-04 |
+| F1 TriageProvider with >= 3 implementations selected by env var | 5 | ✅ | — |
+| F2 Structured output validated by Pydantic, malformed rejected safely | 5 | ✅ | — |
 | F3 Timeout, single jittered retry, fallback, triaged_by recorded | 6 | ✅ | — |
-| F4 Content-hash cache with measured, reported hit rate | 3 | 🔄 | AI-08, DOC-09 |
+| F4 Content-hash cache with measured, reported hit rate | 3 | 🔄 | DOC-09 |
 | F5 Prompt-injection guardrail + injection test | 3 | ✅ | — |
 | F6 triage_latency_ms surfaced via /api/meta/providers | 2 | ✅ | — |
 | F7 PII / data-governance ADR | 1 | ✅ | — |
@@ -254,10 +250,10 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 <details>
 <summary><strong>All tasks by phase</strong></summary>
 
-**Setup and contract** — 5 of 7 done
+**Setup and contract** — 6 of 7 done
 
 - ✅ C0-00 Implementation plan and progress tracker (A, Claude, week 1)
-- 🔄 C0-01 GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A, Claude builds, you run it, week 1)
+- ✅ C0-01 GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A, Claude builds, you run it, week 1)
 - ✅ C0-02 Domain enums and Pydantic schemas (A, Claude, week 1)
 - ✅ C0-03 Backend pyproject, uv lockfile, ruff, mypy (A, Claude, week 1)
 - ✅ C0-04 Freeze TriageProvider / TriageResult / TriageOutcome seam (B, Claude, week 1)
@@ -303,17 +299,17 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ CA-01 Stats read-through cache, X-Cache, invalidation on write (A, Claude, week 3)
 - ✅ CA-02 Distributed Redis rate limiter, 429 + Retry-After (A, Claude, week 3)
 
-**AI layer** — 8 of 11 done
+**AI layer** — 11 of 11 done
 
 - ✅ AI-01 RuleBasedTriage + tests (B, Claude, week 1)
 - ✅ AI-02 SimulatedTriage with failure injection (B, Claude, week 1)
 - ✅ AI-03 TriageService skeleton + fallback + the fallback test (B, Claude, week 1)
-- 🔄 AI-04 Groq provider, JSON mode, strict output validation (B, Claude builds, you run it, week 2)
+- ✅ AI-04 Groq provider, JSON mode, strict output validation (B, Claude builds, you run it, week 2)
 - ✅ AI-05 10 s timeout + single jittered retry on retryable errors only (B, Claude, week 2)
 - ✅ AI-06 Prompt, injection guardrail, safety floor, injection test (B, Claude, week 2)
 - ✅ AI-07 PII redaction (feeds ADR 0004) (B, Claude, week 2)
-- 🔄 AI-08 Content-hash triage cache + measured hit rate (B, Claude builds, you run it, week 2)
-- 🔄 AI-09 Ollama provider, offline profile, warm-up (B, Claude builds, you run it, week 3)
+- ✅ AI-08 Content-hash triage cache + measured hit rate (B, Claude builds, you run it, week 2)
+- ✅ AI-09 Ollama provider, offline profile, warm-up (B, Claude builds, you run it, week 3)
 - ✅ AI-10 Outcome ring buffer + /api/meta/providers (B, Claude, week 3)
 - ✅ AI-11 Provider factory selected by TRIAGE_PROVIDER (B, Claude, week 3)
 
@@ -349,7 +345,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ CI-07 Required status checks wired into branch protection (B, you, step by step, week 2)
 - ⬜ CI-08 Deploy by digest, Cosign sign and verify, SHA-pinned actions (B, Claude, week 4) ⭐
 
-**Documentation** — 2 of 10 done
+**Documentation** — 3 of 10 done
 
 - ⬜ DOC-01 README with badges, Mermaid, quickstart, API table, screenshots (Both, Claude builds, you run it, week 4)
 - ✅ DOC-02 ADR 0001 provider interface (B, Claude, week 4)
@@ -358,7 +354,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ DOC-05 ADR 0004 PII and data governance (B, Claude, week 2)
 - ⬜ DOC-06 RUNBOOK: deploy, roll back, logs, triage failing (Both, Claude, week 4)
 - ⬜ DOC-07 ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations (Both, Claude builds, you run it, week 4)
-- 🔄 DOC-08 AI-USAGE.md (Both, Claude builds, you run it, week 4)
+- ✅ DOC-08 AI-USAGE.md (Both, Claude builds, you run it, week 4)
 - ⬜ DOC-09 TRIAGE.md: prompt, latency, accuracy, hit rate (B, Claude builds, you run it, week 3)
 - ⬜ DOC-10 Demo video (<= 5 min, both partners) (Both, you, step by step, week 4)
 
@@ -372,9 +368,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ EV-06 Network isolation transcript (A, you, step by step, week 4)
 - ⬜ EV-07 Red PR blocked, then green (B, Claude builds, you run it, week 4)
 
-**Submission** — 0 of 4 done
+**Submission** — 1 of 4 done
 
-- ⬜ SUB-01 check_submission.py clean, clean-clone quickstart tested elsewhere (Both, Claude builds, you run it, week 4)
+- ✅ SUB-01 check_submission.py clean, clean-clone quickstart tested elsewhere (Both, Claude builds, you run it, week 4)
 - ⬜ SUB-02 Tag v1.0.0 (release.yml retags the deployed SHA) (Both, Claude builds, you run it, week 4)
 - ⬜ SUB-03 Instructor access: repo public, or both instructors added as collaborators (A, you, step by step, week 4)
 - ⬜ SUB-04 Turn in the six items on the course portal (brief §5.8) (A, you, step by step, week 4)

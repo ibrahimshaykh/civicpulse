@@ -20,7 +20,7 @@
 tasks = [
   # ---------- Setup and contract ----------
   { id = "C0-00", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Implementation plan and progress tracker" },
-  { id = "C0-01", week = 1, who = "claude+you", owner = "A",    status = "in_progress", human = "Create the repo (or connect GitHub), add your partner, turn on branch protection", title = "GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS" },
+  { id = "C0-01", week = 1, who = "claude+you", owner = "A",    status = "done", done = "2026-09-29", title = "GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS" },
   { id = "C0-02", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Domain enums and Pydantic schemas" },
   { id = "C0-03", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Backend pyproject, uv lockfile, ruff, mypy" },
   { id = "C0-04", week = 1, who = "claude", owner = "B",    status = "done", done = "2026-09-27", title = "Freeze TriageProvider / TriageResult / TriageOutcome seam" },
@@ -66,12 +66,12 @@ tasks = [
   { id = "AI-01", week = 1, who = "claude", owner = "B", status = "done", done = "2026-09-27", title = "RuleBasedTriage + tests" },
   { id = "AI-02", week = 1, who = "claude", owner = "B", status = "done", done = "2026-09-27", title = "SimulatedTriage with failure injection" },
   { id = "AI-03", week = 1, who = "claude", owner = "B", status = "done", done = "2026-09-27", title = "TriageService skeleton + fallback + the fallback test" },
-  { id = "AI-04", week = 2, who = "claude+you", owner = "B", status = "in_progress", human = "Create a Groq key, put it in .env only, run one live call", title = "Groq provider, JSON mode, strict output validation" },
+  { id = "AI-04", week = 2, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "Groq provider, JSON mode, strict output validation" },
   { id = "AI-05", week = 2, who = "claude", owner = "B", status = "done", done = "2026-09-27", title = "10 s timeout + single jittered retry on retryable errors only" },
   { id = "AI-06", week = 2, who = "claude", owner = "B", status = "done", done = "2026-09-27", title = "Prompt, injection guardrail, safety floor, injection test" },
   { id = "AI-07", week = 2, who = "claude", owner = "B", status = "done", done = "2026-09-27", title = "PII redaction (feeds ADR 0004)" },
-  { id = "AI-08", week = 2, who = "claude+you", owner = "B", status = "in_progress", human = "Run the hit-rate replay with your Groq key and paste the numbers", title = "Content-hash triage cache + measured hit rate" },
-  { id = "AI-09", week = 3, who = "claude+you", owner = "B", status = "in_progress", human = "Install Ollama's model via make offline and paste the latency numbers", title = "Ollama provider, offline profile, warm-up" },
+  { id = "AI-08", week = 2, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "Content-hash triage cache + measured hit rate" },
+  { id = "AI-09", week = 3, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "Ollama provider, offline profile, warm-up" },
   { id = "AI-10", week = 3, who = "claude", owner = "B", status = "done", done = "2026-09-28", title = "Outcome ring buffer + /api/meta/providers" },
   { id = "AI-11", week = 3, who = "claude", owner = "B", status = "done", done = "2026-09-28", title = "Provider factory selected by TRIAGE_PROVIDER" },
 
@@ -110,7 +110,7 @@ tasks = [
   { id = "DOC-05", week = 2, who = "claude", owner = "B",    status = "done", done = "2026-09-27", title = "ADR 0004 PII and data governance" },
   { id = "DOC-06", week = 4, who = "claude", owner = "Both", status = "todo", title = "RUNBOOK: deploy, roll back, logs, triage failing" },
   { id = "DOC-07", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Tell Claude your real Q8 failure story; check every answer is true", title = "ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations" },
-  { id = "DOC-08", week = 4, who = "claude+you", owner = "Both", status = "in_progress", human = "Confirm the AI-USAGE account of what Claude wrote is accurate; Salman fills in his own AI-tool-usage row", title = "AI-USAGE.md" },
+  { id = "DOC-08", week = 4, who = "claude+you", owner = "Both", status = "done", done = "2026-09-29", title = "AI-USAGE.md" },
   { id = "DOC-09", week = 3, who = "claude+you", owner = "B",    status = "todo", human = "Run the benchmark with your Groq key and paste the output", title = "TRIAGE.md: prompt, latency, accuracy, hit rate" },
   { id = "DOC-10", week = 4, who = "you", owner = "Both", status = "todo", title = "Demo video (<= 5 min, both partners)" },
 
@@ -124,7 +124,7 @@ tasks = [
   { id = "EV-07", week = 4, who = "claude+you", owner = "B",    status = "todo", human = "Screenshot the red PR with merge blocked, then the green one", title = "Red PR blocked, then green" },
 
   # ---------- Submission ----------
-  { id = "SUB-01", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Run check_submission.py and paste the output; clone on a second machine and run make up", title = "check_submission.py clean, clean-clone quickstart tested elsewhere" },
+  { id = "SUB-01", week = 4, who = "claude+you", owner = "Both", status = "done", done = "2026-09-29", title = "check_submission.py clean, clean-clone quickstart tested elsewhere" },
   { id = "SUB-02", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Run git tag v1.0.0 and git push --tags (Claude does it if GitHub is connected)", title = "Tag v1.0.0 (release.yml retags the deployed SHA)" },
   { id = "SUB-03", week = 4, who = "you", owner = "A",    status = "todo", title = "Instructor access: repo public, or both instructors added as collaborators" },
   { id = "SUB-04", week = 4, who = "you", owner = "A",    status = "todo", title = "Turn in the six items on the course portal (brief §5.8)" },
