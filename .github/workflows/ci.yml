@@ -160,3 +160,47 @@ jobs:
       - name: Tear down
         if: always()
         run: docker compose down -v
+
+  image-scan:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image
+        run: docker build -t civicpulse-backend:ci -f backend/Dockerfile backend
+      - name: Build frontend image
+        run: docker build -t civicpulse-frontend:ci -f frontend/Dockerfile frontend
+      # CRITICAL only, not HIGH: this scans the exact base images the plan
+      # pins (python:3.12-slim, node:22-alpine/nginx-unprivileged), and a
+      # HIGH-severity gate on someone else's base image would block every
+      # PR on CVEs this project has no way to fix by Monday night. CRITICAL
+      # is the bar that's actually enforceable.
+      - name: Trivy -- backend
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: civicpulse-backend:ci
+          severity: CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+      - name: Trivy -- frontend
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: civicpulse-frontend:ci
+          severity: CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+
+  manifest-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: kubeconform (K8s manifests, once they exist)
+        run: |
+          # No-op, not a failure, until K8-01+ commit manifests under k8s/ --
+          # the job exists now so CI-05's later gate on it needs no new wiring.
+          files=$(find k8s -name '*.yaml' -o -name '*.yml' 2>/dev/null || true)
+          if [ -z "$files" ]; then
+            echo "no k8s manifests yet -- nothing to validate"
+            exit 0
+          fi
+          curl -sSL https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz | tar xz kubeconform
+          echo "$files" | xargs ./kubeconform -strict -summary
