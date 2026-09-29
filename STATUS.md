@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [█████████████░░░░░░░░░░░░░░░░░]   44%   39 of 87 core tasks done
+Project progress  [█████████████░░░░░░░░░░░░░░░░░]   45%   40 of 87 core tasks done
 Marks secured     [██████████░░░░░░░░░░░░░░░░░░░░]   36%   54.9 of 150 marks  (64 of 175 rubric points)
 ```
 
@@ -15,7 +15,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
 | Partner A (frontend, backend, data) | 27 of 38 | `███████░░░` 71% |
-| Partner B (AI layer, DevOps) | 12 of 38 | `███░░░░░░░` 31% |
+| Partner B (AI layer, DevOps) | 13 of 38 | `███░░░░░░░` 34% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
 ## Marks by rubric section
@@ -135,6 +135,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 | Done on | Task | Owner |
 |---|---|---|
+| 2026-09-29 | **DOC-02** ADR 0001 provider interface | B |
 | 2026-09-28 | **AI-11** Provider factory selected by TRIAGE_PROVIDER | B |
 | 2026-09-28 | **AI-10** Outcome ring buffer + /api/meta/providers | B |
 | 2026-09-28 | **CA-02** Distributed Redis rate limiter, 429 + Retry-After | A |
@@ -232,7 +233,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | I6 GitHub Secrets, scoped token, least-privilege permissions | 2 | ⬜ | CI-04, CI-05 |
 | I7 Red pipeline blocking a merge, then green | 1 | ⬜ | EV-07 |
 | J1 README: problem, badges, Mermaid, quickstart, API table, screenshots | 4 | ⬜ | DOC-01 |
-| J2 Four ADRs | 4 | 🔄 | DOC-02, DOC-03, DOC-04 |
+| J2 Four ADRs | 4 | 🔄 | DOC-03, DOC-04 |
 | J3 RUNBOOK | 2 | ⬜ | DOC-06 |
 | J4 Demo video <= 5 min, both partners, all six segments | 3 | ⬜ | DOC-10, K8-08 |
 | J5 ENGINEERING-NOTES answering all eight questions with file:line refs | 2 | ⬜ | DOC-07 |
@@ -342,10 +343,10 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ CI-07 Required status checks wired into branch protection (B, you, step by step, week 2)
 - ⬜ CI-08 Deploy by digest, Cosign sign and verify, SHA-pinned actions (B, Claude, week 4) ⭐
 
-**Documentation** — 1 of 10 done
+**Documentation** — 2 of 10 done
 
 - ⬜ DOC-01 README with badges, Mermaid, quickstart, API table, screenshots (Both, Claude builds, you run it, week 4)
-- ⬜ DOC-02 ADR 0001 provider interface (B, Claude, week 4)
+- ✅ DOC-02 ADR 0001 provider interface (B, Claude, week 4)
 - ⬜ DOC-03 ADR 0002 frontend runtime config (A, Claude, week 4)
 - ⬜ DOC-04 ADR 0003 deploy by SHA (B, Claude, week 4)
 - ✅ DOC-05 ADR 0004 PII and data governance (B, Claude, week 2)
@@ -382,6 +383,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 ## Change log
 
+- 2026-09-29: DOC-02: docs/adr/0001-provider-interface.md, justifying the two design decisions behind app/providers/triage/base.py::TriageProvider -- async over the brief's own printed sync signature (every real provider is I/O-bound, and TriageService needs one generic await path under asyncio.timeout(), not a per-provider sync/async branch), and Protocol over an ABC (no shared behaviour to inherit, and RuleBasedTriage's dual role as both a provider and TriageService's fallback would make an ABC's inheritance mean something it doesn't). Verified two claims against the actual code before writing them down rather than assuming from the plan's prose: runtime_checkable is genuinely decorative today (grepped for isinstance(x, TriageProvider) -- zero hits), and triage_sync() has exactly two real callers (TriageService's fallback path and SimulatedTriage), not three as first drafted -- the safety floor turned out to check HIGH_RISK keywords directly rather than calling into RuleBasedTriage at all.
 - 2026-09-28: AI-08 (cache + hit-rate mechanism done; the duplicate-replay measurement is the pending human step): app/providers/triage/cache.py::TriageResultCache, wired into factory.py's build_triage_service so TRIAGE_PROVIDER=llm/ollama now actually get a Redis-backed cache instead of the permanent-miss NullTriageCache. Key excludes location on purpose (plan section 11.7: nine neighbours reporting the same burst main should cost one inference) and includes provider/model/PROMPT_VERSION so switching any of them can never serve a stale classification. Hit/miss counters (triage:stats:hits/misses) live in Redis, not memory, for the same distributed-state reason AI-10's OutcomeLog does -- proven across two TriageResultCache instances sharing one fakeredis, the same pattern test_outcomes.py's A16 already used. Added TriageCache.hit_rate() to the Protocol (NullTriageCache returns None) and TriageService.cache_hit_rate(), so MetaService now reports the real measured rate through /api/meta/providers instead of the AI-08-shaped None placeholder -- the one route change in this task, and it only reads through TriageService's existing public surface, per that module's own layering rule. 12 new tests (test_triage_cache.py: hit/miss/key-shape/TTL/hit-rate; plus 3 more in test_triage_service.py and 2 updated in test_meta_service.py). 271 tests passing, 91.96% coverage (triage_service.py itself now 100%); ruff/format/mypy clean; confirmed no OpenAPI drift (no route shape changed, only its cache_hit_rate value stopped being hardcoded). What is NOT done: the plan's own AI-08 acceptance needs a measured hit rate from replaying load/duplicates.jsonl against a real Groq key (docs/TRIAGE.md, DOC-09) -- that dataset and that replay script do not exist yet either, and both need a real key this sandbox doesn't have. Left status in_progress rather than done.
 - 2026-09-28: AI-04 (code + tests only, human step still pending): GroqTriage (app/providers/triage/llm.py) -- an AsyncOpenAI client pointed at Groq's OpenAI-compatible endpoint, max_retries=0 so TriageService (AI-05) owns the single retry, JSON mode, temperature=0. Wired into factory.py: TRIAGE_PROVIDER=llm now selects it when groq_api_key is set, and still degrades to rules with an ERROR log (not a crash) when it is not, matching the plan's own build_primary snippet exactly. redact() runs on the complaint text before it is sent, and location/reporter_contact are never included in the request at all -- both proven by inspecting the actual call kwargs sent to a mocked client, the same no-live-call testing pattern AI-01/02/05/06 already used (no respx dependency needed for this). 9 new tests in test_llm_triage.py (A2: malformed JSON and an invalid enum value both raise MalformedOutput rather than being accepted best-effort; A15: no location/contact, PII redacted; plus the max_retries=0 / JSON-mode / model wiring itself) and 2 updated tests in test_factory.py. 260 tests passing (1 deselected), 91.75% coverage; ruff/format/mypy clean -- mypy needed one explicit cast, since build_messages()'s list[dict[str, str]] does not structurally match the SDK's ChatCompletionMessageParam TypedDict union. What is NOT done here, per the plan's own AI-04 acceptance ('manual call succeeds'): no real Groq key exists in this sandbox, so the one live call against the actual API has not been made. Left status in_progress rather than done until that human step happens.
 - 2026-09-28: BE-07 closed out: the 249-test / 91.6%-coverage suite from the batched run above already exceeds the plan's 30+/>=70% acceptance bar, so the remaining work was tightening the enforced floor to match rather than adding tests for their own sake. Raised coverage.report.fail_under from 65 to 70 in backend/pyproject.toml, and the matching --cov-fail-under flag in ci.yml's test-backend job from 65 to 70, so both local and CI runs honestly enforce the plan's stated target instead of a looser placeholder. Reran the exact CI command afterward: 249 passed, 1 deselected, 91.59% coverage, comfortably above the new floor. The one remaining gap -- the integration-marked create-complaint test needing real Postgres/Redis -- is out of scope here: ci.yml's own comment assigns that to CI-02's Compose integration job (owner B), not to BE-07's testcontainers wiring, so conftest.py is left as-is.
@@ -396,4 +398,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: AI-01: RuleBasedTriage (app/providers/triage/rules.py), matching the plan's keyword table verbatim -- 93.9% category accuracy (31/33) against the seed set, well over the required 70%, so no tuning was needed. Shared normalize()/first_sentence() helpers split into app/providers/triage/text.py so AI-08's cache can reuse the same normalize() later. 6 tests: the accuracy threshold, determinism, high-risk and low-hint priority rules, the other-category fallback, and totality against 6 edge-case strings (max length, punctuation-only, non-Latin script, mixed case, combining-character normalization).
 - 2026-09-27: C0-04: froze the triage seam -- app/providers/triage/base.py (TriageResult, the TriageProvider Protocol) and app/services/triage_service.py (TriageOutcome, TriageService.triage()/recent_outcomes()/active_provider). TriageCache and OutcomeSink are Protocols with Null* default implementations, so the skeleton works today without AI-08's Redis cache or AI-10's Redis outcome log -- both will satisfy the same Protocols later without touching TriageService's constructor or callers. tests/fakes.py::StubTriageService added per the plan so ComplaintService (BE-03) can be coded against the seam before AI-04 lands.
 - 2026-09-27: Partner B (Salman) starts picking up Partner B's backlog directly, since Ibrahim is stepping back from active contribution for a while. Before starting on the prescribed AI-layer work, fixed a real bug Salman hit running the app locally: every page other than Submit crashed with the app's own "This page stopped working" boundary as soon as the backend was unreachable (e.g. no Docker running). Root cause: stats.ts/meta.ts/complaints.ts treated the parsed error body's truthiness, not response.ok, as the signal that a request had failed; the dev proxy answers an unreachable backend with a 500 that has an empty, non-JSON body, which parses to a falsy `error`, so the check silently passed and StatsPage crashed reading `.stats.total` off a `data` object that looked loaded but was not. Fixed by checking `error || !response.ok` everywhere (keeping the `error` check too, since openapi-fetch's TS types only narrow `data` to defined off that check, not off response.ok -- dropping it re-broke typecheck across four files). Committed separately on fix/stats-page-crash-on-api-failure pending push.
-- 2026-09-27: DB-02: async Alembic env.py (target_metadata=Base.metadata, compare_type/compare_server_default, an advisory lock around do_run_migrations so two backend pods cannot migrate concurrently, URL from Settings() not alembic.ini). Migration 0001 creates the three Postgres enums, the complaints table with all six check constraints and both indexes, and the updated_at trigger. Found and fixed a real bug while testing offline: hand-writing constraint names as the full ck_complaints_* form in the migration produced double-prefixed names (ck_complaints_ck_complaints_text_length), because op.create_table re-applies the naming convention on top of an already-given name; switched to the same short names the ORM model uses. No Docker/Postgres here, so verified with alembic upgrade/downgrade --sql (offline mode, no DBAPI needed) plus a new regression test that diffs the migration's generated DDL against the model's own compiled DDL byte-for-byte -- confirmed it actually catches drift by deliberately breaking a column length and watching the test fail, then restored it. This stands in for alembic check, which needs a live database; a real up/down/up cycle (I21) still needs to run once Docker exists.
