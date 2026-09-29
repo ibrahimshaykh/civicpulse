@@ -1,16 +1,38 @@
 # CivicPulse
 
-Municipal complaint triage for CS4032 Software Construction and Design, Assignment 01. Citizens report a problem; an LLM classifies it by category and priority, with a rule-based fallback, so a burst water main never waits behind three streetlight reports.
+Municipal complaint triage platform.
 
-**Project status:** see [STATUS.md](STATUS.md) for progress and marks secured so far.
-**Plan:** [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md).
+![CI](https://github.com/ibrahimshaykh/civicpulse/actions/workflows/ci.yml/badge.svg)
+![CD](https://github.com/ibrahimshaykh/civicpulse/actions/workflows/cd.yml/badge.svg)
 
-The full README (architecture diagram, one-command quickstart, API table, screenshots) arrives with task DOC-01.
+## Quickstart
+```bash
+make up
+```
+Open `http://localhost:8080`.
 
-## Updating the status page
+## API
+| Method | Path | Behaviour |
+|---|---|---|
+| POST | /api/complaints | Create complaint |
+| GET | /api/complaints | List complaints |
+| PATCH | /api/complaints/{id}/status | Update status |
+| GET | /api/stats | View stats |
+| GET | /api/meta/providers | Providers info |
+| GET | /health | Liveness |
+| GET | /ready | Readiness |
+| GET | /metrics | Prometheus |
 
-After finishing a task, set its status in `docs/progress.toml`, then run:
-
-    python scripts/update_status.py
-
-Commit `docs/progress.toml` and `STATUS.md` together with the task's work. CI fails if they're out of sync.
+## Architecture
+```mermaid
+flowchart TB
+    user([Citizen / Operator])
+    fe[frontend]
+    be[backend]
+    db[(postgres)]
+    cache[(redis)]
+    user --> fe
+    fe --> be
+    be --> db
+    be --> cache
+```

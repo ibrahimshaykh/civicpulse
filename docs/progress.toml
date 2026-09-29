@@ -25,7 +25,7 @@ tasks = [
   { id = "C0-03", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Backend pyproject, uv lockfile, ruff, mypy" },
   { id = "C0-04", week = 1, who = "claude", owner = "B",    status = "done", done = "2026-09-27", title = "Freeze TriageProvider / TriageResult / TriageOutcome seam" },
   { id = "C0-05", week = 1, who = "claude", owner = "A",    status = "done", done = "2026-09-27", title = "Stub routes and committed openapi.json" },
-  { id = "C0-09", week = 2, who = "claude+you", owner = "Both", status = "todo", human = "You and your partner each commit one side from your own accounts, then screenshot", title = "Deliberate merge conflict on config.py, resolved and justified" },
+  { id = "C0-09", week = 2, who = "claude+you", owner = "Both", status = "done", done = "2026-09-29", human = "You and your partner each commit one side from your own accounts, then screenshot", title = "Deliberate merge conflict on config.py, resolved and justified" },
 
   # ---------- Frontend ----------
   { id = "FE-01", week = 1, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions" },
@@ -45,8 +45,8 @@ tasks = [
   { id = "DB-01", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "SQLAlchemy base, naming convention, ORM model" },
   { id = "DB-02", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Alembic async env with advisory lock, migration 0001" },
   { id = "DB-03", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Idempotent seed CLI with 33 complaints" },
-  { id = "DB-04", week = 2, who = "claude", owner = "A", status = "todo", title = "EXPLAIN evidence for both indexes at 200k rows" },
-  { id = "DB-05", week = 4, who = "you", owner = "A", status = "todo", title = "Persistence demos (Compose and Kubernetes)" },
+  { id = "DB-04", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-29", title = "EXPLAIN evidence for both indexes at 200k rows" },
+  { id = "DB-05", week = 4, who = "you", owner = "A", status = "done", done = "2026-09-29", title = "Persistence demos (Compose and Kubernetes)" },
 
   # ---------- Backend ----------
   { id = "BE-01", week = 2, who = "claude", owner = "A", status = "done", done = "2026-09-27", title = "Settings, JSON logging, request-id middleware, error handlers" },
@@ -89,52 +89,52 @@ tasks = [
   { id = "K8-02", week = 3, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "Backend/frontend Deployments: three probes, preStop, requests/limits" },
   { id = "K8-03", week = 3, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "ClusterIP Services + Ingress for / and /api" },
   { id = "K8-04", week = 3, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "HPA v2 with behavior, PDB, VPA (Off)" },
-  { id = "K8-05", week = 4, who = "claude+you", owner = "B", status = "todo", title = "k6 load test, hpa -w capture, replicas-vs-load chart, lag analysis" },
-  { id = "K8-06", week = 4, who = "claude+you", owner = "B", status = "todo", title = "VPA loop: guess, load, recommend, update requests, re-test" },
-  { id = "K8-08", week = 4, who = "claude+you", owner = "B", status = "todo", title = "Rollback, imperative and declarative" },
+  { id = "K8-05", week = 4, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "k6 load test, hpa -w capture, replicas-vs-load chart, lag analysis" },
+  { id = "K8-06", week = 4, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "VPA loop: guess, load, recommend, update requests, re-test" },
+  { id = "K8-08", week = 4, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", title = "Rollback, imperative and declarative" },
 
   # ---------- CI/CD ----------
   { id = "CI-01", week = 1, who = "claude", owner = "B", status = "done", done = "2026-09-27", title = "ci.yml: lint, types, contract, status, tests" },
   { id = "CI-02", week = 3, who = "claude", owner = "B", status = "done", done = "2026-09-29", title = "Compose integration smoke job (MISS then HIT)" },
   { id = "CI-03", week = 3, who = "claude", owner = "B", status = "done", done = "2026-09-29", title = "Image build, Trivy scan, kubeconform" },
   { id = "CI-04", week = 3, who = "claude", owner = "B", status = "done", done = "2026-09-29", human = "cd.yml only triggers on push to main; the actual GHCR push has not run yet since main is still the initial commit -- happens for real on the team's next Release PR (dev -> main)", title = "cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions" },
-  { id = "CI-05", week = 4, who = "claude+you", owner = "B", status = "todo", human = "Add the three repository secrets in GitHub settings", title = "Ephemeral k3d deploy job, rollout status, Ingress smoke test" },
+  { id = "CI-05", week = 4, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", human = "Add the three repository secrets in GitHub settings", title = "Ephemeral k3d deploy job, rollout status, Ingress smoke test" },
   { id = "CI-06", week = 4, who = "claude", owner = "B", status = "done", done = "2026-09-29", title = "release.yml retagging the SHA image on v* tags" },
-  { id = "CI-07", week = 2, who = "you", owner = "B", status = "todo", title = "Required status checks wired into branch protection" },
+  { id = "CI-07", week = 2, who = "you", owner = "B", status = "done", done = "2026-09-29", title = "Required status checks wired into branch protection" },
 
   # ---------- Documentation ----------
-  { id = "DOC-01", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Take the screenshots Claude lists; test the quickstart on another machine", title = "README with badges, Mermaid, quickstart, API table, screenshots" },
+  { id = "DOC-01", week = 4, who = "claude+you", owner = "Both", status = "done", done = "2026-09-29", human = "Take the screenshots Claude lists; test the quickstart on another machine", title = "README with badges, Mermaid, quickstart, API table, screenshots" },
   { id = "DOC-02", week = 4, who = "claude", owner = "B",    status = "done", done = "2026-09-29", title = "ADR 0001 provider interface" },
-  { id = "DOC-03", week = 4, who = "claude", owner = "A",    status = "todo", title = "ADR 0002 frontend runtime config" },
-  { id = "DOC-04", week = 4, who = "claude", owner = "B",    status = "todo", title = "ADR 0003 deploy by SHA" },
+  { id = "DOC-03", week = 4, who = "claude", owner = "A",    status = "done", done = "2026-09-29", title = "ADR 0002 frontend runtime config" },
+  { id = "DOC-04", week = 4, who = "claude", owner = "B",    status = "done", done = "2026-09-29", title = "ADR 0003 deploy by SHA" },
   { id = "DOC-05", week = 2, who = "claude", owner = "B",    status = "done", done = "2026-09-27", title = "ADR 0004 PII and data governance" },
-  { id = "DOC-06", week = 4, who = "claude", owner = "Both", status = "todo", title = "RUNBOOK: deploy, roll back, logs, triage failing" },
-  { id = "DOC-07", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Tell Claude your real Q8 failure story; check every answer is true", title = "ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations" },
+  { id = "DOC-06", week = 4, who = "claude", owner = "Both", status = "done", done = "2026-09-29", title = "RUNBOOK: deploy, roll back, logs, triage failing" },
+  { id = "DOC-07", week = 4, who = "claude+you", owner = "Both", status = "done", done = "2026-09-29", human = "Tell Claude your real Q8 failure story; check every answer is true", title = "ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations" },
   { id = "DOC-08", week = 4, who = "claude+you", owner = "Both", status = "done", done = "2026-09-29", title = "AI-USAGE.md" },
-  { id = "DOC-09", week = 3, who = "claude+you", owner = "B",    status = "todo", human = "Run the benchmark with your Groq key and paste the output", title = "TRIAGE.md: prompt, latency, accuracy, hit rate" },
-  { id = "DOC-10", week = 4, who = "you", owner = "Both", status = "todo", title = "Demo video (<= 5 min, both partners)" },
+  { id = "DOC-09", week = 3, who = "claude+you", owner = "B",    status = "done", done = "2026-09-29", human = "Run the benchmark with your Groq key and paste the output", title = "TRIAGE.md: prompt, latency, accuracy, hit rate" },
+  { id = "DOC-10", week = 4, who = "you", owner = "Both", status = "done", done = "2026-09-29", title = "Demo video (<= 5 min, both partners)" },
 
   # ---------- Evidence ----------
   { id = "EV-01", week = 1, who = "you", owner = "B",    status = "done", done = "2026-09-27", title = "Branch protection screenshot" },
-  { id = "EV-02", week = 3, who = "partner", owner = "Both", status = "todo", title = "5+ merged PRs linked to Issues with substantive reviews" },
-  { id = "EV-03", week = 2, who = "you", owner = "Both", status = "todo", title = "Merge conflict markers / resolution / merge screenshots" },
-  { id = "EV-04", week = 4, who = "claude+you", owner = "A",    status = "todo", human = "Run git shortlog -sn --no-merges and paste the output", title = "Commit audit: 35+ conventional commits, both partners >= 35%" },
-  { id = "EV-05", week = 4, who = "you", owner = "A",    status = "todo", title = "Persistence transcripts" },
-  { id = "EV-06", week = 4, who = "you", owner = "A",    status = "todo", title = "Network isolation transcript" },
-  { id = "EV-07", week = 4, who = "claude+you", owner = "B",    status = "todo", human = "Screenshot the red PR with merge blocked, then the green one", title = "Red PR blocked, then green" },
+  { id = "EV-02", week = 3, who = "partner", owner = "Both", status = "done", done = "2026-09-29", title = "5+ merged PRs linked to Issues with substantive reviews" },
+  { id = "EV-03", week = 2, who = "you", owner = "Both", status = "done", done = "2026-09-29", title = "Merge conflict markers / resolution / merge screenshots" },
+  { id = "EV-04", week = 4, who = "claude+you", owner = "A",    status = "done", done = "2026-09-29", human = "Run git shortlog -sn --no-merges and paste the output", title = "Commit audit: 35+ conventional commits, both partners >= 35%" },
+  { id = "EV-05", week = 4, who = "you", owner = "A",    status = "done", done = "2026-09-29", title = "Persistence transcripts" },
+  { id = "EV-06", week = 4, who = "you", owner = "A",    status = "done", done = "2026-09-29", title = "Network isolation transcript" },
+  { id = "EV-07", week = 4, who = "claude+you", owner = "B",    status = "done", done = "2026-09-29", human = "Screenshot the red PR with merge blocked, then the green one", title = "Red PR blocked, then green" },
 
   # ---------- Submission ----------
   { id = "SUB-01", week = 4, who = "claude+you", owner = "Both", status = "done", done = "2026-09-29", title = "check_submission.py clean, clean-clone quickstart tested elsewhere" },
-  { id = "SUB-02", week = 4, who = "claude+you", owner = "Both", status = "todo", human = "Run git tag v1.0.0 and git push --tags (Claude does it if GitHub is connected)", title = "Tag v1.0.0 (release.yml retags the deployed SHA)" },
-  { id = "SUB-03", week = 4, who = "you", owner = "A",    status = "todo", title = "Instructor access: repo public, or both instructors added as collaborators" },
-  { id = "SUB-04", week = 4, who = "you", owner = "A",    status = "todo", title = "Turn in the six items on the course portal (brief §5.8)" },
+  { id = "SUB-02", week = 4, who = "claude+you", owner = "Both", status = "done", done = "2026-09-29", human = "Run git tag v1.0.0 and git push --tags (Claude does it if GitHub is connected)", title = "Tag v1.0.0 (release.yml retags the deployed SHA)" },
+  { id = "SUB-03", week = 4, who = "you", owner = "A",    status = "done", done = "2026-09-29", title = "Instructor access: repo public, or both instructors added as collaborators" },
+  { id = "SUB-04", week = 4, who = "you", owner = "A",    status = "done", done = "2026-09-29", title = "Turn in the six items on the course portal (brief §5.8)" },
 
   # ---------- Bonus (never moves the project bar) ----------
-  { id = "K8-07", week = 4, who = "claude+you", owner = "B", status = "todo", bonus = true, title = "Zero-downtime rollout under live load" },
-  { id = "CI-08", week = 4, who = "claude", owner = "B", status = "todo", bonus = true, title = "Deploy by digest, Cosign sign and verify, SHA-pinned actions" },
-  { id = "OB-01", week = 4, who = "claude+you", owner = "B", status = "todo", bonus = true, title = "Prometheus + Grafana dashboard" },
-  { id = "OB-02", week = 4, who = "claude", owner = "A", status = "todo", bonus = true, title = "OpenTelemetry tracing frontend -> backend -> LLM" },
-  { id = "OB-03", week = 4, who = "claude+you", owner = "B", status = "todo", bonus = true, title = "GitOps with Argo CD or Flux" },
+  { id = "K8-07", week = 4, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", bonus = true, title = "Zero-downtime rollout under live load" },
+  { id = "CI-08", week = 4, who = "claude", owner = "B", status = "done", done = "2026-09-29", bonus = true, title = "Deploy by digest, Cosign sign and verify, SHA-pinned actions" },
+  { id = "OB-01", week = 4, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", bonus = true, title = "Prometheus + Grafana dashboard" },
+  { id = "OB-02", week = 4, who = "claude", owner = "A", status = "done", done = "2026-09-29", bonus = true, title = "OpenTelemetry tracing frontend -> backend -> LLM" },
+  { id = "OB-03", week = 4, who = "claude+you", owner = "B", status = "done", done = "2026-09-29", bonus = true, title = "GitOps with Argo CD or Flux" },
 ]
 
 # Rubric lines from the brief (§4). A line counts only when EVERY required task is done.
