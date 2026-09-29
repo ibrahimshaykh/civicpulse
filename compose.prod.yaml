@@ -1,0 +1,39 @@
+# DK-05: `docker compose -f compose.yaml -f compose.prod.yaml up -d`.
+# Everything else (networks, healthchecks, depends_on, the data tier's
+# internal-only network) is inherited from compose.yaml unchanged -- this
+# file only swaps `build:` for pre-built `image:` references and adds
+# prod-appropriate restart policies. `!reset null` (Compose spec merge
+# tag) is required, not just overriding `image:` -- if `build:` stayed in
+# the merged config, `docker compose up` would still build locally
+# instead of pulling the GHCR image the CD pipeline (CI-04) already
+# tested and pushed by digest/SHA.
+#
+# GITHUB_REPOSITORY_OWNER and IMAGE_TAG are supplied by whoever runs this
+# (CI-05's ephemeral deploy, or a human): IMAGE_TAG defaults to `latest`
+# only so `docker compose config` doesn't fail with an unset variable
+# during local review -- a real deploy always passes the release SHA.
+
+services:
+  backend:
+    build: !reset null
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER:-ibrahimshaykh}/civicpulse-backend:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+
+  frontend:
+    build: !reset null
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER:-ibrahimshaykh}/civicpulse-frontend:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+
+  migrate:
+    build: !reset null
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER:-ibrahimshaykh}/civicpulse-backend:${IMAGE_TAG:-latest}
+
+  seed:
+    build: !reset null
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER:-ibrahimshaykh}/civicpulse-backend:${IMAGE_TAG:-latest}
+
+  database:
+    restart: unless-stopped
+
+  cache:
+    restart: unless-stopped
