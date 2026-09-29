@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [██████████████░░░░░░░░░░░░░░░░]   47%   41 of 87 core tasks done
-Marks secured     [██████████░░░░░░░░░░░░░░░░░░░░]   36%   54.9 of 150 marks  (64 of 175 rubric points)
+Project progress  [██████████████░░░░░░░░░░░░░░░░]   48%   42 of 87 core tasks done
+Marks secured     [████████████░░░░░░░░░░░░░░░░░░]   40%   60.9 of 150 marks  (71 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -14,7 +14,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 27 of 38 | `███████░░░` 71% |
+| Partner A (frontend, backend, data) | 28 of 38 | `███████░░░` 73% |
 | Partner B (AI layer, DevOps) | 14 of 38 | `███░░░░░░░` 36% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
@@ -26,7 +26,7 @@ Raw rubric points, as printed in the brief.
 |---|---:|---:|---|
 | A · Collaboration and version control | 0 | 15 | `░░░░░░░░░░` |
 | B · Frontend | 15 | 18 | `████████░░` |
-| C · Backend | 18 | 25 | `███████░░░` |
+| C · Backend | 25 | 25 | `██████████` |
 | D · Data layer | 10 | 12 | `████████░░` |
 | E · Cache layer | 9 | 10 | `█████████░` |
 | F · AI layer | 12 | 25 | `████░░░░░░` |
@@ -34,7 +34,7 @@ Raw rubric points, as printed in the brief.
 | H · Kubernetes | 0 | 20 | `░░░░░░░░░░` |
 | I · CI/CD | 0 | 20 | `░░░░░░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **64** | **175** | `███░░░░░░░` |
+| **Total** | **71** | **175** | `████░░░░░░` |
 
 ## Working on now
 
@@ -84,7 +84,6 @@ Claude does every task marked "Claude". These are the ones that need a person. C
 | 2 | ⬜ **DK-04** migrate + seed services, healthchecks, make up | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 2 | ⬜ **CI-07** Required status checks wired into branch protection | you, step by step | All of it, following Claude's steps |
 | 2 | ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots | you, step by step | All of it, following Claude's steps |
-| 3 | ⬜ **FE-12** Switch from MSW to the real API, fix contract mismatches | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 3 | 🔄 **AI-09** Ollama provider, offline profile, warm-up | Claude builds, you run it | Install Ollama's model via make offline and paste the latency numbers |
 | 3 | ⬜ **DK-05** compose.prod.yaml (image by tag, no build, no DB/cache ports) | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 3 | ⬜ **DK-06** Offline profile with ollama_models volume | Claude builds, you run it | Run the commands Claude gives, paste the output back |
@@ -137,6 +136,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 |---|---|---|
 | 2026-09-29 | **DK-03** compose.yaml data tier, internal network, AOF volume | B |
 | 2026-09-29 | **DK-01** Backend multi-stage non-root Dockerfile | B |
+| 2026-09-29 | **FE-12** Switch from MSW to the real API, fix contract mismatches | A |
 | 2026-09-28 | **AI-11** Provider factory selected by TRIAGE_PROVIDER | B |
 | 2026-09-28 | **AI-10** Outcome ring buffer + /api/meta/providers | B |
 | 2026-09-28 | **CA-02** Distributed Redis rate limiter, 429 + Retry-After | A |
@@ -192,7 +192,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | B3 Stats view with aggregates and X-Cache state | 3 | ✅ | — |
 | B4 Runtime configuration, one image for every environment | 3 | ⬜ | FE-11 |
 | B5 >= 5 meaningful component tests passing in CI | 2 | ✅ | — |
-| C1 All ten endpoints to contract, correct codes, field-level errors | 7 | 🔄 | FE-12 |
+| C1 All ten endpoints to contract, correct codes, field-level errors | 7 | ✅ | — |
 | C2 Four-layer separation | 4 | ✅ | — |
 | C3 Explicit transition table, invalid transitions 409 | 3 | ✅ | — |
 | C4 /health vs /ready, /health never touches the DB | 3 | ✅ | — |
@@ -259,7 +259,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
 - ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
 
-**Frontend** — 10 of 12 done
+**Frontend** — 11 of 12 done
 
 - ✅ FE-01 Vite + React + TS strict scaffold, Tailwind, ESLint, exact versions (A, Claude, week 1)
 - ✅ FE-02 Typed API client generated from OpenAPI + drift script (A, Claude, week 1)
@@ -272,7 +272,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ FE-09 Stats view: aggregates, X-Cache indicator, providers panel (A, Claude, week 2)
 - ✅ FE-10 Component test suite (12 tests) passing in CI (A, Claude, week 2)
 - ⬜ FE-11 nginx runtime config template, frontend Dockerfile, .dockerignore (A, Claude builds, you run it, week 2)
-- ⬜ FE-12 Switch from MSW to the real API, fix contract mismatches (A, Claude builds, you run it, week 3)
+- ✅ FE-12 Switch from MSW to the real API, fix contract mismatches (A, Claude builds, you run it, week 3)
 
 **Data layer** — 3 of 5 done
 
@@ -385,6 +385,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 ## Change log
 
 - 2026-09-29: AI-09 (provider code + tests done; installing a model and measuring latency is the pending human/DK-06 step): app/providers/triage/ollama.py::OllamaTriage, matching the plan's exact design -- POST /api/chat with stream=false and format=TriageResult.model_json_schema() so Ollama's structured-output mode constrains decoding, options.temperature=0. Unlike GroqTriage it applies no PII redaction, since nothing leaves the machine running Ollama; also unlike GroqTriage it does not own its http client -- OllamaTriage takes a shared httpx.AsyncClient, so app/core/lifecycle.py now opens one real client at startup (app.state.http) and closes it at shutdown alongside Redis and the DB engine, and factory.py threads it through build_triage_service/build_primary. A 5xx maps to the already-retryable OllamaServerError; a 4xx still raises (via raise_for_status()) but as a plain httpx.HTTPStatusError, deliberately not retried, the same as GroqTriage's 400/401/403. 13 new/updated tests (8 for OllamaTriage: valid parse, request shape, no-redaction, 5xx vs 4xx handled differently, malformed/invalid-enum both fall back safely; 5 updated in test_factory.py for the new http-threading signature, plus a new ollama selection test). 280 tests passing, 92.26% coverage; ruff/format/mypy clean; confirmed no OpenAPI drift. What is NOT done: the plan's own AI-09 acceptance needs an actual model installed (`make offline`, DK-06, owner B) and measured latency p50/p95 against the seed set for docs/TRIAGE.md -- no Ollama binary or Docker in this sandbox to do either. Left status in_progress rather than done.
+- 2026-09-29: FE-12: confirmed the two halves of "switch from MSW to the real API" that were already true (MSW is opt-in behind VITE_USE_MSW and dead-code-eliminated from the production build since FE-03; the typed client already calls the real endpoints, so there was never a literal "switch" to perform) and found the one real contract mismatch: app/pages/ComplaintDetailPage.tsx was still FE-02's original placeholder ("Placeholder until the API client exists"), rendering only the raw id, even though the real GET /api/complaints/{id} route (BE-03) and its typed useComplaint(id) hook had existed for a while unused. Wired it up per plan section 8.11: full text, all fields, StatusActions, both timestamps, and a 404/400 rendered the same way -- the server's message verbatim plus a link back to the dashboard, matching the app's existing rule that the frontend never rewrites what the backend said. 2 new tests. Verified without a live backend (no Postgres in this sandbox): npm run gen:api + check:contract show zero drift between the committed openapi.json and schema.d.ts, and the full suite (31 tests), typecheck, lint, and build are all clean.
 - 2026-09-28: AI-08 (cache + hit-rate mechanism done; the duplicate-replay measurement is the pending human step): app/providers/triage/cache.py::TriageResultCache, wired into factory.py's build_triage_service so TRIAGE_PROVIDER=llm/ollama now actually get a Redis-backed cache instead of the permanent-miss NullTriageCache. Key excludes location on purpose (plan section 11.7: nine neighbours reporting the same burst main should cost one inference) and includes provider/model/PROMPT_VERSION so switching any of them can never serve a stale classification. Hit/miss counters (triage:stats:hits/misses) live in Redis, not memory, for the same distributed-state reason AI-10's OutcomeLog does -- proven across two TriageResultCache instances sharing one fakeredis, the same pattern test_outcomes.py's A16 already used. Added TriageCache.hit_rate() to the Protocol (NullTriageCache returns None) and TriageService.cache_hit_rate(), so MetaService now reports the real measured rate through /api/meta/providers instead of the AI-08-shaped None placeholder -- the one route change in this task, and it only reads through TriageService's existing public surface, per that module's own layering rule. 12 new tests (test_triage_cache.py: hit/miss/key-shape/TTL/hit-rate; plus 3 more in test_triage_service.py and 2 updated in test_meta_service.py). 271 tests passing, 91.96% coverage (triage_service.py itself now 100%); ruff/format/mypy clean; confirmed no OpenAPI drift (no route shape changed, only its cache_hit_rate value stopped being hardcoded). What is NOT done: the plan's own AI-08 acceptance needs a measured hit rate from replaying load/duplicates.jsonl against a real Groq key (docs/TRIAGE.md, DOC-09) -- that dataset and that replay script do not exist yet either, and both need a real key this sandbox doesn't have. Left status in_progress rather than done.
 - 2026-09-29: DK-02 (backend half): .dockerignore excludes both local venvs, tests/, caches and .env* from the build context. Measured, not assumed: a naive single-stage Dockerfile (python:3.12 full, one RUN uv sync with build tools left in) produced a 1.9GB image; the multi-stage slim build above produces 276MB -- an 85% reduction. The naive Dockerfile and its image were throwaway, used only to get this number, and were deleted afterward. Left in_progress: DK-02's other context (frontend) is FE-11's job (nginx template + frontend Dockerfile), not yet done.
 - 2026-09-29: DK-01 + DK-03: backend/Dockerfile (multi-stage: uv==0.5.11 in a python:3.12-slim builder installing frozen deps with --no-install-project before app code is copied in, so editing app code never invalidates the dependency layer; non-root `app` user in the runtime stage; exec-form CMD ["python", "-m", "app.server"] so SIGTERM reaches BE-06's GracefulServer directly, not a shell). compose.yaml adds the data tier only (DK-04 wires the app services): `database`/`cache` service names match Settings' own defaults exactly, so the backend needs zero host overrides once attached; an `internal: true` network with no published ports; Redis with --appendonly yes on a named volume (redis-data) since the rate limiter's window counters and the outcome ring buffer are live state a bare restart shouldn't reset; both services have real healthchecks (pg_isready; redis-cli -a <password> ping, using compose's own parse-time ${VAR} substitution after an escaping bug -- $${REDIS_PASSWORD} -- made the first attempt fail with WRONGPASS since nothing had put the variable into the container's own runtime env). .env.example added at the repo root (POSTGRES_PASSWORD, REDIS_PASSWORD); .gitignore already covered .env. Verified for real, not just `compose config`: built the image, brought the data tier up, ran `alembic upgrade head` and the seed CLI from inside the built image against it (both succeeded, confirming the DB-02 fix above holds under Docker too, not just the manual container), ran the backend image itself joined to the network and hit /health, /ready (postgres+redis both "ok") and /api/stats over a real request, and confirmed a container NOT on the `data` network cannot resolve `database` at all -- proving the network isolation rubric (G3) actually holds, not just that the YAML says internal: true.
@@ -398,4 +399,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: AI-05: TriageService timeout and retry policy (_call_primary() under asyncio.timeout(10s), exactly one retry for the RETRYABLE set only; sleep/rng injectable for deterministic tests). OllamaServerError moved to its own app/providers/triage/errors.py since RETRYABLE needs it ahead of AI-09. 14 tests (A3-A7 plus one for the successful-retry path); added S311 to the tests ruff ignore list (seeded random.Random() for deterministic timing, the same kind of case S106 already covers).
 - 2026-09-27: CI-01: .github/workflows/ci.yml with the five checks that don't need Docker or Kubernetes yet -- lint-and-type, contract, status, test-backend, test-frontend (build/scan/manifests/integration wait for CI-02/CI-03 once DK-01..03 exist). Before shipping it, ran every job's exact commands locally to make sure a clean PR is actually green, not just plausible, and that surfaced two more pre-existing issues: a real mypy error in complaint_repository.py (get_status_stmt was typed Select[Any], so get_status() silently returned Any instead of Status | None -- fixed by typing it Select[Status]), and a Node-version trap in the frontend test job (this sandbox's Node 24 fails 2 tests with an AbortSignal cross-realm error from MSW's interceptor against Node's undici; confirmed clean on a portable Node 22.20.0, which is what ci.yml actually pins, so left the test code untouched). Full local dry run once both were fixed: backend ruff/format/mypy clean, 102 tests passing at 87.9% coverage; frontend lint/typecheck clean, 29 tests passing, build succeeds; openapi.json and schema.d.ts both drift-free; STATUS.md in sync.
 - 2026-09-27: AI-03: TriageService skeleton + fallback (app/services/triage_service.py). Writing the fallback test surfaced a real bug in the plan's own literal code: its triage() snippet caches the primary's result unconditionally on success, contradicting its own stated design ("no cache is used [for rules], since rules are cheaper than Redis") -- a rules-as-primary run would still round-trip Redis on every request. Guarded the cache write with the same `primary.name != "rules"` check already used on the read side. 8 tests: A1 (AlwaysRaisesProvider -> rules:fallback), successful/cached/rules-primary paths, and that CancelledError propagates instead of being swallowed (needed for BE-06's graceful shutdown later).
-- 2026-09-27: AI-02: SimulatedTriage (app/providers/triage/simulated.py) and the shared parse_triage_output/MalformedOutput (app/providers/triage/parsing.py, which AI-04's GroqTriage will reuse as-is). All four failure modes (raise, timeout, malformed, rate_limited) produce the exact exception types TriageService's retry policy (AI-05) will need to distinguish, including a real openai.RateLimitError built from a fake httpx.Response rather than a hand-rolled stand-in. 7 tests, including a monkeypatched socket.socket that asserts a normal call opens no socket at all ("no network, ever").
