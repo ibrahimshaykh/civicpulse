@@ -9,6 +9,7 @@ from redis.asyncio import Redis
 
 from app.core.config import Settings
 from app.providers.triage.base import TriageProvider
+from app.providers.triage.llm import GroqTriage
 from app.providers.triage.outcomes import OutcomeLog
 from app.providers.triage.rules import RuleBasedTriage
 from app.providers.triage.simulated import SimulatedTriage
@@ -20,10 +21,17 @@ log = structlog.get_logger()
 def build_primary(s: Settings) -> TriageProvider:
     match s.triage_provider:
         case "llm":
-            # GroqTriage lands with AI-04. Never crash the service over a
-            # provider that doesn't exist yet -- degrade to rules, loudly.
-            log.error("triage_provider_not_yet_implemented", requested="llm", using="rules")
-            return RuleBasedTriage()
+            if s.groq_api_key is None:
+                # Never crash the service over a missing key -- degrade to
+                # rules, loudly, so a misconfigured deploy still serves traffic.
+                log.error("groq_key_missing_falling_back_to_rules")
+                return RuleBasedTriage()
+            return GroqTriage(
+                api_key=s.groq_api_key,
+                model=s.groq_model,
+                base_url=s.groq_base_url,
+                timeout_s=s.triage_timeout_s,
+            )
         case "ollama":
             # OllamaTriage lands with AI-09; same reasoning as "llm" above.
             log.error("triage_provider_not_yet_implemented", requested="ollama", using="rules")
