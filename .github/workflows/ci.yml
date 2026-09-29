@@ -111,7 +111,18 @@ jobs:
           sed -i "s/^REDIS_PASSWORD=.*/REDIS_PASSWORD=ci-$(openssl rand -hex 8)/" .env
           echo "TRIAGE_PROVIDER=simulated" >> .env
       - name: Bring the whole stack up (data tier, migrate, seed, backend, frontend)
-        run: docker compose up -d --build --wait --wait-timeout 180
+        run: |
+          # `--wait` fails the whole command if ANY container it's told to
+          # wait for exits -- including migrate/seed, which are *supposed*
+          # to exit 0. Restricting --wait to the long-running services
+          # avoids that false failure; migrate still runs first regardless
+          # (backend's own service_completed_successfully dependency on it
+          # is unaffected by which services are named here). `seed` isn't a
+          # dependency of anything, so it needs its own explicit `up` to
+          # run at all -- issued without --wait so its exit doesn't fail
+          # this step either.
+          docker compose up -d --build --wait --wait-timeout 180 database cache backend frontend
+          docker compose up -d seed
       - name: Smoke test through nginx (the real user path, not a bypass to the backend's own port)
         run: |
           set -euo pipefail
