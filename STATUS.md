@@ -4,7 +4,7 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [█████████████░░░░░░░░░░░░░░░░░]   44%   39 of 87 core tasks done
+Project progress  [██████████████░░░░░░░░░░░░░░░░]   47%   41 of 87 core tasks done
 Marks secured     [██████████░░░░░░░░░░░░░░░░░░░░]   36%   54.9 of 150 marks  (64 of 175 rubric points)
 ```
 
@@ -15,7 +15,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
 | Partner A (frontend, backend, data) | 27 of 38 | `███████░░░` 71% |
-| Partner B (AI layer, DevOps) | 12 of 38 | `███░░░░░░░` 31% |
+| Partner B (AI layer, DevOps) | 14 of 38 | `███░░░░░░░` 36% |
 | Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
 
 ## Marks by rubric section
@@ -41,6 +41,7 @@ Raw rubric points, as printed in the brief.
 - 🔄 **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A)
 - 🔄 **AI-04** Groq provider, JSON mode, strict output validation (B)
 - 🔄 **AI-08** Content-hash triage cache + measured hit rate (B)
+- 🔄 **DK-02** .dockerignore per context + before/after sizes (B)
 
 ## Needs you
 
@@ -62,10 +63,10 @@ Raw rubric points, as printed in the brief.
 
 **Partner B (AI layer, DevOps)**
 
-- ⬜ **DK-01** Backend multi-stage non-root Dockerfile — Claude builds, you run it (week 1)
-- ⬜ **DK-02** .dockerignore per context + before/after sizes — Claude builds, you run it (week 1)
-- ⬜ **DK-03** compose.yaml data tier, internal network, AOF volume — Claude builds, you run it (week 1)
 - ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
+- ⬜ **DK-04** migrate + seed services, healthchecks, make up — Claude builds, you run it (week 2)
+- ⬜ **CI-07** Required status checks wired into branch protection — you, step by step (week 2)
+- ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots — you, step by step (week 2)
 
 ## Hands-on work for you and your partner
 
@@ -74,9 +75,7 @@ Claude does every task marked "Claude". These are the ones that need a person. C
 | Week | Task | Who | What you do |
 |---:|---|---|---|
 | 1 | 🔄 **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS | Claude builds, you run it | Create the repo (or connect GitHub), add your partner, turn on branch protection |
-| 1 | ⬜ **DK-01** Backend multi-stage non-root Dockerfile | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 1 | ⬜ **DK-02** .dockerignore per context + before/after sizes | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 1 | ⬜ **DK-03** compose.yaml data tier, internal network, AOF volume | Claude builds, you run it | Run the commands Claude gives, paste the output back |
+| 1 | 🔄 **DK-02** .dockerignore per context + before/after sizes | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 2 | ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified | Claude builds, you run it | You and your partner each commit one side from your own accounts, then screenshot |
 | 2 | ⬜ **FE-11** nginx runtime config template, frontend Dockerfile, .dockerignore | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 2 | 🔄 **AI-04** Groq provider, JSON mode, strict output validation | Claude builds, you run it | Create a Groq key, put it in .env only, run one live call |
@@ -135,6 +134,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 | Done on | Task | Owner |
 |---|---|---|
+| 2026-09-29 | **DK-03** compose.yaml data tier, internal network, AOF volume | B |
+| 2026-09-29 | **DK-01** Backend multi-stage non-root Dockerfile | B |
 | 2026-09-28 | **AI-11** Provider factory selected by TRIAGE_PROVIDER | B |
 | 2026-09-28 | **AI-10** Outcome ring buffer + /api/meta/providers | B |
 | 2026-09-28 | **CA-02** Distributed Redis rate limiter, 429 + Retry-After | A |
@@ -204,7 +205,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | E1 /api/stats read-through cache, 30 s TTL, X-Cache | 3 | ✅ | — |
 | E2 Invalidated on write | 2 | ✅ | — |
 | E3 Distributed Redis rate limiter, 429 + Retry-After | 4 | ✅ | — |
-| E4 Redis AOF on a named volume, justified | 1 | ⬜ | DK-03, DOC-07 |
+| E4 Redis AOF on a named volume, justified | 1 | 🔄 | DOC-07 |
 | F1 TriageProvider with >= 3 implementations selected by env var | 5 | 🔄 | AI-04 |
 | F2 Structured output validated by Pydantic, malformed rejected safely | 5 | 🔄 | AI-04 |
 | F3 Timeout, single jittered retry, fallback, triaged_by recorded | 6 | ✅ | — |
@@ -212,9 +213,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | F5 Prompt-injection guardrail + injection test | 3 | ✅ | — |
 | F6 triage_latency_ms surfaced via /api/meta/providers | 2 | ✅ | — |
 | F7 PII / data-governance ADR | 1 | ✅ | — |
-| G1 Both images multi-stage, pinned, non-root, exec CMD, cache-correct | 4 | ⬜ | DK-01, FE-11 |
-| G2 .dockerignore per context with before/after sizes | 2 | ⬜ | DK-02 |
-| G3 Two networks, internal: true, frontend provably can't reach DB | 4 | ⬜ | DK-03, EV-06 |
+| G1 Both images multi-stage, pinned, non-root, exec CMD, cache-correct | 4 | 🔄 | FE-11 |
+| G2 .dockerignore per context with before/after sizes | 2 | 🔄 | DK-02 |
+| G3 Two networks, internal: true, frontend provably can't reach DB | 4 | 🔄 | EV-06 |
 | G4 Three named volumes justified, dev bind mount only in dev | 2 | ⬜ | DK-04, DK-06 |
 | G5 Healthchecks + depends_on service_healthy | 2 | ⬜ | DK-04 |
 | G6 compose.prod.yaml: image tag, no build, no DB/cache port | 1 | ⬜ | DK-05 |
@@ -310,11 +311,11 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ AI-10 Outcome ring buffer + /api/meta/providers (B, Claude, week 3)
 - ✅ AI-11 Provider factory selected by TRIAGE_PROVIDER (B, Claude, week 3)
 
-**Docker and Compose** — 0 of 7 done
+**Docker and Compose** — 2 of 7 done
 
-- ⬜ DK-01 Backend multi-stage non-root Dockerfile (B, Claude builds, you run it, week 1)
-- ⬜ DK-02 .dockerignore per context + before/after sizes (B, Claude builds, you run it, week 1)
-- ⬜ DK-03 compose.yaml data tier, internal network, AOF volume (B, Claude builds, you run it, week 1)
+- ✅ DK-01 Backend multi-stage non-root Dockerfile (B, Claude builds, you run it, week 1)
+- 🔄 DK-02 .dockerignore per context + before/after sizes (B, Claude builds, you run it, week 1)
+- ✅ DK-03 compose.yaml data tier, internal network, AOF volume (B, Claude builds, you run it, week 1)
 - ⬜ DK-04 migrate + seed services, healthchecks, make up (B, Claude builds, you run it, week 2)
 - ⬜ DK-05 compose.prod.yaml (image by tag, no build, no DB/cache ports) (B, Claude builds, you run it, week 3)
 - ⬜ DK-06 Offline profile with ollama_models volume (B, Claude builds, you run it, week 3)
@@ -383,6 +384,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 ## Change log
 
 - 2026-09-28: AI-08 (cache + hit-rate mechanism done; the duplicate-replay measurement is the pending human step): app/providers/triage/cache.py::TriageResultCache, wired into factory.py's build_triage_service so TRIAGE_PROVIDER=llm/ollama now actually get a Redis-backed cache instead of the permanent-miss NullTriageCache. Key excludes location on purpose (plan section 11.7: nine neighbours reporting the same burst main should cost one inference) and includes provider/model/PROMPT_VERSION so switching any of them can never serve a stale classification. Hit/miss counters (triage:stats:hits/misses) live in Redis, not memory, for the same distributed-state reason AI-10's OutcomeLog does -- proven across two TriageResultCache instances sharing one fakeredis, the same pattern test_outcomes.py's A16 already used. Added TriageCache.hit_rate() to the Protocol (NullTriageCache returns None) and TriageService.cache_hit_rate(), so MetaService now reports the real measured rate through /api/meta/providers instead of the AI-08-shaped None placeholder -- the one route change in this task, and it only reads through TriageService's existing public surface, per that module's own layering rule. 12 new tests (test_triage_cache.py: hit/miss/key-shape/TTL/hit-rate; plus 3 more in test_triage_service.py and 2 updated in test_meta_service.py). 271 tests passing, 91.96% coverage (triage_service.py itself now 100%); ruff/format/mypy clean; confirmed no OpenAPI drift (no route shape changed, only its cache_hit_rate value stopped being hardcoded). What is NOT done: the plan's own AI-08 acceptance needs a measured hit rate from replaying load/duplicates.jsonl against a real Groq key (docs/TRIAGE.md, DOC-09) -- that dataset and that replay script do not exist yet either, and both need a real key this sandbox doesn't have. Left status in_progress rather than done.
+- 2026-09-29: DK-02 (backend half): .dockerignore excludes both local venvs, tests/, caches and .env* from the build context. Measured, not assumed: a naive single-stage Dockerfile (python:3.12 full, one RUN uv sync with build tools left in) produced a 1.9GB image; the multi-stage slim build above produces 276MB -- an 85% reduction. The naive Dockerfile and its image were throwaway, used only to get this number, and were deleted afterward. Left in_progress: DK-02's other context (frontend) is FE-11's job (nginx template + frontend Dockerfile), not yet done.
+- 2026-09-29: DK-01 + DK-03: backend/Dockerfile (multi-stage: uv==0.5.11 in a python:3.12-slim builder installing frozen deps with --no-install-project before app code is copied in, so editing app code never invalidates the dependency layer; non-root `app` user in the runtime stage; exec-form CMD ["python", "-m", "app.server"] so SIGTERM reaches BE-06's GracefulServer directly, not a shell). compose.yaml adds the data tier only (DK-04 wires the app services): `database`/`cache` service names match Settings' own defaults exactly, so the backend needs zero host overrides once attached; an `internal: true` network with no published ports; Redis with --appendonly yes on a named volume (redis-data) since the rate limiter's window counters and the outcome ring buffer are live state a bare restart shouldn't reset; both services have real healthchecks (pg_isready; redis-cli -a <password> ping, using compose's own parse-time ${VAR} substitution after an escaping bug -- $${REDIS_PASSWORD} -- made the first attempt fail with WRONGPASS since nothing had put the variable into the container's own runtime env). .env.example added at the repo root (POSTGRES_PASSWORD, REDIS_PASSWORD); .gitignore already covered .env. Verified for real, not just `compose config`: built the image, brought the data tier up, ran `alembic upgrade head` and the seed CLI from inside the built image against it (both succeeded, confirming the DB-02 fix above holds under Docker too, not just the manual container), ran the backend image itself joined to the network and hit /health, /ready (postgres+redis both "ok") and /api/stats over a real request, and confirmed a container NOT on the `data` network cannot resolve `database` at all -- proving the network isolation rubric (G3) actually holds, not just that the YAML says internal: true.
+- 2026-09-29: Root-caused and fixed a real bug in DB-02's own Alembic env.py while getting the stack running locally for the first time with Docker Desktop finally stable: do_run_migrations's advisory-lock SELECT (`pg_advisory_lock`) autobegins a real SQLAlchemy transaction before context.begin_transaction() runs, so alembic nests the actual migration inside a SAVEPOINT instead of a top-level transaction; run_async_migrations then used engine.connect() (closes without committing) instead of engine.begin() (commits on clean exit), so every `alembic upgrade head` printed a normal success line and genuinely executed the DDL, then silently rolled the whole thing back the instant the connection closed. Diagnosed by ruling out the more obvious suspects first (IPv6/wslrelay port collision, a second Postgres on the same port, a restarted container with a fresh volume -- all checked and cleared) before reading env.py itself. One-line fix: connectable.begin() instead of connectable.connect(). Confirmed fixed against both the manually-run postgres:16-alpine container and, later the same day, the new compose-managed one -- `\dt` now shows complaints + alembic_version after every run, and the seed CLI inserted all 33 rows.
 - 2026-09-28: AI-04 (code + tests only, human step still pending): GroqTriage (app/providers/triage/llm.py) -- an AsyncOpenAI client pointed at Groq's OpenAI-compatible endpoint, max_retries=0 so TriageService (AI-05) owns the single retry, JSON mode, temperature=0. Wired into factory.py: TRIAGE_PROVIDER=llm now selects it when groq_api_key is set, and still degrades to rules with an ERROR log (not a crash) when it is not, matching the plan's own build_primary snippet exactly. redact() runs on the complaint text before it is sent, and location/reporter_contact are never included in the request at all -- both proven by inspecting the actual call kwargs sent to a mocked client, the same no-live-call testing pattern AI-01/02/05/06 already used (no respx dependency needed for this). 9 new tests in test_llm_triage.py (A2: malformed JSON and an invalid enum value both raise MalformedOutput rather than being accepted best-effort; A15: no location/contact, PII redacted; plus the max_retries=0 / JSON-mode / model wiring itself) and 2 updated tests in test_factory.py. 260 tests passing (1 deselected), 91.75% coverage; ruff/format/mypy clean -- mypy needed one explicit cast, since build_messages()'s list[dict[str, str]] does not structurally match the SDK's ChatCompletionMessageParam TypedDict union. What is NOT done here, per the plan's own AI-04 acceptance ('manual call succeeds'): no real Groq key exists in this sandbox, so the one live call against the actual API has not been made. Left status in_progress rather than done until that human step happens.
 - 2026-09-28: BE-07 closed out: the 249-test / 91.6%-coverage suite from the batched run above already exceeds the plan's 30+/>=70% acceptance bar, so the remaining work was tightening the enforced floor to match rather than adding tests for their own sake. Raised coverage.report.fail_under from 65 to 70 in backend/pyproject.toml, and the matching --cov-fail-under flag in ci.yml's test-backend job from 65 to 70, so both local and CI runs honestly enforce the plan's stated target instead of a looser placeholder. Reran the exact CI command afterward: 249 passed, 1 deselected, 91.59% coverage, comfortably above the new floor. The one remaining gap -- the integration-marked create-complaint test needing real Postgres/Redis -- is out of scope here: ci.yml's own comment assigns that to CI-02's Compose integration job (owner B), not to BE-07's testcontainers wiring, so conftest.py is left as-is.
 - 2026-09-28: Timeline compressed to "finish tonight": dropped the week-based sequencing and batched seven tightly-coupled backend/AI tasks in one run instead of one task per PR -- AI-11 (provider factory), AI-10 (Redis outcome log + real /api/meta/providers), BE-03 (real ComplaintService, replacing the C0-05 stub routes), BE-04 (state machine + PATCH + optimistic-concurrency race guard), BE-06 (GracefulServer: SIGTERM flips readiness before uvicorn drains, not after), CA-02 (Redis fixed-window rate limiter, atomic INCR+EXPIRE via Lua), BE-08 (AST-based architecture test; OpenAPI 400 cleanup was already done by C0-05). Testing all seven together surfaced issues a one-task-at-a-time pass would have hit piecemeal anyway, worth listing because they explain real code choices: (1) the CA-02 tests need fakeredis's real Lua backend (`lupa`), missing from both this sandbox and the dev dependency group -- added it and regenerated uv.lock (uv itself had to be installed fresh here to do that). (2) mypy under the *actually pinned* SQLAlchemy 2.0.54 (this sandbox had drifted to 2.1.1 again) flagged a real bug in outcomes.py: redis-py 5.3.1's lrange() stub returns a union type that fails a bare `await`; fixed with an explicit Awaitable cast. (3) Two pre-existing observability tests (U8, I15) built their TestClient without entering the app lifespan, which the C0-05 stub routes never needed but the new real routes do -- fixed by entering it (U8) or faking the dependency directly (I15, since /health/ready/metrics are deliberately excluded from request-completed logging and can't stand in). (4) test_contract.py's create-complaint test now genuinely needs a live Postgres now that BE-03 wired the real service, and conftest.py has no testcontainers fixtures yet (that's BE-07/CI-02's job) -- marked it `integration` and excluded that marker in ci.yml's test-backend job rather than leave a test CI cannot actually pass. 249 tests passing (1 deselected), 91.6% coverage; ruff/format/mypy clean under the CI-accurate uv-managed venv; no OpenAPI drift.
@@ -394,6 +398,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-27: AI-03: TriageService skeleton + fallback (app/services/triage_service.py). Writing the fallback test surfaced a real bug in the plan's own literal code: its triage() snippet caches the primary's result unconditionally on success, contradicting its own stated design ("no cache is used [for rules], since rules are cheaper than Redis") -- a rules-as-primary run would still round-trip Redis on every request. Guarded the cache write with the same `primary.name != "rules"` check already used on the read side. 8 tests: A1 (AlwaysRaisesProvider -> rules:fallback), successful/cached/rules-primary paths, and that CancelledError propagates instead of being swallowed (needed for BE-06's graceful shutdown later).
 - 2026-09-27: AI-02: SimulatedTriage (app/providers/triage/simulated.py) and the shared parse_triage_output/MalformedOutput (app/providers/triage/parsing.py, which AI-04's GroqTriage will reuse as-is). All four failure modes (raise, timeout, malformed, rate_limited) produce the exact exception types TriageService's retry policy (AI-05) will need to distinguish, including a real openai.RateLimitError built from a fake httpx.Response rather than a hand-rolled stand-in. 7 tests, including a monkeypatched socket.socket that asserts a normal call opens no socket at all ("no network, ever").
 - 2026-09-27: AI-01: RuleBasedTriage (app/providers/triage/rules.py), matching the plan's keyword table verbatim -- 93.9% category accuracy (31/33) against the seed set, well over the required 70%, so no tuning was needed. Shared normalize()/first_sentence() helpers split into app/providers/triage/text.py so AI-08's cache can reuse the same normalize() later. 6 tests: the accuracy threshold, determinism, high-risk and low-hint priority rules, the other-category fallback, and totality against 6 edge-case strings (max length, punctuation-only, non-Latin script, mixed case, combining-character normalization).
-- 2026-09-27: C0-04: froze the triage seam -- app/providers/triage/base.py (TriageResult, the TriageProvider Protocol) and app/services/triage_service.py (TriageOutcome, TriageService.triage()/recent_outcomes()/active_provider). TriageCache and OutcomeSink are Protocols with Null* default implementations, so the skeleton works today without AI-08's Redis cache or AI-10's Redis outcome log -- both will satisfy the same Protocols later without touching TriageService's constructor or callers. tests/fakes.py::StubTriageService added per the plan so ComplaintService (BE-03) can be coded against the seam before AI-04 lands.
-- 2026-09-27: Partner B (Salman) starts picking up Partner B's backlog directly, since Ibrahim is stepping back from active contribution for a while. Before starting on the prescribed AI-layer work, fixed a real bug Salman hit running the app locally: every page other than Submit crashed with the app's own "This page stopped working" boundary as soon as the backend was unreachable (e.g. no Docker running). Root cause: stats.ts/meta.ts/complaints.ts treated the parsed error body's truthiness, not response.ok, as the signal that a request had failed; the dev proxy answers an unreachable backend with a 500 that has an empty, non-JSON body, which parses to a falsy `error`, so the check silently passed and StatsPage crashed reading `.stats.total` off a `data` object that looked loaded but was not. Fixed by checking `error || !response.ok` everywhere (keeping the `error` check too, since openapi-fetch's TS types only narrow `data` to defined off that check, not off response.ok -- dropping it re-broke typecheck across four files). Committed separately on fix/stats-page-crash-on-api-failure pending push.
-- 2026-09-27: DB-02: async Alembic env.py (target_metadata=Base.metadata, compare_type/compare_server_default, an advisory lock around do_run_migrations so two backend pods cannot migrate concurrently, URL from Settings() not alembic.ini). Migration 0001 creates the three Postgres enums, the complaints table with all six check constraints and both indexes, and the updated_at trigger. Found and fixed a real bug while testing offline: hand-writing constraint names as the full ck_complaints_* form in the migration produced double-prefixed names (ck_complaints_ck_complaints_text_length), because op.create_table re-applies the naming convention on top of an already-given name; switched to the same short names the ORM model uses. No Docker/Postgres here, so verified with alembic upgrade/downgrade --sql (offline mode, no DBAPI needed) plus a new regression test that diffs the migration's generated DDL against the model's own compiled DDL byte-for-byte -- confirmed it actually catches drift by deliberately breaking a column length and watching the test fail, then restored it. This stands in for alembic check, which needs a live database; a real up/down/up cycle (I21) still needs to run once Docker exists.
