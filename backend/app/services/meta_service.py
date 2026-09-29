@@ -21,8 +21,6 @@ class MetaService:
             active_provider=active,
             fallback_provider="rules",
             model=model,
-            # AI-08's content-hash cache reports the measured hit rate; until
-            # then, "we don't have one yet" is more honest than a fake number.
-            cache_hit_rate=None,
+            cache_hit_rate=await self._triage.cache_hit_rate(),
             recent=recent,
         )
