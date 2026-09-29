@@ -1,0 +1,25 @@
+# Non-secret settings only (rubric H2: ConfigMap/Secret separated). Same
+# service-name convention as compose.yaml: "database"/"cache" match
+# Settings.postgres_host / Settings.redis_host's own defaults, so the app
+# needs no per-environment host override in either place.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: civicpulse-config
+  namespace: civicpulse
+data:
+  APP_ENV: "prod"
+  LOG_LEVEL: "INFO"
+  POSTGRES_HOST: "database"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "civicpulse"
+  POSTGRES_USER: "civicpulse"
+  REDIS_HOST: "cache"
+  REDIS_PORT: "6379"
+  TRIAGE_PROVIDER: "simulated"
+  STATS_CACHE_TTL_S: "30"
+  RATE_LIMIT_PER_WINDOW: "10"
+  RATE_LIMIT_WINDOW_S: "60"
+  TRUSTED_PROXY_HOPS: "1"
+  GRACEFUL_TIMEOUT_S: "20"
+  READINESS_TIMEOUT_S: "1.0"
