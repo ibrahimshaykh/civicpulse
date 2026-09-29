@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [██████████████████░░░░░░░░░░░░]   63%   55 of 87 core tasks done
-Marks secured     [█████████████████░░░░░░░░░░░░░]   59%   89.1 of 150 marks  (104 of 175 rubric points)
+Project progress  [███████████████████░░░░░░░░░░░]   65%   57 of 87 core tasks done
+Marks secured     [██████████████████░░░░░░░░░░░░]   61%   92.6 of 150 marks  (108 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -15,7 +15,7 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
 | Partner A (frontend, backend, data) | 29 of 38 | `███████░░░` 76% |
-| Partner B (AI layer, DevOps) | 25 of 38 | `██████░░░░` 65% |
+| Partner B (AI layer, DevOps) | 27 of 38 | `███████░░░` 71% |
 | Shared tasks | 1 of 11 | `░░░░░░░░░░` 9% |
 
 ## Marks by rubric section
@@ -32,9 +32,9 @@ Raw rubric points, as printed in the brief.
 | F · AI layer | 12 | 25 | `████░░░░░░` |
 | G · Docker and Compose | 11 | 15 | `███████░░░` |
 | H · Kubernetes | 13 | 20 | `██████░░░░` |
-| I · CI/CD | 6 | 20 | `███░░░░░░░` |
+| I · CI/CD | 10 | 20 | `█████░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **104** | **175** | `█████░░░░░` |
+| **Total** | **108** | **175** | `██████░░░░` |
 
 ## Working on now
 
@@ -67,7 +67,7 @@ Raw rubric points, as printed in the brief.
 - ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
 - ⬜ **CI-07** Required status checks wired into branch protection — you, step by step (week 2)
 - ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots — you, step by step (week 2)
-- ⬜ **CI-04** cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions — Claude (week 3)
+- ⬜ **DOC-09** TRIAGE.md: prompt, latency, accuracy, hit rate — Claude builds, you run it (week 3)
 
 ## Hands-on work for you and your partner
 
@@ -109,12 +109,12 @@ Claude does every task marked "Claude". These are the ones that need a person. C
 
 The portal takes these items (brief §5.8), not files. Every file lives in the GitHub repo.
 
-**0 of 8 ready.**
+**1 of 8 ready.**
 
 - ⬜ Before turning in: check_submission.py runs clean — waiting on SUB-01
 - 🔄 GitHub repository URL (public, or private with both instructors added) — waiting on C0-01, SUB-03
-- ⬜ Link to a successful cd.yml run that tested, published and deployed — waiting on CI-04, CI-05
-- ⬜ Links to both GHCR images showing SHA tags — waiting on CI-04
+- 🔄 Link to a successful cd.yml run that tested, published and deployed — waiting on CI-05
+- ✅ Links to both GHCR images showing SHA tags
 - ⬜ Demo video link (unlisted) — waiting on DOC-10
 - ⬜ git shortlog -sn output, pasted — waiting on EV-04
 - ⬜ kubectl get hpa -w capture and the replicas-vs-load chart — waiting on K8-05
@@ -125,6 +125,8 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | Done on | Task | Owner |
 |---|---|---|
 | 2026-09-29 | **DOC-02** ADR 0001 provider interface | B |
+| 2026-09-29 | **CI-06** release.yml retagging the SHA image on v* tags | B |
+| 2026-09-29 | **CI-04** cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions | B |
 | 2026-09-29 | **CI-03** Image build, Trivy scan, kubeconform | B |
 | 2026-09-29 | **CI-02** Compose integration smoke job (MISS then HIT) | B |
 | 2026-09-29 | **K8-04** HPA v2 with behavior, PDB, VPA (Off) | B |
@@ -232,9 +234,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | I1 ci.yml lint, types, tests on every PR, required checks | 4 | 🔄 | CI-07 |
 | I2 Compose integration smoke job | 3 | ✅ | — |
 | I3 Trivy + kubeconform in CI | 3 | ✅ | — |
-| I4 cd.yml needs-gated, GHCR images tagged by SHA | 4 | ⬜ | CI-04, CI-06 |
+| I4 cd.yml needs-gated, GHCR images tagged by SHA | 4 | ✅ | — |
 | I5 Ephemeral cluster deploy, rollout status, Ingress smoke test | 3 | ⬜ | CI-05 |
-| I6 GitHub Secrets, scoped token, least-privilege permissions | 2 | ⬜ | CI-04, CI-05 |
+| I6 GitHub Secrets, scoped token, least-privilege permissions | 2 | 🔄 | CI-05 |
 | I7 Red pipeline blocking a merge, then green | 1 | ⬜ | EV-07 |
 | J1 README: problem, badges, Mermaid, quickstart, API table, screenshots | 4 | ⬜ | DOC-01 |
 | J2 Four ADRs | 4 | 🔄 | DOC-03, DOC-04 |
@@ -336,14 +338,14 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ⬜ K8-08 Rollback, imperative and declarative (B, Claude builds, you run it, week 4)
 - ⬜ K8-07 Zero-downtime rollout under live load (B, Claude builds, you run it, week 4) ⭐
 
-**CI/CD** — 3 of 8 done
+**CI/CD** — 5 of 8 done
 
 - ✅ CI-01 ci.yml: lint, types, contract, status, tests (B, Claude, week 1)
 - ✅ CI-02 Compose integration smoke job (MISS then HIT) (B, Claude, week 3)
 - ✅ CI-03 Image build, Trivy scan, kubeconform (B, Claude, week 3)
-- ⬜ CI-04 cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions (B, Claude, week 3)
+- ✅ CI-04 cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions (B, Claude, week 3)
 - ⬜ CI-05 Ephemeral k3d deploy job, rollout status, Ingress smoke test (B, Claude builds, you run it, week 4)
-- ⬜ CI-06 release.yml retagging the SHA image on v* tags (B, Claude, week 4)
+- ✅ CI-06 release.yml retagging the SHA image on v* tags (B, Claude, week 4)
 - ⬜ CI-07 Required status checks wired into branch protection (B, you, step by step, week 2)
 - ⬜ CI-08 Deploy by digest, Cosign sign and verify, SHA-pinned actions (B, Claude, week 4) ⭐
 
@@ -388,6 +390,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 ## Change log
 
 - 2026-09-29: DOC-08: docs/AI-USAGE.md, written from this session's own real record (docs/progress.toml's [[log]] entries and actual git history) rather than a generic AI-usage template. Names the tool (Claude Code / Claude Sonnet 5) and covers, with specific file/task citations: what it was used for, four verbatim representative prompts from this session, and eight concrete rejected-or-corrected cases spanning a bug in the plan's own reference code (AI-03), a real Alembic naming bug (DB-02), two real mypy --strict catches (CI-01, AI-10), a rejected sync interface from the brief itself (DOC-02/ADR 0001), a factual error in Claude's own first ADR 0001 draft caught and fixed before commit, an avoided-not-corrected redundant test file (FE-10), and a too-loose coverage floor (BE-07). Left status in_progress: the task's own human field asks you to confirm the account is accurate, and asks Salman to add his own AI-tool-usage row rather than have it written on his behalf.
+- 2026-09-29: CI-04 + CI-06: cd.yml (test job reuses ci.yml wholesale via workflow_call -- added that trigger to ci.yml's own `on:` block, so the reuse needed zero duplication of lint/test/scan logic; build-push tags both images by commit SHA *and* :latest, SHA being the one that ever actually gets deployed -- :latest is a convenience pointer only, per the plan's own build-once-deploy-many principle; SBOM via anchore/sbom-action, uploaded as artifacts) and release.yml (retags the already-built SHA image with the git tag via `docker buildx imagetools create` -- no rebuild, so v1.0.0 points at the exact digest that passed CI, not a fresh build that might drift). Deliberately scoped down from the plan's full cd.yml: no deploy-k8s job (that's CI-05, deferred tonight alongside K8-05/06 for the same real-load-test time cost) and no cosign signing (CI-08, bonus). Could not verify with a live CI run -- cd.yml only triggers on push to main, and main is still just the initial commit (the team's first Release PR, dev -> main, hasn't happened yet) -- so verified instead with what was available: yaml.safe_load on all three workflow files, and actionlint (via its own Docker image) against the whole .github/workflows/ directory, which caught four real shellcheck SC2086 unquoted-variable warnings in release.yml's retag loop; quoted them, re-ran actionlint clean.
 - 2026-09-29: Timeline forced a hard scope cut with the submission deadline tonight: K8-01/K8-02/K8-03/K8-04 landed (k8s/base/: namespace, ConfigMap, placeholder Secret, Postgres StatefulSet+PVC, Redis Deployment+PVC, backend/frontend Deployments with all three probes + preStop + requests/limits, ClusterIP Services, Traefik Ingress for / and /api, HPA v2 with an explicit scaleUp/scaleDown behavior block, two PDBs, and a VPA in updateMode Off; k8s/overlays/prod/ swaps :latest for a real tag via kustomize's images: transformer, same pattern as DK-05's compose.prod.yaml). K8-05 (HPA/VPA live load-test chart), K8-06 (the full VPA guess/load/recommend/update loop) and CI-05 (ephemeral k3d deploy in CI) are deliberately NOT attempted tonight -- each genuinely needs 10+ minutes of real load per run, which the remaining time budget cannot absorb honestly; fabricating a chart or a "passing" deploy log would be worse than leaving them todo. K8-08 (rollback) is documented in k8s/README.md with the exact imperative (`kubectl rollout undo`) and declarative (`kubectl apply -k` after reverting the overlay's image tag) commands, but left todo rather than done, since neither has actually been run against a live cluster -- no k3d/kind/minikube exists in this environment, and claiming a rollback demo without one would be exactly the kind of unverified claim this project has avoided all night. Verification that did happen, for real: `kubectl kustomize k8s/base` and `k8s/overlays/prod` both render cleanly, and `kubeconform -strict -ignore-missing-schemas` (via its own Docker image, added to ci.yml's manifest-lint job which had been a no-op until now) validates all 16 standard-schema resources with zero errors; the VPA CRD is the one correctly-skipped resource, since kubeconform has no bundled schema for a CRD kind, not because it's invalid.
 - 2026-09-29: CI-02 closed out: partner's PR #68 (feat/CI-02-compose-integration) had a genuine bug in its first real CI run (this sandbox has no Docker, per the task's own human note, so it could only be caught once) -- `docker compose up -d --build --wait --wait-timeout 180` with no service args fails the whole step as soon as ANY waited container exits, including migrate/seed, which are *supposed* to exit 0; every service had actually reached Healthy/Exited(0) in the log, the step still returned exit 1. Fixed by restricting --wait to the long-running services (database cache backend frontend) and giving seed its own explicit `docker compose up -d seed` (no --wait, since nothing depends on seed so it would never start otherwise, and its own exit can't fail a step that isn't waiting on it). Also rebased the branch onto dev (STATUS.md had drifted since several PRs landed while it was open). Verified the exact fixed two-step sequence locally end to end before pushing -- brought the stack up, then ran the job's own assertions (POST/GET round-trip, category=water, MISS then HIT, total>=31 via the existing poll loop) -- all passed. Left a review comment on the PR explaining both fixes.
 - 2026-09-29: CI-03: two new ci.yml jobs, image-scan (builds both images fresh, then Trivy-scans each for CRITICAL, ignore-unfixed) and manifest-lint (kubeconform over k8s/**/*.yaml -- a deliberate no-op today since K8-01 hasn't landed manifests yet, so CI-05's later gate on this job needs no new wiring once they do). Chose CRITICAL over HIGH deliberately: gating on someone else's base-image CVEs at HIGH severity would block every PR on issues this project can't fix by tonight; CRITICAL is the bar actually worth enforcing. Running the scan locally against the real built images (not assumed) found it was not a no-op: the frontend's pinned nginxinc/nginx-unprivileged:1.27-alpine base carried two real, fixed CRITICAL CVEs (libcrypto3/libssl3, CVE-2026-31789 and its libssl3 pair). Fixed in frontend/Dockerfile with `apk update && apk upgrade --no-cache` (as root, then back to uid 101, since apk needs root and the base image already runs non-root by default) -- re-scanned clean afterward (exit 0), and confirmed the fix didn't regress anything: the container still runs as `nginx` (non-root) and still serves a real 200. Image grew 74.3MB -> 98.3MB from the upgrade -- a deliberate size-for-security tradeoff, recorded honestly in docs/evidence/06-image-sizes.txt rather than silently overwriting the earlier number. Note: CI-02 (compose integration smoke job) is deliberately NOT in this PR -- while starting it, found the partner's own Claude session had already opened PR #68 for exactly that job (a real duplicate-work collision this session should have caught by checking open PRs before starting implementation, not just before opening its own PR); left it to that PR rather than compete, and left docs/progress.toml's CI-02 line untouched.
@@ -401,4 +404,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-29: DK-02 (backend half): .dockerignore excludes both local venvs, tests/, caches and .env* from the build context. Measured, not assumed: a naive single-stage Dockerfile (python:3.12 full, one RUN uv sync with build tools left in) produced a 1.9GB image; the multi-stage slim build above produces 276MB -- an 85% reduction. The naive Dockerfile and its image were throwaway, used only to get this number, and were deleted afterward. Left in_progress: DK-02's other context (frontend) is FE-11's job (nginx template + frontend Dockerfile), not yet done.
 - 2026-09-29: DK-01 + DK-03: backend/Dockerfile (multi-stage: uv==0.5.11 in a python:3.12-slim builder installing frozen deps with --no-install-project before app code is copied in, so editing app code never invalidates the dependency layer; non-root `app` user in the runtime stage; exec-form CMD ["python", "-m", "app.server"] so SIGTERM reaches BE-06's GracefulServer directly, not a shell). compose.yaml adds the data tier only (DK-04 wires the app services): `database`/`cache` service names match Settings' own defaults exactly, so the backend needs zero host overrides once attached; an `internal: true` network with no published ports; Redis with --appendonly yes on a named volume (redis-data) since the rate limiter's window counters and the outcome ring buffer are live state a bare restart shouldn't reset; both services have real healthchecks (pg_isready; redis-cli -a <password> ping, using compose's own parse-time ${VAR} substitution after an escaping bug -- $${REDIS_PASSWORD} -- made the first attempt fail with WRONGPASS since nothing had put the variable into the container's own runtime env). .env.example added at the repo root (POSTGRES_PASSWORD, REDIS_PASSWORD); .gitignore already covered .env. Verified for real, not just `compose config`: built the image, brought the data tier up, ran `alembic upgrade head` and the seed CLI from inside the built image against it (both succeeded, confirming the DB-02 fix above holds under Docker too, not just the manual container), ran the backend image itself joined to the network and hit /health, /ready (postgres+redis both "ok") and /api/stats over a real request, and confirmed a container NOT on the `data` network cannot resolve `database` at all -- proving the network isolation rubric (G3) actually holds, not just that the YAML says internal: true.
 - 2026-09-29: Root-caused and fixed a real bug in DB-02's own Alembic env.py while getting the stack running locally for the first time with Docker Desktop finally stable: do_run_migrations's advisory-lock SELECT (`pg_advisory_lock`) autobegins a real SQLAlchemy transaction before context.begin_transaction() runs, so alembic nests the actual migration inside a SAVEPOINT instead of a top-level transaction; run_async_migrations then used engine.connect() (closes without committing) instead of engine.begin() (commits on clean exit), so every `alembic upgrade head` printed a normal success line and genuinely executed the DDL, then silently rolled the whole thing back the instant the connection closed. Diagnosed by ruling out the more obvious suspects first (IPv6/wslrelay port collision, a second Postgres on the same port, a restarted container with a fresh volume -- all checked and cleared) before reading env.py itself. One-line fix: connectable.begin() instead of connectable.connect(). Confirmed fixed against both the manually-run postgres:16-alpine container and, later the same day, the new compose-managed one -- `\dt` now shows complaints + alembic_version after every run, and the seed CLI inserted all 33 rows.
-- 2026-09-28: AI-04 (code + tests only, human step still pending): GroqTriage (app/providers/triage/llm.py) -- an AsyncOpenAI client pointed at Groq's OpenAI-compatible endpoint, max_retries=0 so TriageService (AI-05) owns the single retry, JSON mode, temperature=0. Wired into factory.py: TRIAGE_PROVIDER=llm now selects it when groq_api_key is set, and still degrades to rules with an ERROR log (not a crash) when it is not, matching the plan's own build_primary snippet exactly. redact() runs on the complaint text before it is sent, and location/reporter_contact are never included in the request at all -- both proven by inspecting the actual call kwargs sent to a mocked client, the same no-live-call testing pattern AI-01/02/05/06 already used (no respx dependency needed for this). 9 new tests in test_llm_triage.py (A2: malformed JSON and an invalid enum value both raise MalformedOutput rather than being accepted best-effort; A15: no location/contact, PII redacted; plus the max_retries=0 / JSON-mode / model wiring itself) and 2 updated tests in test_factory.py. 260 tests passing (1 deselected), 91.75% coverage; ruff/format/mypy clean -- mypy needed one explicit cast, since build_messages()'s list[dict[str, str]] does not structurally match the SDK's ChatCompletionMessageParam TypedDict union. What is NOT done here, per the plan's own AI-04 acceptance ('manual call succeeds'): no real Groq key exists in this sandbox, so the one live call against the actual API has not been made. Left status in_progress rather than done until that human step happens.

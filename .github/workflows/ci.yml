@@ -4,6 +4,7 @@ on:
     branches: [main, dev]
   push:
     branches: [dev]
+  workflow_call: {} # cd.yml (CI-04) reuses this whole workflow as its own test gate
 
 permissions:
   contents: read

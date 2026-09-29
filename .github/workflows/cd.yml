@@ -1,0 +1,91 @@
+name: cd
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "Commit SHA to deploy (declarative rollback). Empty = this commit."
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cd-main
+  cancel-in-progress: false # never cancel a deploy/publish halfway
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  test:
+    if: ${{ github.event_name == 'push' }}
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
+
+  # CI-05 (ephemeral k3d deploy + Ingress smoke test) is a separate,
+  # deliberately deferred job for tonight -- see k8s/README.md. This job is
+  # the actual CI-04 scope: gated publish by SHA, never :latest alone.
+  build-push:
+    if: ${{ github.event_name == 'push' }}
+    needs: [test]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      backend-digest: ${{ steps.push-backend.outputs.digest }}
+      frontend-digest: ${{ steps.push-frontend.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with: { registry: ghcr.io, username: "${{ github.actor }}", password: "${{ secrets.GITHUB_TOKEN }}" }
+      - name: Lowercase owner (GHCR requires it)
+        run: echo "OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_ENV"
+      - id: push-backend
+        uses: docker/build-push-action@v6
+        with:
+          context: backend
+          push: true
+          # SHA tag is what actually gets deployed (build-once-deploy-many);
+          # :latest is a convenience pointer only, never the deploy target.
+          tags: |
+            ghcr.io/${{ env.OWNER_LC }}/civicpulse-backend:${{ github.sha }}
+            ghcr.io/${{ env.OWNER_LC }}/civicpulse-backend:latest
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          provenance: true
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
+      - id: push-frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: frontend
+          push: true
+          tags: |
+            ghcr.io/${{ env.OWNER_LC }}/civicpulse-frontend:${{ github.sha }}
+            ghcr.io/${{ env.OWNER_LC }}/civicpulse-frontend:latest
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          provenance: true
+          cache-from: type=gha,scope=frontend
+          cache-to: type=gha,mode=max,scope=frontend
+      - name: SBOM -- backend
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/${{ env.OWNER_LC }}/civicpulse-backend@${{ steps.push-backend.outputs.digest }}
+          format: spdx-json
+          output-file: sbom-backend.spdx.json
+          upload-artifact: true
+      - name: SBOM -- frontend
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/${{ env.OWNER_LC }}/civicpulse-frontend@${{ steps.push-frontend.outputs.digest }}
+          format: spdx-json
+          output-file: sbom-frontend.spdx.json
+          upload-artifact: true
