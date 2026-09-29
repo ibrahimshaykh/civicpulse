@@ -82,7 +82,13 @@ async def run_async_migrations() -> None:
         poolclass=pool.NullPool,
     )
 
-    async with connectable.connect() as connection:
+    # engine.begin() (not .connect()) is required here: do_run_migrations's
+    # advisory-lock SELECT autobegins a real transaction before alembic's own
+    # context.begin_transaction() runs, so alembic nests the migration in a
+    # SAVEPOINT instead of a top-level transaction. .connect() only closes the
+    # connection on exit -- it never commits that outer transaction, so the
+    # savepoint (and every DDL statement inside it) was silently rolled back.
+    async with connectable.begin() as connection:
         await connection.run_sync(do_run_migrations)
 
     await connectable.dispose()
