@@ -1,0 +1,64 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend
+  namespace: civicpulse
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: { type: Utilization, averageUtilization: 70 }
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0 # react to a spike immediately
+      policies:
+        - { type: Percent, value: 100, periodSeconds: 30 } # can double every 30s
+    scaleDown:
+      stabilizationWindowSeconds: 300 # don't flap on a brief dip
+      policies:
+        - { type: Pods, value: 1, periodSeconds: 60 } # one pod at a time
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: backend
+  namespace: civicpulse
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels: { app: backend }
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: frontend
+  namespace: civicpulse
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels: { app: frontend }
+---
+# Recommendation-only (updateMode: "Off"): needs the VPA CRDs + recommender
+# add-on installed in the cluster to actually populate .status -- committed
+# here as the intended config (task K8-04's "VPA (Off)"); K8-06's full
+# guess -> load -> recommend -> update loop is out of scope for tonight's
+# compressed run (needs a real 10+ minute load test per iteration).
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: backend-vpa
+  namespace: civicpulse
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend
+  updatePolicy:
+    updateMode: "Off"

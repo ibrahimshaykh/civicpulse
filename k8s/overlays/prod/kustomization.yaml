@@ -1,0 +1,16 @@
+# DK-05's compose.prod.yaml counterpart: swap floating :latest tags for a
+# specific, CI-tested SHA at deploy time --
+#   kustomize edit set image ghcr.io/ibrahimshaykh/civicpulse-backend=ghcr.io/ibrahimshaykh/civicpulse-backend:$GIT_SHA
+# (CI-05, when it exists, would run that before `kubectl apply -k`.)
+# secret.env here is gitignored and supplied at deploy time -- never
+# committed (see repo .gitignore); base/secret.yaml's placeholder values
+# are what ships in this repo.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+images:
+  - name: ghcr.io/ibrahimshaykh/civicpulse-backend
+    newTag: latest
+  - name: ghcr.io/ibrahimshaykh/civicpulse-frontend
+    newTag: latest

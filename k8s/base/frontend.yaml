@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: civicpulse
+spec:
+  selector:
+    app: frontend
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: civicpulse
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: frontend }
+  template:
+    metadata:
+      labels: { app: frontend }
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/ibrahimshaykh/civicpulse-frontend:latest
+          ports: [{ containerPort: 8080 }]
+          env:
+            # Same runtime-config knob as compose (FE-11): one image, the
+            # proxy target changes per environment via env var, not a rebuild.
+            - { name: BACKEND_HOST, value: "backend" }
+            - { name: BACKEND_PORT, value: "8000" }
+          livenessProbe:
+            httpGet: { path: /, port: 8080 }
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: { path: /, port: 8080 }
+            periodSeconds: 5
+          startupProbe:
+            httpGet: { path: /, port: 8080 }
+            failureThreshold: 15
+            periodSeconds: 2
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "200m", memory: "128Mi" }
