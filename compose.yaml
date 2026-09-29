@@ -1,11 +1,8 @@
-# Data tier only (task DK-03). The backend/frontend services, migrate/seed
-# jobs and their healthcheck-gated startup order are DK-04 -- kept separate
-# so this file is testable on its own first.
-#
-# "database" and "cache" are not arbitrary names: they're the exact
-# defaults Settings.postgres_host / Settings.redis_host already fall back
-# to (backend/app/core/config.py), so a backend container needs no host
-# override to reach these services from inside the "data" network.
+# Data tier (DK-03) + app tier (DK-04): migrate/seed run once and exit,
+# backend/frontend stay up. "database" and "cache" are not arbitrary names:
+# they're the exact defaults Settings.postgres_host / Settings.redis_host
+# already fall back to (backend/app/core/config.py), so the backend needs
+# no host override to reach them from inside the "data" network.
 
 services:
   database:
@@ -44,12 +41,93 @@ services:
       timeout: 3s
       retries: 10
 
+  # One-shot: runs `alembic upgrade head` and exits 0. On the data network
+  # only -- it never serves traffic, so it has no business on the app
+  # network. `restart: "no"` keeps a failed migration failed, not looping.
+  migrate:
+    build:
+      context: ./backend
+    command: ["alembic", "upgrade", "head"]
+    environment:
+      POSTGRES_HOST: database
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      REDIS_HOST: cache
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}
+    networks:
+      - data
+    restart: "no"
+    depends_on:
+      database:
+        condition: service_healthy
+
+  # One-shot, idempotent (DB-03's ON CONFLICT DO NOTHING): safe to run on
+  # every `compose up`, not just the first.
+  seed:
+    build:
+      context: ./backend
+    command: ["python", "-m", "app.cli", "seed"]
+    environment:
+      POSTGRES_HOST: database
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      REDIS_HOST: cache
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}
+    networks:
+      - data
+    restart: "no"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      POSTGRES_HOST: database
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      REDIS_HOST: cache
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}
+      TRIAGE_PROVIDER: ${TRIAGE_PROVIDER:-simulated}
+      APP_ENV: prod
+    networks:
+      - data # reaches Postgres/Redis
+      - app # reaches (and is reached by) the frontend's nginx proxy
+    healthcheck:
+      # No curl/wget in python:3.12-slim; the venv's own python (already on
+      # PATH) can make the same GET without adding a package to the image.
+      test: ["CMD-SHELL", "python -c \"import urllib.request as u; u.urlopen('http://localhost:8000/health', timeout=2)\""]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    depends_on:
+      database:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      BACKEND_HOST: backend
+      BACKEND_PORT: "8000"
+    ports:
+      - "8080:8080" # the only port this stack publishes to the host
+    networks:
+      - app # never `data` -- rubric G3: the frontend provably cannot reach the DB
+    depends_on:
+      backend:
+        condition: service_healthy
+
 networks:
-  # No ports: published on the host here -- neither service is reachable
-  # except from another container on this network (DK-04 attaches the
-  # backend to it; the frontend never is -- that's rubric G3).
+  # No ports published here: neither database nor cache is reachable except
+  # from another container already on this network.
   data:
     internal: true
+  # Backend <-> frontend only. Not internal: the host needs to reach the
+  # frontend's published port through it.
+  app: {}
 
 volumes:
   pgdata:
