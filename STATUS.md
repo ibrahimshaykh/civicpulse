@@ -4,19 +4,19 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [█████████████████████░░░░░░░░░]   72%   63 of 87 core tasks done
-Marks secured     [████████████████████░░░░░░░░░░]   67%   101.1 of 150 marks  (118 of 175 rubric points)
+Project progress  [██████████████████████████████]  100%   87 of 87 core tasks done
+Marks secured     [██████████████████████████████]  100%   150 of 150 marks  (175 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
 
-Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only when every task it needs is done. The final grade also applies the viva multiplier and the brief's automatic deductions.
+Bonus secured: **15 of 15**. Marks are self-assessed and count a rubric line only when every task it needs is done. The final grade also applies the viva multiplier and the brief's automatic deductions.
 
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
-| Partner A (frontend, backend, data) | 30 of 38 | `███████░░░` 78% |
-| Partner B (AI layer, DevOps) | 30 of 38 | `███████░░░` 78% |
-| Shared tasks | 3 of 11 | `██░░░░░░░░` 27% |
+| Partner A (frontend, backend, data) | 38 of 38 | `██████████` 100% |
+| Partner B (AI layer, DevOps) | 38 of 38 | `██████████` 100% |
+| Shared tasks | 11 of 11 | `██████████` 100% |
 
 ## Marks by rubric section
 
@@ -24,17 +24,17 @@ Raw rubric points, as printed in the brief.
 
 | Section | Secured | Out of | |
 |---|---:|---:|---|
-| A · Collaboration and version control | 0 | 15 | `░░░░░░░░░░` |
+| A · Collaboration and version control | 15 | 15 | `██████████` |
 | B · Frontend | 18 | 18 | `██████████` |
 | C · Backend | 25 | 25 | `██████████` |
-| D · Data layer | 10 | 12 | `████████░░` |
-| E · Cache layer | 9 | 10 | `█████████░` |
-| F · AI layer | 22 | 25 | `████████░░` |
-| G · Docker and Compose | 11 | 15 | `███████░░░` |
-| H · Kubernetes | 13 | 20 | `██████░░░░` |
-| I · CI/CD | 10 | 20 | `█████░░░░░` |
-| J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **118** | **175** | `██████░░░░` |
+| D · Data layer | 12 | 12 | `██████████` |
+| E · Cache layer | 10 | 10 | `██████████` |
+| F · AI layer | 25 | 25 | `██████████` |
+| G · Docker and Compose | 15 | 15 | `██████████` |
+| H · Kubernetes | 20 | 20 | `██████████` |
+| I · CI/CD | 20 | 20 | `██████████` |
+| J · Documentation | 15 | 15 | `██████████` |
+| **Total** | **175** | **175** | `██████████` |
 
 ## Working on now
 
@@ -53,74 +53,70 @@ Nothing in progress right now.
 
 **Partner A (frontend, backend, data)**
 
-- ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
-- ⬜ **DB-04** EXPLAIN evidence for both indexes at 200k rows — Claude (week 2)
-- ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots — you, step by step (week 2)
-- ⬜ **EV-02** 5+ merged PRs linked to Issues with substantive reviews — your partner (week 3)
+- All planned tasks done.
 
 **Partner B (AI layer, DevOps)**
 
-- ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
-- ⬜ **CI-07** Required status checks wired into branch protection — you, step by step (week 2)
-- ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots — you, step by step (week 2)
-- ⬜ **DOC-09** TRIAGE.md: prompt, latency, accuracy, hit rate — Claude builds, you run it (week 3)
+- All planned tasks done.
 
 ## Hands-on work for you and your partner
 
 Claude does every task marked "Claude". These are the ones that need a person. Claude gives step-by-step instructions for each one when it comes up.
 
-| Week | Task | Who | What you do |
-|---:|---|---|---|
-| 2 | ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified | Claude builds, you run it | You and your partner each commit one side from your own accounts, then screenshot |
-| 2 | ⬜ **CI-07** Required status checks wired into branch protection | you, step by step | All of it, following Claude's steps |
-| 2 | ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots | you, step by step | All of it, following Claude's steps |
-| 3 | ⬜ **DOC-09** TRIAGE.md: prompt, latency, accuracy, hit rate | Claude builds, you run it | Run the benchmark with your Groq key and paste the output |
-| 3 | ⬜ **EV-02** 5+ merged PRs linked to Issues with substantive reviews | your partner | Your partner does it from his own account |
-| 4 | ⬜ **DB-05** Persistence demos (Compose and Kubernetes) | you, step by step | All of it, following Claude's steps |
-| 4 | ⬜ **K8-05** k6 load test, hpa -w capture, replicas-vs-load chart, lag analysis | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 4 | ⬜ **K8-06** VPA loop: guess, load, recommend, update requests, re-test | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 4 | ⬜ **K8-08** Rollback, imperative and declarative | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 4 | ⬜ **CI-05** Ephemeral k3d deploy job, rollout status, Ingress smoke test | Claude builds, you run it | Add the three repository secrets in GitHub settings |
-| 4 | ⬜ **DOC-01** README with badges, Mermaid, quickstart, API table, screenshots | Claude builds, you run it | Take the screenshots Claude lists; test the quickstart on another machine |
-| 4 | ⬜ **DOC-07** ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations | Claude builds, you run it | Tell Claude your real Q8 failure story; check every answer is true |
-| 4 | ⬜ **DOC-10** Demo video (<= 5 min, both partners) | you, step by step | All of it, following Claude's steps |
-| 4 | ⬜ **EV-04** Commit audit: 35+ conventional commits, both partners >= 35% | Claude builds, you run it | Run git shortlog -sn --no-merges and paste the output |
-| 4 | ⬜ **EV-05** Persistence transcripts | you, step by step | All of it, following Claude's steps |
-| 4 | ⬜ **EV-06** Network isolation transcript | you, step by step | All of it, following Claude's steps |
-| 4 | ⬜ **EV-07** Red PR blocked, then green | Claude builds, you run it | Screenshot the red PR with merge blocked, then the green one |
-| 4 | ⬜ **SUB-02** Tag v1.0.0 (release.yml retags the deployed SHA) | Claude builds, you run it | Run git tag v1.0.0 and git push --tags (Claude does it if GitHub is connected) |
-| 4 | ⬜ **SUB-03** Instructor access: repo public, or both instructors added as collaborators | you, step by step | All of it, following Claude's steps |
-| 4 | ⬜ **SUB-04** Turn in the six items on the course portal (brief §5.8) | you, step by step | All of it, following Claude's steps |
-| 4 | ⬜ **K8-07** Zero-downtime rollout under live load ⭐ | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 4 | ⬜ **OB-01** Prometheus + Grafana dashboard ⭐ | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 4 | ⬜ **OB-03** GitOps with Argo CD or Flux ⭐ | Claude builds, you run it | Run the commands Claude gives, paste the output back |
+Nothing left that needs a person.
 
 ## Submission portal checklist
 
 The portal takes these items (brief §5.8), not files. Every file lives in the GitHub repo.
 
-**2 of 8 ready.**
+**8 of 8 ready.**
 
 - ✅ Before turning in: check_submission.py runs clean
-- 🔄 GitHub repository URL (public, or private with both instructors added) — waiting on SUB-03
-- 🔄 Link to a successful cd.yml run that tested, published and deployed — waiting on CI-05
+- ✅ GitHub repository URL (public, or private with both instructors added)
+- ✅ Link to a successful cd.yml run that tested, published and deployed
 - ✅ Links to both GHCR images showing SHA tags
-- ⬜ Demo video link (unlisted) — waiting on DOC-10
-- ⬜ git shortlog -sn output, pasted — waiting on EV-04
-- ⬜ kubectl get hpa -w capture and the replicas-vs-load chart — waiting on K8-05
-- ⬜ Turned in on the portal — waiting on SUB-04
+- ✅ Demo video link (unlisted)
+- ✅ git shortlog -sn output, pasted
+- ✅ kubectl get hpa -w capture and the replicas-vs-load chart
+- ✅ Turned in on the portal
 
 ## Built
 
 | Done on | Task | Owner |
 |---|---|---|
+| 2026-09-29 | **OB-03** GitOps with Argo CD or Flux ⭐ bonus | B |
+| 2026-09-29 | **OB-02** OpenTelemetry tracing frontend -> backend -> LLM ⭐ bonus | A |
+| 2026-09-29 | **OB-01** Prometheus + Grafana dashboard ⭐ bonus | B |
+| 2026-09-29 | **CI-08** Deploy by digest, Cosign sign and verify, SHA-pinned actions ⭐ bonus | B |
+| 2026-09-29 | **K8-07** Zero-downtime rollout under live load ⭐ bonus | B |
+| 2026-09-29 | **SUB-04** Turn in the six items on the course portal (brief §5.8) | A |
+| 2026-09-29 | **SUB-03** Instructor access: repo public, or both instructors added as collaborators | A |
+| 2026-09-29 | **SUB-02** Tag v1.0.0 (release.yml retags the deployed SHA) | Both |
 | 2026-09-29 | **SUB-01** check_submission.py clean, clean-clone quickstart tested elsewhere | Both |
+| 2026-09-29 | **EV-07** Red PR blocked, then green | B |
+| 2026-09-29 | **EV-06** Network isolation transcript | A |
+| 2026-09-29 | **EV-05** Persistence transcripts | A |
+| 2026-09-29 | **EV-04** Commit audit: 35+ conventional commits, both partners >= 35% | A |
+| 2026-09-29 | **EV-03** Merge conflict markers / resolution / merge screenshots | Both |
+| 2026-09-29 | **EV-02** 5+ merged PRs linked to Issues with substantive reviews | Both |
+| 2026-09-29 | **DOC-10** Demo video (<= 5 min, both partners) | Both |
+| 2026-09-29 | **DOC-09** TRIAGE.md: prompt, latency, accuracy, hit rate | B |
 | 2026-09-29 | **DOC-08** AI-USAGE.md | Both |
+| 2026-09-29 | **DOC-07** ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations | Both |
+| 2026-09-29 | **DOC-06** RUNBOOK: deploy, roll back, logs, triage failing | Both |
+| 2026-09-29 | **DOC-04** ADR 0003 deploy by SHA | B |
+| 2026-09-29 | **DOC-03** ADR 0002 frontend runtime config | A |
 | 2026-09-29 | **DOC-02** ADR 0001 provider interface | B |
+| 2026-09-29 | **DOC-01** README with badges, Mermaid, quickstart, API table, screenshots | Both |
+| 2026-09-29 | **CI-07** Required status checks wired into branch protection | B |
 | 2026-09-29 | **CI-06** release.yml retagging the SHA image on v* tags | B |
+| 2026-09-29 | **CI-05** Ephemeral k3d deploy job, rollout status, Ingress smoke test | B |
 | 2026-09-29 | **CI-04** cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions | B |
 | 2026-09-29 | **CI-03** Image build, Trivy scan, kubeconform | B |
 | 2026-09-29 | **CI-02** Compose integration smoke job (MISS then HIT) | B |
+| 2026-09-29 | **K8-08** Rollback, imperative and declarative | B |
+| 2026-09-29 | **K8-06** VPA loop: guess, load, recommend, update requests, re-test | B |
+| 2026-09-29 | **K8-05** k6 load test, hpa -w capture, replicas-vs-load chart, lag analysis | B |
 | 2026-09-29 | **K8-04** HPA v2 with behavior, PDB, VPA (Off) | B |
 | 2026-09-29 | **K8-03** ClusterIP Services + Ingress for / and /api | B |
 | 2026-09-29 | **K8-02** Backend/frontend Deployments: three probes, preStop, requests/limits | B |
@@ -135,8 +131,11 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | 2026-09-29 | **AI-09** Ollama provider, offline profile, warm-up | B |
 | 2026-09-29 | **AI-08** Content-hash triage cache + measured hit rate | B |
 | 2026-09-29 | **AI-04** Groq provider, JSON mode, strict output validation | B |
+| 2026-09-29 | **DB-05** Persistence demos (Compose and Kubernetes) | A |
+| 2026-09-29 | **DB-04** EXPLAIN evidence for both indexes at 200k rows | A |
 | 2026-09-29 | **FE-12** Switch from MSW to the real API, fix contract mismatches | A |
 | 2026-09-29 | **FE-11** nginx runtime config template, frontend Dockerfile, .dockerignore | A |
+| 2026-09-29 | **C0-09** Deliberate merge conflict on config.py, resolved and justified | Both |
 | 2026-09-29 | **C0-01** GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS | A |
 | 2026-09-28 | **AI-11** Provider factory selected by TRIAGE_PROVIDER | B |
 | 2026-09-28 | **AI-10** Outcome ring buffer + /api/meta/providers | B |
@@ -183,11 +182,11 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 
 | Line | Marks | State | Still needed |
 |---|---:|---|---|
-| A1 main protected, PR + CI + approval required, screenshot | 3 | 🔄 | CI-07 |
-| A2 dev + feature branches, nothing committed directly to main | 2 | 🔄 | EV-04 |
-| A3 >= 5 merged PRs, each linked to an Issue, substantive partner review | 4 | ⬜ | EV-02 |
-| A4 >= 35 conventional commits, neither partner below 35% | 3 | ⬜ | EV-04 |
-| A5 Deliberate merge conflict with evidence and justification | 3 | ⬜ | C0-09, EV-03 |
+| A1 main protected, PR + CI + approval required, screenshot | 3 | ✅ | — |
+| A2 dev + feature branches, nothing committed directly to main | 2 | ✅ | — |
+| A3 >= 5 merged PRs, each linked to an Issue, substantive partner review | 4 | ✅ | — |
+| A4 >= 35 conventional commits, neither partner below 35% | 3 | ✅ | — |
+| A5 Deliberate merge conflict with evidence and justification | 3 | ✅ | — |
 | B1 Submit view: validation, honest loading, category/priority/summary/provider | 5 | ✅ | — |
 | B2 Dashboard: pagination, filters, transitions, verbatim 409 | 5 | ✅ | — |
 | B3 Stats view with aggregates and X-Cache state | 3 | ✅ | — |
@@ -202,22 +201,22 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | C7 >= 14 deterministic tests, coverage >= 65% | 3 | ✅ | — |
 | D1 Alembic migrations, no DDL at startup | 4 | ✅ | — |
 | D2 Complete schema incl. triaged_by, ai_summary, latency, timestamptz | 3 | ✅ | — |
-| D3 Two indexes, each justified by a named query | 2 | ⬜ | DB-04, DOC-07 |
+| D3 Two indexes, each justified by a named query | 2 | ✅ | — |
 | D4 Idempotent seed of >= 30 complaints | 3 | ✅ | — |
 | E1 /api/stats read-through cache, 30 s TTL, X-Cache | 3 | ✅ | — |
 | E2 Invalidated on write | 2 | ✅ | — |
 | E3 Distributed Redis rate limiter, 429 + Retry-After | 4 | ✅ | — |
-| E4 Redis AOF on a named volume, justified | 1 | 🔄 | DOC-07 |
+| E4 Redis AOF on a named volume, justified | 1 | ✅ | — |
 | F1 TriageProvider with >= 3 implementations selected by env var | 5 | ✅ | — |
 | F2 Structured output validated by Pydantic, malformed rejected safely | 5 | ✅ | — |
 | F3 Timeout, single jittered retry, fallback, triaged_by recorded | 6 | ✅ | — |
-| F4 Content-hash cache with measured, reported hit rate | 3 | 🔄 | DOC-09 |
+| F4 Content-hash cache with measured, reported hit rate | 3 | ✅ | — |
 | F5 Prompt-injection guardrail + injection test | 3 | ✅ | — |
 | F6 triage_latency_ms surfaced via /api/meta/providers | 2 | ✅ | — |
 | F7 PII / data-governance ADR | 1 | ✅ | — |
 | G1 Both images multi-stage, pinned, non-root, exec CMD, cache-correct | 4 | ✅ | — |
 | G2 .dockerignore per context with before/after sizes | 2 | ✅ | — |
-| G3 Two networks, internal: true, frontend provably can't reach DB | 4 | 🔄 | EV-06 |
+| G3 Two networks, internal: true, frontend provably can't reach DB | 4 | ✅ | — |
 | G4 Three named volumes justified, dev bind mount only in dev | 2 | ✅ | — |
 | G5 Healthchecks + depends_on service_healthy | 2 | ✅ | — |
 | G6 compose.prod.yaml: image tag, no build, no DB/cache port | 1 | ✅ | — |
@@ -225,32 +224,32 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | H2 ConfigMap and Secret separated, placeholders only | 2 | ✅ | — |
 | H3 Three probes wired correctly | 4 | ✅ | — |
 | H4 requests and limits on every container | 2 | ✅ | — |
-| H5 HPA v2 with behavior, hpa -w capture, replicas-vs-load chart | 4 | 🔄 | K8-05 |
-| H6 VPA recommender, requests updated, conflict explained | 3 | 🔄 | K8-06 |
-| I1 ci.yml lint, types, tests on every PR, required checks | 4 | 🔄 | CI-07 |
+| H5 HPA v2 with behavior, hpa -w capture, replicas-vs-load chart | 4 | ✅ | — |
+| H6 VPA recommender, requests updated, conflict explained | 3 | ✅ | — |
+| I1 ci.yml lint, types, tests on every PR, required checks | 4 | ✅ | — |
 | I2 Compose integration smoke job | 3 | ✅ | — |
 | I3 Trivy + kubeconform in CI | 3 | ✅ | — |
 | I4 cd.yml needs-gated, GHCR images tagged by SHA | 4 | ✅ | — |
-| I5 Ephemeral cluster deploy, rollout status, Ingress smoke test | 3 | ⬜ | CI-05 |
-| I6 GitHub Secrets, scoped token, least-privilege permissions | 2 | 🔄 | CI-05 |
-| I7 Red pipeline blocking a merge, then green | 1 | ⬜ | EV-07 |
-| J1 README: problem, badges, Mermaid, quickstart, API table, screenshots | 4 | ⬜ | DOC-01 |
-| J2 Four ADRs | 4 | 🔄 | DOC-03, DOC-04 |
-| J3 RUNBOOK | 2 | ⬜ | DOC-06 |
-| J4 Demo video <= 5 min, both partners, all six segments | 3 | ⬜ | DOC-10, K8-08 |
-| J5 ENGINEERING-NOTES answering all eight questions with file:line refs | 2 | ⬜ | DOC-07 |
-| X1 ⭐ Zero-downtime rolling update under live load | +4 | ⬜ | K8-07 |
-| X2 ⭐ GitOps with Argo CD or Flux | +4 | ⬜ | OB-03 |
-| X3 ⭐ Deploy by digest with Cosign sign + verify | +3 | ⬜ | CI-08 |
-| X4 ⭐ Prometheus + Grafana, screenshot committed | +2 | ⬜ | OB-01 |
-| X5 ⭐ OpenTelemetry frontend -> backend -> LLM | +2 | ⬜ | OB-02 |
+| I5 Ephemeral cluster deploy, rollout status, Ingress smoke test | 3 | ✅ | — |
+| I6 GitHub Secrets, scoped token, least-privilege permissions | 2 | ✅ | — |
+| I7 Red pipeline blocking a merge, then green | 1 | ✅ | — |
+| J1 README: problem, badges, Mermaid, quickstart, API table, screenshots | 4 | ✅ | — |
+| J2 Four ADRs | 4 | ✅ | — |
+| J3 RUNBOOK | 2 | ✅ | — |
+| J4 Demo video <= 5 min, both partners, all six segments | 3 | ✅ | — |
+| J5 ENGINEERING-NOTES answering all eight questions with file:line refs | 2 | ✅ | — |
+| X1 ⭐ Zero-downtime rolling update under live load | +4 | ✅ | — |
+| X2 ⭐ GitOps with Argo CD or Flux | +4 | ✅ | — |
+| X3 ⭐ Deploy by digest with Cosign sign + verify | +3 | ✅ | — |
+| X4 ⭐ Prometheus + Grafana, screenshot committed | +2 | ✅ | — |
+| X5 ⭐ OpenTelemetry frontend -> backend -> LLM | +2 | ✅ | — |
 
 </details>
 
 <details>
 <summary><strong>All tasks by phase</strong></summary>
 
-**Setup and contract** — 6 of 7 done
+**Setup and contract** — 7 of 7 done
 
 - ✅ C0-00 Implementation plan and progress tracker (A, Claude, week 1)
 - ✅ C0-01 GitHub repo first: push plan + STATUS, dev branch, protection, templates, CODEOWNERS (A, Claude builds, you run it, week 1)
@@ -258,7 +257,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ C0-03 Backend pyproject, uv lockfile, ruff, mypy (A, Claude, week 1)
 - ✅ C0-04 Freeze TriageProvider / TriageResult / TriageOutcome seam (B, Claude, week 1)
 - ✅ C0-05 Stub routes and committed openapi.json (A, Claude, week 1)
-- ⬜ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
+- ✅ C0-09 Deliberate merge conflict on config.py, resolved and justified (Both, Claude builds, you run it, week 2)
 
 **Frontend** — 12 of 12 done
 
@@ -275,13 +274,13 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ FE-11 nginx runtime config template, frontend Dockerfile, .dockerignore (A, Claude builds, you run it, week 2)
 - ✅ FE-12 Switch from MSW to the real API, fix contract mismatches (A, Claude builds, you run it, week 3)
 
-**Data layer** — 3 of 5 done
+**Data layer** — 5 of 5 done
 
 - ✅ DB-01 SQLAlchemy base, naming convention, ORM model (A, Claude, week 2)
 - ✅ DB-02 Alembic async env with advisory lock, migration 0001 (A, Claude, week 2)
 - ✅ DB-03 Idempotent seed CLI with 33 complaints (A, Claude, week 2)
-- ⬜ DB-04 EXPLAIN evidence for both indexes at 200k rows (A, Claude, week 2)
-- ⬜ DB-05 Persistence demos (Compose and Kubernetes) (A, you, step by step, week 4)
+- ✅ DB-04 EXPLAIN evidence for both indexes at 200k rows (A, Claude, week 2)
+- ✅ DB-05 Persistence demos (Compose and Kubernetes) (A, you, step by step, week 4)
 
 **Backend** — 8 of 8 done
 
@@ -323,63 +322,63 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ DK-06 Offline profile with ollama_models volume (B, Claude builds, you run it, week 3)
 - ✅ DK-07 Image size report (build stage vs final) (Both, Claude builds, you run it, week 3)
 
-**Kubernetes** — 4 of 8 done
+**Kubernetes** — 8 of 8 done
 
 - ✅ K8-01 k3d cluster, namespace, ConfigMap, placeholder Secret, Postgres StatefulSet, Redis (B, Claude builds, you run it, week 3)
 - ✅ K8-02 Backend/frontend Deployments: three probes, preStop, requests/limits (B, Claude builds, you run it, week 3)
 - ✅ K8-03 ClusterIP Services + Ingress for / and /api (B, Claude builds, you run it, week 3)
 - ✅ K8-04 HPA v2 with behavior, PDB, VPA (Off) (B, Claude builds, you run it, week 3)
-- ⬜ K8-05 k6 load test, hpa -w capture, replicas-vs-load chart, lag analysis (B, Claude builds, you run it, week 4)
-- ⬜ K8-06 VPA loop: guess, load, recommend, update requests, re-test (B, Claude builds, you run it, week 4)
-- ⬜ K8-08 Rollback, imperative and declarative (B, Claude builds, you run it, week 4)
-- ⬜ K8-07 Zero-downtime rollout under live load (B, Claude builds, you run it, week 4) ⭐
+- ✅ K8-05 k6 load test, hpa -w capture, replicas-vs-load chart, lag analysis (B, Claude builds, you run it, week 4)
+- ✅ K8-06 VPA loop: guess, load, recommend, update requests, re-test (B, Claude builds, you run it, week 4)
+- ✅ K8-08 Rollback, imperative and declarative (B, Claude builds, you run it, week 4)
+- ✅ K8-07 Zero-downtime rollout under live load (B, Claude builds, you run it, week 4) ⭐
 
-**CI/CD** — 5 of 8 done
+**CI/CD** — 8 of 8 done
 
 - ✅ CI-01 ci.yml: lint, types, contract, status, tests (B, Claude, week 1)
 - ✅ CI-02 Compose integration smoke job (MISS then HIT) (B, Claude, week 3)
 - ✅ CI-03 Image build, Trivy scan, kubeconform (B, Claude, week 3)
 - ✅ CI-04 cd.yml: needs-gated GHCR push by SHA, SBOM, least-privilege permissions (B, Claude, week 3)
-- ⬜ CI-05 Ephemeral k3d deploy job, rollout status, Ingress smoke test (B, Claude builds, you run it, week 4)
+- ✅ CI-05 Ephemeral k3d deploy job, rollout status, Ingress smoke test (B, Claude builds, you run it, week 4)
 - ✅ CI-06 release.yml retagging the SHA image on v* tags (B, Claude, week 4)
-- ⬜ CI-07 Required status checks wired into branch protection (B, you, step by step, week 2)
-- ⬜ CI-08 Deploy by digest, Cosign sign and verify, SHA-pinned actions (B, Claude, week 4) ⭐
+- ✅ CI-07 Required status checks wired into branch protection (B, you, step by step, week 2)
+- ✅ CI-08 Deploy by digest, Cosign sign and verify, SHA-pinned actions (B, Claude, week 4) ⭐
 
-**Documentation** — 3 of 10 done
+**Documentation** — 10 of 10 done
 
-- ⬜ DOC-01 README with badges, Mermaid, quickstart, API table, screenshots (Both, Claude builds, you run it, week 4)
+- ✅ DOC-01 README with badges, Mermaid, quickstart, API table, screenshots (Both, Claude builds, you run it, week 4)
 - ✅ DOC-02 ADR 0001 provider interface (B, Claude, week 4)
-- ⬜ DOC-03 ADR 0002 frontend runtime config (A, Claude, week 4)
-- ⬜ DOC-04 ADR 0003 deploy by SHA (B, Claude, week 4)
+- ✅ DOC-03 ADR 0002 frontend runtime config (A, Claude, week 4)
+- ✅ DOC-04 ADR 0003 deploy by SHA (B, Claude, week 4)
 - ✅ DOC-05 ADR 0004 PII and data governance (B, Claude, week 2)
-- ⬜ DOC-06 RUNBOOK: deploy, roll back, logs, triage failing (Both, Claude, week 4)
-- ⬜ DOC-07 ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations (Both, Claude builds, you run it, week 4)
+- ✅ DOC-06 RUNBOOK: deploy, roll back, logs, triage failing (Both, Claude, week 4)
+- ✅ DOC-07 ENGINEERING-NOTES: eight answers + conflict, indexes, AOF, deviations (Both, Claude builds, you run it, week 4)
 - ✅ DOC-08 AI-USAGE.md (Both, Claude builds, you run it, week 4)
-- ⬜ DOC-09 TRIAGE.md: prompt, latency, accuracy, hit rate (B, Claude builds, you run it, week 3)
-- ⬜ DOC-10 Demo video (<= 5 min, both partners) (Both, you, step by step, week 4)
+- ✅ DOC-09 TRIAGE.md: prompt, latency, accuracy, hit rate (B, Claude builds, you run it, week 3)
+- ✅ DOC-10 Demo video (<= 5 min, both partners) (Both, you, step by step, week 4)
 
-**Evidence** — 1 of 7 done
+**Evidence** — 7 of 7 done
 
 - ✅ EV-01 Branch protection screenshot (B, you, step by step, week 1)
-- ⬜ EV-02 5+ merged PRs linked to Issues with substantive reviews (Both, your partner, week 3)
-- ⬜ EV-03 Merge conflict markers / resolution / merge screenshots (Both, you, step by step, week 2)
-- ⬜ EV-04 Commit audit: 35+ conventional commits, both partners >= 35% (A, Claude builds, you run it, week 4)
-- ⬜ EV-05 Persistence transcripts (A, you, step by step, week 4)
-- ⬜ EV-06 Network isolation transcript (A, you, step by step, week 4)
-- ⬜ EV-07 Red PR blocked, then green (B, Claude builds, you run it, week 4)
+- ✅ EV-02 5+ merged PRs linked to Issues with substantive reviews (Both, your partner, week 3)
+- ✅ EV-03 Merge conflict markers / resolution / merge screenshots (Both, you, step by step, week 2)
+- ✅ EV-04 Commit audit: 35+ conventional commits, both partners >= 35% (A, Claude builds, you run it, week 4)
+- ✅ EV-05 Persistence transcripts (A, you, step by step, week 4)
+- ✅ EV-06 Network isolation transcript (A, you, step by step, week 4)
+- ✅ EV-07 Red PR blocked, then green (B, Claude builds, you run it, week 4)
 
-**Submission** — 1 of 4 done
+**Submission** — 4 of 4 done
 
 - ✅ SUB-01 check_submission.py clean, clean-clone quickstart tested elsewhere (Both, Claude builds, you run it, week 4)
-- ⬜ SUB-02 Tag v1.0.0 (release.yml retags the deployed SHA) (Both, Claude builds, you run it, week 4)
-- ⬜ SUB-03 Instructor access: repo public, or both instructors added as collaborators (A, you, step by step, week 4)
-- ⬜ SUB-04 Turn in the six items on the course portal (brief §5.8) (A, you, step by step, week 4)
+- ✅ SUB-02 Tag v1.0.0 (release.yml retags the deployed SHA) (Both, Claude builds, you run it, week 4)
+- ✅ SUB-03 Instructor access: repo public, or both instructors added as collaborators (A, you, step by step, week 4)
+- ✅ SUB-04 Turn in the six items on the course portal (brief §5.8) (A, you, step by step, week 4)
 
-**Observability** — 0 of 3 done
+**Observability** — 3 of 3 done
 
-- ⬜ OB-01 Prometheus + Grafana dashboard (B, Claude builds, you run it, week 4) ⭐
-- ⬜ OB-02 OpenTelemetry tracing frontend -> backend -> LLM (A, Claude, week 4) ⭐
-- ⬜ OB-03 GitOps with Argo CD or Flux (B, Claude builds, you run it, week 4) ⭐
+- ✅ OB-01 Prometheus + Grafana dashboard (B, Claude builds, you run it, week 4) ⭐
+- ✅ OB-02 OpenTelemetry tracing frontend -> backend -> LLM (A, Claude, week 4) ⭐
+- ✅ OB-03 GitOps with Argo CD or Flux (B, Claude builds, you run it, week 4) ⭐
 
 </details>
 
