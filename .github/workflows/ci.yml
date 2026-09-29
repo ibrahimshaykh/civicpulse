@@ -114,14 +114,14 @@ jobs:
       # PR on CVEs this project has no way to fix by Monday night. CRITICAL
       # is the bar that's actually enforceable.
       - name: Trivy -- backend
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.28.0
         with:
           image-ref: civicpulse-backend:ci
           severity: CRITICAL
           exit-code: "1"
           ignore-unfixed: true
       - name: Trivy -- frontend
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.28.0
         with:
           image-ref: civicpulse-frontend:ci
           severity: CRITICAL
