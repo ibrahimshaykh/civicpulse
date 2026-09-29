@@ -99,3 +99,53 @@ jobs:
           npm ci
           npm run test:ci
           npm run build
+
+  integration:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create CI .env (throwaway values, never real secrets)
+        run: |
+          cp .env.example .env
+          sed -i "s/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=ci-$(openssl rand -hex 8)/" .env
+          sed -i "s/^REDIS_PASSWORD=.*/REDIS_PASSWORD=ci-$(openssl rand -hex 8)/" .env
+          echo "TRIAGE_PROVIDER=simulated" >> .env
+      - name: Bring the whole stack up (data tier, migrate, seed, backend, frontend)
+        run: docker compose up -d --build --wait --wait-timeout 180
+      - name: Smoke test through nginx (the real user path, not a bypass to the backend's own port)
+        run: |
+          set -euo pipefail
+          B=http://127.0.0.1:8080
+          # No /healthz here: default.conf.template only proxies "location /api/",
+          # so anything outside that prefix falls through to the SPA's
+          # try_files and would return the frontend's index.html either way --
+          # a "passing" curl that proves nothing about the backend. The POST
+          # below is the first real check, and it already implies the backend
+          # is reachable through the proxy.
+          id=$(curl -fsS -X POST "$B/api/complaints" -H 'Content-Type: application/json' \
+               -d '{"text":"Burst water main flooding the street since morning","location":"Street 12, G-9/2"}' | jq -r .id)
+          test -n "$id"
+          got=$(curl -fsS "$B/api/complaints/$id" | jq -r .category)
+          echo "category=$got"
+          test "$got" = "water"
+          c1=$(curl -fsS -D - -o /dev/null "$B/api/stats" | awk -F': ' 'tolower($1)=="x-cache"{print $2}' | tr -d '\r')
+          c2=$(curl -fsS -D - -o /dev/null "$B/api/stats" | awk -F': ' 'tolower($1)=="x-cache"{print $2}' | tr -d '\r')
+          echo "x-cache: $c1 then $c2"
+          test "$c1" = "MISS" && test "$c2" = "HIT"
+          # `seed` is a one-shot service with no healthcheck of its own, so
+          # --wait above only guarantees it has *started*, not that its
+          # inserts have landed yet -- poll instead of asserting once.
+          total=0
+          for _ in $(seq 1 20); do
+            total=$(curl -fsS "$B/api/complaints?page_size=1" | jq .total)
+            [ "$total" -ge 31 ] && break   # 30+ seed rows + our POST above
+            sleep 3
+          done
+          echo "total=$total"
+          test "$total" -ge 31
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs --no-color | tail -n 300
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
