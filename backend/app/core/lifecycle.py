@@ -6,6 +6,7 @@ BE-06's graceful drain read.
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
+import httpx
 from fastapi import FastAPI
 
 from app.core.config import Settings
@@ -34,7 +35,9 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.rate_limiter = RedisFixedWindowLimiter(
         redis, limit=settings.rate_limit_per_window, window_s=settings.rate_limit_window_s
     )
-    app.state.triage_service = build_triage_service(settings, redis)
+    http = httpx.AsyncClient()
+    app.state.http = http
+    app.state.triage_service = build_triage_service(settings, redis, http)
 
     yield
 
@@ -44,5 +47,6 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     # This assignment is a safety net for callers that never go through
     # GracefulServer at all (TestClient, `uvicorn app.main:app` directly).
     shutting_down = True
+    await http.aclose()
     await redis.aclose()
     await engine.dispose()
