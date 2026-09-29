@@ -4,6 +4,7 @@ concrete provider -- `lifecycle.py` calls only `build_triage_service`, so
 adding a provider never touches the app's wiring, just this file.
 """
 
+import httpx
 import structlog
 from redis.asyncio import Redis
 
@@ -11,6 +12,7 @@ from app.core.config import Settings
 from app.providers.triage.base import TriageProvider
 from app.providers.triage.cache import TriageResultCache
 from app.providers.triage.llm import GroqTriage
+from app.providers.triage.ollama import OllamaTriage
 from app.providers.triage.outcomes import OutcomeLog
 from app.providers.triage.rules import RuleBasedTriage
 from app.providers.triage.simulated import SimulatedTriage
@@ -19,7 +21,7 @@ from app.services.triage_service import TriageService
 log = structlog.get_logger()
 
 
-def build_primary(s: Settings) -> TriageProvider:
+def build_primary(s: Settings, http: httpx.AsyncClient) -> TriageProvider:
     match s.triage_provider:
         case "llm":
             if s.groq_api_key is None:
@@ -34,9 +36,9 @@ def build_primary(s: Settings) -> TriageProvider:
                 timeout_s=s.triage_timeout_s,
             )
         case "ollama":
-            # OllamaTriage lands with AI-09; same reasoning as "llm" above.
-            log.error("triage_provider_not_yet_implemented", requested="ollama", using="rules")
-            return RuleBasedTriage()
+            return OllamaTriage(
+                http=http, base_url=s.ollama_base_url, model=s.ollama_model, timeout_s=s.triage_timeout_s
+            )
         case "rules":
             return RuleBasedTriage()
         case "simulated":
@@ -45,9 +47,9 @@ def build_primary(s: Settings) -> TriageProvider:
     raise AssertionError(f"unreachable: {s.triage_provider}")
 
 
-def build_triage_service(s: Settings, redis: Redis) -> TriageService:
+def build_triage_service(s: Settings, redis: Redis, http: httpx.AsyncClient) -> TriageService:
     return TriageService(
-        build_primary(s),
+        build_primary(s, http),
         fallback=RuleBasedTriage(),
         cache=TriageResultCache(redis),
         outcomes=OutcomeLog(redis),

@@ -1,0 +1,56 @@
+# Data tier only (task DK-03). The backend/frontend services, migrate/seed
+# jobs and their healthcheck-gated startup order are DK-04 -- kept separate
+# so this file is testable on its own first.
+#
+# "database" and "cache" are not arbitrary names: they're the exact
+# defaults Settings.postgres_host / Settings.redis_host already fall back
+# to (backend/app/core/config.py), so a backend container needs no host
+# override to reach these services from inside the "data" network.
+
+services:
+  database:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: civicpulse
+      POSTGRES_USER: civicpulse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U civicpulse -d civicpulse"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  cache:
+    image: redis:7-alpine
+    # AOF (not just RDB snapshots) on a named volume: a stats-cache miss is
+    # cheap to recompute, but the rate limiter's window counters and the
+    # triage outcome ring buffer are live state a plain restart shouldn't
+    # silently reset mid-window.
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}"]
+    volumes:
+      - redis-data:/data
+    networks:
+      - data
+    healthcheck:
+      # A single $: compose substitutes this at parse time from .env, same as
+      # the `command` line above -- redis-cli's shell never sees the
+      # variable at all, so it doesn't need to be in the container's own env.
+      test: ["CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD} ping | grep -q PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+networks:
+  # No ports: published on the host here -- neither service is reachable
+  # except from another container on this network (DK-04 attaches the
+  # backend to it; the frontend never is -- that's rubric G3).
+  data:
+    internal: true
+
+volumes:
+  pgdata:
+  redis-data:
