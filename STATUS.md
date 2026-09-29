@@ -4,8 +4,8 @@
 > Last updated: 2026-09-27
 
 ```text
-Project progress  [███████████████░░░░░░░░░░░░░░░]   52%   46 of 87 core tasks done
-Marks secured     [██████████████░░░░░░░░░░░░░░░░]   46%   70.3 of 150 marks  (82 of 175 rubric points)
+Project progress  [████████████████░░░░░░░░░░░░░░]   56%   49 of 87 core tasks done
+Marks secured     [██████████████░░░░░░░░░░░░░░░░]   48%   72.9 of 150 marks  (85 of 175 rubric points)
 ```
 
 > ⚠️ The brief's rubric sections add up to **175** points but its header says **150** marks. Marks above are scaled ×150/175 until the instructor confirms. If the real total is 175, set `total_marks = 175` in `docs/progress.toml`.
@@ -15,8 +15,8 @@ Bonus secured: **0 of 15**. Marks are self-assessed and count a rubric line only
 | Partner | Core tasks done | Share of core tasks |
 |---|---|---|
 | Partner A (frontend, backend, data) | 29 of 38 | `███████░░░` 76% |
-| Partner B (AI layer, DevOps) | 17 of 38 | `████░░░░░░` 44% |
-| Shared tasks | 0 of 11 | `░░░░░░░░░░` 0% |
+| Partner B (AI layer, DevOps) | 19 of 38 | `█████░░░░░` 50% |
+| Shared tasks | 1 of 11 | `░░░░░░░░░░` 9% |
 
 ## Marks by rubric section
 
@@ -30,11 +30,11 @@ Raw rubric points, as printed in the brief.
 | D · Data layer | 10 | 12 | `████████░░` |
 | E · Cache layer | 9 | 10 | `█████████░` |
 | F · AI layer | 12 | 25 | `████░░░░░░` |
-| G · Docker and Compose | 8 | 15 | `█████░░░░░` |
+| G · Docker and Compose | 11 | 15 | `███████░░░` |
 | H · Kubernetes | 0 | 20 | `░░░░░░░░░░` |
 | I · CI/CD | 0 | 20 | `░░░░░░░░░░` |
 | J · Documentation | 0 | 15 | `░░░░░░░░░░` |
-| **Total** | **82** | **175** | `████░░░░░░` |
+| **Total** | **85** | **175** | `████░░░░░░` |
 
 ## Working on now
 
@@ -60,14 +60,14 @@ Raw rubric points, as printed in the brief.
 - ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
 - ⬜ **DB-04** EXPLAIN evidence for both indexes at 200k rows — Claude (week 2)
 - ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots — you, step by step (week 2)
-- ⬜ **DK-07** Image size report (build stage vs final) — Claude builds, you run it (week 3)
+- ⬜ **EV-02** 5+ merged PRs linked to Issues with substantive reviews — your partner (week 3)
 
 **Partner B (AI layer, DevOps)**
 
 - ⬜ **C0-09** Deliberate merge conflict on config.py, resolved and justified — Claude builds, you run it (week 2)
 - ⬜ **CI-07** Required status checks wired into branch protection — you, step by step (week 2)
 - ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots — you, step by step (week 2)
-- ⬜ **DK-05** compose.prod.yaml (image by tag, no build, no DB/cache ports) — Claude builds, you run it (week 3)
+- ⬜ **K8-01** k3d cluster, namespace, ConfigMap, placeholder Secret, Postgres StatefulSet, Redis — Claude builds, you run it (week 3)
 
 ## Hands-on work for you and your partner
 
@@ -82,9 +82,6 @@ Claude does every task marked "Claude". These are the ones that need a person. C
 | 2 | ⬜ **CI-07** Required status checks wired into branch protection | you, step by step | All of it, following Claude's steps |
 | 2 | ⬜ **EV-03** Merge conflict markers / resolution / merge screenshots | you, step by step | All of it, following Claude's steps |
 | 3 | 🔄 **AI-09** Ollama provider, offline profile, warm-up | Claude builds, you run it | Install Ollama's model via make offline and paste the latency numbers |
-| 3 | ⬜ **DK-05** compose.prod.yaml (image by tag, no build, no DB/cache ports) | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 3 | ⬜ **DK-06** Offline profile with ollama_models volume | Claude builds, you run it | Run the commands Claude gives, paste the output back |
-| 3 | ⬜ **DK-07** Image size report (build stage vs final) | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 3 | ⬜ **K8-01** k3d cluster, namespace, ConfigMap, placeholder Secret, Postgres StatefulSet, Redis | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 3 | ⬜ **K8-02** Backend/frontend Deployments: three probes, preStop, requests/limits | Claude builds, you run it | Run the commands Claude gives, paste the output back |
 | 3 | ⬜ **K8-03** ClusterIP Services + Ingress for / and /api | Claude builds, you run it | Run the commands Claude gives, paste the output back |
@@ -132,6 +129,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | Done on | Task | Owner |
 |---|---|---|
 | 2026-09-29 | **DOC-02** ADR 0001 provider interface | B |
+| 2026-09-29 | **DK-07** Image size report (build stage vs final) | Both |
+| 2026-09-29 | **DK-06** Offline profile with ollama_models volume | B |
+| 2026-09-29 | **DK-05** compose.prod.yaml (image by tag, no build, no DB/cache ports) | B |
 | 2026-09-29 | **DK-04** migrate + seed services, healthchecks, make up | B |
 | 2026-09-29 | **DK-03** compose.yaml data tier, internal network, AOF volume | B |
 | 2026-09-29 | **DK-02** .dockerignore per context + before/after sizes | B |
@@ -218,9 +218,9 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 | G1 Both images multi-stage, pinned, non-root, exec CMD, cache-correct | 4 | ✅ | — |
 | G2 .dockerignore per context with before/after sizes | 2 | ✅ | — |
 | G3 Two networks, internal: true, frontend provably can't reach DB | 4 | 🔄 | EV-06 |
-| G4 Three named volumes justified, dev bind mount only in dev | 2 | 🔄 | DK-06 |
+| G4 Three named volumes justified, dev bind mount only in dev | 2 | ✅ | — |
 | G5 Healthchecks + depends_on service_healthy | 2 | ✅ | — |
-| G6 compose.prod.yaml: image tag, no build, no DB/cache port | 1 | ⬜ | DK-05 |
+| G6 compose.prod.yaml: image tag, no build, no DB/cache port | 1 | ✅ | — |
 | H1 Namespace, Deployments, StatefulSet + PVC, ClusterIP, Ingress / and /api | 5 | ⬜ | K8-01, K8-02, K8-03 |
 | H2 ConfigMap and Secret separated, placeholders only | 2 | ⬜ | K8-01 |
 | H3 Three probes wired correctly | 4 | ⬜ | K8-02 |
@@ -313,15 +313,15 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - ✅ AI-10 Outcome ring buffer + /api/meta/providers (B, Claude, week 3)
 - ✅ AI-11 Provider factory selected by TRIAGE_PROVIDER (B, Claude, week 3)
 
-**Docker and Compose** — 4 of 7 done
+**Docker and Compose** — 7 of 7 done
 
 - ✅ DK-01 Backend multi-stage non-root Dockerfile (B, Claude builds, you run it, week 1)
 - ✅ DK-02 .dockerignore per context + before/after sizes (B, Claude builds, you run it, week 1)
 - ✅ DK-03 compose.yaml data tier, internal network, AOF volume (B, Claude builds, you run it, week 1)
 - ✅ DK-04 migrate + seed services, healthchecks, make up (B, Claude builds, you run it, week 2)
-- ⬜ DK-05 compose.prod.yaml (image by tag, no build, no DB/cache ports) (B, Claude builds, you run it, week 3)
-- ⬜ DK-06 Offline profile with ollama_models volume (B, Claude builds, you run it, week 3)
-- ⬜ DK-07 Image size report (build stage vs final) (Both, Claude builds, you run it, week 3)
+- ✅ DK-05 compose.prod.yaml (image by tag, no build, no DB/cache ports) (B, Claude builds, you run it, week 3)
+- ✅ DK-06 Offline profile with ollama_models volume (B, Claude builds, you run it, week 3)
+- ✅ DK-07 Image size report (build stage vs final) (Both, Claude builds, you run it, week 3)
 
 **Kubernetes** — 0 of 8 done
 
@@ -386,6 +386,7 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 ## Change log
 
 - 2026-09-29: DOC-08: docs/AI-USAGE.md, written from this session's own real record (docs/progress.toml's [[log]] entries and actual git history) rather than a generic AI-usage template. Names the tool (Claude Code / Claude Sonnet 5) and covers, with specific file/task citations: what it was used for, four verbatim representative prompts from this session, and eight concrete rejected-or-corrected cases spanning a bug in the plan's own reference code (AI-03), a real Alembic naming bug (DB-02), two real mypy --strict catches (CI-01, AI-10), a rejected sync interface from the brief itself (DOC-02/ADR 0001), a factual error in Claude's own first ADR 0001 draft caught and fixed before commit, an avoided-not-corrected redundant test file (FE-10), and a too-loose coverage floor (BE-07). Left status in_progress: the task's own human field asks you to confirm the account is accurate, and asks Salman to add his own AI-tool-usage row rather than have it written on his behalf.
+- 2026-09-29: DK-05 + DK-06 + DK-07, closing out the Docker/Compose backlog. DK-05: compose.prod.yaml, an override applied via `docker compose -f compose.yaml -f compose.prod.yaml up` -- swaps backend/frontend/migrate/seed's `build:` for pre-built `image: ghcr.io/.../civicpulse-*:${IMAGE_TAG}` references using the Compose Specification's `!reset null` merge tag (plain key overriding is not enough: if `build:` survived the merge, `docker compose up` would still build locally instead of pulling the image CI-04's pipeline already tested; confirmed via `docker compose -f compose.yaml -f compose.prod.yaml config` that no `build:` key and no Postgres/Redis port survive the merge). DK-06: an `ollama` service under compose's `profiles: ["offline"]` (not started by plain `make up`), on a named `ollama_models` volume so a pulled model survives a restart, healthchecked via `ollama list`; root Makefile gained `make offline`. Verified for real, not just config: brought the profile up, watched it go `healthy`, then stopped it -- did not run the actual model pull (`ollama pull llama3.2:1b`), since that is explicitly AI-09's own pending human step, not this task's. DK-07: docs/evidence/06-image-sizes.txt and 05-build-context.txt, both from real measurements, not assumptions -- backend 276MB (vs a throwaway 1.9GB naive single-stage build), frontend 74.3MB (nginxinc/nginx-unprivileged:1.27-alpine base is itself 38.7MB per `docker history`; the plan's own internal target for this file was under 60MB, reported honestly as the real 74.3MB instead). One methodology problem surfaced and worked around while gathering build-context evidence: a live before/after `docker build --no-cache` pair (the plan's own suggested script) reported an implausible ~13kB context even with .dockerignore renamed out of the way, because BuildKit's context-transfer session dedups by content hash across builds on the same builder instance regardless of --no-cache (which only disables instruction/layer caching, not that) -- switched to `du -sh` for the honest "before" number (backend 436MB including both local venvs; frontend 217MB, almost entirely node_modules) while keeping the real, live BuildKit-reported "after" numbers.
 - 2026-09-29: FE-11 + DK-04: frontend/Dockerfile (multi-stage: node:22.20.0-alpine builds the Vite bundle, nginxinc/nginx-unprivileged:1.27-alpine serves it -- non-root by default, 74.3MB). Runtime config is a single env var, not a JS config blob: the client already used a relative baseUrl (src/api/client.ts, plan section 8.1's own ban on VITE_API_*), so the only per-environment knob left is where nginx proxies /api/ to -- frontend/nginx/default.conf.template's ${BACKEND_HOST}/${BACKEND_PORT} are envsubst'd by nginx's own entrypoint scripts at container start, so the identical built image works in compose (BACKEND_HOST=backend) and later in Kubernetes (a Service DNS name) without a rebuild (rubric B4). One real bug caught building it: frontend/.dockerignore's first draft excluded tests/ wholesale, which broke `tsc -b` -- main.tsx dynamically imports tests/msw/browser (dead-code-eliminated from the actual bundle by Vite, but still resolved at compile time), so only node_modules/dist/coverage/.vite are excluded, not tests/ itself. compose.yaml gained the app tier: migrate and seed as one-shot services (restart: "no", gated on service_healthy / service_completed_successfully so seed can never race migrate), backend healthchecked via its own venv's python hitting /health (no curl/wget in python:3.12-slim), frontend on a second, non-internal `app` network -- attached to the backend, never to `data`. Root Makefile (`make up` == `docker compose up -d --build`). Verified for real: brought the whole stack up from cold with `docker compose up -d --build`, confirmed the dependency chain actually gated correctly (migrate ran and exited 0 before seed started, seed exited 0 before backend's healthcheck could pass, frontend didn't start until backend was healthy), hit the frontend's published port and got a real 200 with real seeded data through the nginx proxy (`GET :8080/api/stats` -> 33 complaints), and confirmed from inside the frontend container itself that `database` doesn't even resolve -- G3's network isolation holds with the full app tier wired in, not just the bare data tier from DK-03.
 - 2026-09-29: AI-09 (provider code + tests done; installing a model and measuring latency is the pending human/DK-06 step): app/providers/triage/ollama.py::OllamaTriage, matching the plan's exact design -- POST /api/chat with stream=false and format=TriageResult.model_json_schema() so Ollama's structured-output mode constrains decoding, options.temperature=0. Unlike GroqTriage it applies no PII redaction, since nothing leaves the machine running Ollama; also unlike GroqTriage it does not own its http client -- OllamaTriage takes a shared httpx.AsyncClient, so app/core/lifecycle.py now opens one real client at startup (app.state.http) and closes it at shutdown alongside Redis and the DB engine, and factory.py threads it through build_triage_service/build_primary. A 5xx maps to the already-retryable OllamaServerError; a 4xx still raises (via raise_for_status()) but as a plain httpx.HTTPStatusError, deliberately not retried, the same as GroqTriage's 400/401/403. 13 new/updated tests (8 for OllamaTriage: valid parse, request shape, no-redaction, 5xx vs 4xx handled differently, malformed/invalid-enum both fall back safely; 5 updated in test_factory.py for the new http-threading signature, plus a new ollama selection test). 280 tests passing, 92.26% coverage; ruff/format/mypy clean; confirmed no OpenAPI drift. What is NOT done: the plan's own AI-09 acceptance needs an actual model installed (`make offline`, DK-06, owner B) and measured latency p50/p95 against the seed set for docs/TRIAGE.md -- no Ollama binary or Docker in this sandbox to do either. Left status in_progress rather than done.
 - 2026-09-29: FE-12: confirmed the two halves of "switch from MSW to the real API" that were already true (MSW is opt-in behind VITE_USE_MSW and dead-code-eliminated from the production build since FE-03; the typed client already calls the real endpoints, so there was never a literal "switch" to perform) and found the one real contract mismatch: app/pages/ComplaintDetailPage.tsx was still FE-02's original placeholder ("Placeholder until the API client exists"), rendering only the raw id, even though the real GET /api/complaints/{id} route (BE-03) and its typed useComplaint(id) hook had existed for a while unused. Wired it up per plan section 8.11: full text, all fields, StatusActions, both timestamps, and a 404/400 rendered the same way -- the server's message verbatim plus a link back to the dashboard, matching the app's existing rule that the frontend never rewrites what the backend said. 2 new tests. Verified without a live backend (no Postgres in this sandbox): npm run gen:api + check:contract show zero drift between the committed openapi.json and schema.d.ts, and the full suite (31 tests), typecheck, lint, and build are all clean.
@@ -399,4 +400,3 @@ The portal takes these items (brief §5.8), not files. Every file lives in the G
 - 2026-09-28: Timeline compressed to "finish tonight": dropped the week-based sequencing and batched seven tightly-coupled backend/AI tasks in one run instead of one task per PR -- AI-11 (provider factory), AI-10 (Redis outcome log + real /api/meta/providers), BE-03 (real ComplaintService, replacing the C0-05 stub routes), BE-04 (state machine + PATCH + optimistic-concurrency race guard), BE-06 (GracefulServer: SIGTERM flips readiness before uvicorn drains, not after), CA-02 (Redis fixed-window rate limiter, atomic INCR+EXPIRE via Lua), BE-08 (AST-based architecture test; OpenAPI 400 cleanup was already done by C0-05). Testing all seven together surfaced issues a one-task-at-a-time pass would have hit piecemeal anyway, worth listing because they explain real code choices: (1) the CA-02 tests need fakeredis's real Lua backend (`lupa`), missing from both this sandbox and the dev dependency group -- added it and regenerated uv.lock (uv itself had to be installed fresh here to do that). (2) mypy under the *actually pinned* SQLAlchemy 2.0.54 (this sandbox had drifted to 2.1.1 again) flagged a real bug in outcomes.py: redis-py 5.3.1's lrange() stub returns a union type that fails a bare `await`; fixed with an explicit Awaitable cast. (3) Two pre-existing observability tests (U8, I15) built their TestClient without entering the app lifespan, which the C0-05 stub routes never needed but the new real routes do -- fixed by entering it (U8) or faking the dependency directly (I15, since /health/ready/metrics are deliberately excluded from request-completed logging and can't stand in). (4) test_contract.py's create-complaint test now genuinely needs a live Postgres now that BE-03 wired the real service, and conftest.py has no testcontainers fixtures yet (that's BE-07/CI-02's job) -- marked it `integration` and excluded that marker in ci.yml's test-backend job rather than leave a test CI cannot actually pass. 249 tests passing (1 deselected), 91.6% coverage; ruff/format/mypy clean under the CI-accurate uv-managed venv; no OpenAPI drift.
 - 2026-09-27: AI-07 + DOC-05: PII redaction (app/providers/triage/redaction.py::redact(), the plan's four patterns verbatim -- PK mobile, CNIC, email, house/plot address) and ADR 0004. Verified against the real seed data, not just hand-picked examples: three rows in app/seed/complaints.json actually contain a house number in text or location, and redact() catches all three. The ADR is written to distinguish what already exists (redact() itself, parsing.py's include_input=False) from what AI-04's not-yet-built GroqTriage is required to do (call redact(), never send reporter_contact/location) -- test A15 verifies that requirement once AI-04 lands. 14 tests (A14 parametrized over every pattern, plus that ordinary numbers and addresses are left alone).
 - 2026-09-27: AI-06: prompt module (app/providers/triage/prompt.py, PROMPT_VERSION + SYSTEM + build_messages with delimiter neutralization) and the safety floor (_apply_safety_floor in triage_service.py): a HIGH_RISK keyword in the complaint text always forces priority=high, regardless of what the primary returned, applied on both a fresh primary success and a cache hit (proven with a cache seeded directly, bypassing write-time application, to show the read-time floor also catches it). A11 (the brief's injection test) needed no new mechanism at all: an LLM asked to return category='hacked' produces an invalid enum value, which is already MalformedOutput under AI-02/AI-03's existing validation, so it already falls back to rules -- the injection test is really proving the fallback path, not a new guardrail. 9 tests: A11, A12 (delimiter neutralization, both directions), A13 (safety floor overriding a valid-but-wrong low priority), plus that the floor leaves a correct high priority and ordinary text alone.
-- 2026-09-27: FE-10 revisited: the ownership-swap plan (above) had B write the frontend test suite, but in practice A's own FE-05/06/07/08/09 PRs already wrote all 12 tests plan section 8.14 names for this task (6 in SubmitPage, 4 in Dashboard, the X-Cache test in Stats, and a crash-and-recover test already in routing.test.tsx covering the same behavior section 8.14 names ErrorBoundary.test.tsx for) -- 29 tests total, confirmed green in CI. Rather than write a redundant test file just to have a B-owned commit against this task ID, marking it done under owner A, since that's who actually holds the commits: task-ID ownership is bookkeeping, but A2/A4 (commit-split >= 35% each) is graded on real commit authorship, and this would have misrepresented it.

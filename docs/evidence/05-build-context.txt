@@ -1,0 +1,31 @@
+DK-02 build-context evidence: bytes Docker actually sends as build
+context, with and without .dockerignore.
+
+Method: `docker build --no-cache --progress=plain --target builder`,
+reading BuildKit's own "transferring context" line. For the "before"
+number, .dockerignore was temporarily renamed out of the way for each
+context in turn, then restored immediately after measuring.
+
+backend:
+  before (no .dockerignore): 436M   (du -sh backend/, includes
+                                      .venv/ 156M + .venv313/ ~71M +
+                                      35M of actual source/tests/caches)
+  after  (.dockerignore active): 12.79kB   (real docker build --progress=plain)
+
+frontend:
+  before (no .dockerignore): 217M   (du -sh frontend/node_modules --
+                                      the dominant component by far)
+  after  (.dockerignore active): 33.66kB   (real docker build --progress=plain)
+
+Both .dockerignore files exclude the local virtual environments/
+node_modules, test suites, caches and .env* -- see backend/.dockerignore
+and frontend/.dockerignore. The "before" backend number used `du -sh`
+rather than a live --no-cache build with .dockerignore removed: BuildKit's
+own context-transfer session dedups by content hash across builds on the
+same builder instance, so a literal before/after `docker build` pair
+under-reports the true "before" size once anything has been built from
+that directory before (confirmed while gathering this evidence: a supposedly
+"before" build reported a implausibly small 2B/12.79kB context even with
+.dockerignore renamed away). Directory size is the honest, methodology-
+independent number for "before"; the "after" figures above are the real,
+live BuildKit-reported transfer sizes.

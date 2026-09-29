@@ -120,6 +120,23 @@ services:
       backend:
         condition: service_healthy
 
+  # DK-06: not started by `make up` -- only by `make offline`
+  # (`docker compose --profile offline up -d`). ollama_models is a named
+  # volume so the pulled model survives a container restart; without it,
+  # `make offline` would re-download gigabytes on every `compose down`.
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["offline"]
+    volumes:
+      - ollama_models:/root/.ollama
+    networks:
+      - data
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
 networks:
   # No ports published here: neither database nor cache is reachable except
   # from another container already on this network.
@@ -132,3 +149,4 @@ networks:
 volumes:
   pgdata:
   redis-data:
+  ollama_models:
