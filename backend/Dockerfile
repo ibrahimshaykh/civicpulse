@@ -23,6 +23,14 @@ COPY app ./app
 
 FROM python:3.12-slim AS runtime
 
+# Upgrade all OS packages to pick up the latest security patches.
+# Run as root before switching to app user; clean up apt lists to keep
+# the image lean (same pattern as the frontend's apk upgrade).
+RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN groupadd --system app && useradd --system --gid app --home-dir /app --shell /usr/sbin/nologin app
 
 WORKDIR /app
