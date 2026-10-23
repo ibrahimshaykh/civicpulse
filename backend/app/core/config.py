@@ -29,7 +29,12 @@ class Settings(BaseSettings):
     redis_password: SecretStr
     redis_db: int = 0
 
-    stats_cache_ttl_s: int = 30
+    # Conflict resolution (C0-09): kept 60s over 45s — the write path already
+    # invalidates the cache on every POST /api/complaints, so freshness is not
+    # gated by the TTL at all; the only effect of a shorter TTL is more Redis
+    # GETs for the same stale-until-invalidated data.  60s halves those GETs
+    # compared to the original 30s default without any user-visible downside.
+    stats_cache_ttl_s: int = 60
     rate_limit_per_window: int = 10
     rate_limit_window_s: int = 60
     trusted_proxy_hops: int = 1  # nginx in compose; ingress in k8s
