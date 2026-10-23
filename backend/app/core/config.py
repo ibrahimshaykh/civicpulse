@@ -29,7 +29,10 @@ class Settings(BaseSettings):
     redis_password: SecretStr
     redis_db: int = 0
 
-    stats_cache_ttl_s: int = 30
+    # Raised from 30s to 60s: stats are read-heavy and only change on new
+    # complaints, so a longer TTL reduces Redis round-trips without stale data
+    # risk — the write path already invalidates the cache on POST.
+    stats_cache_ttl_s: int = 60
     rate_limit_per_window: int = 10
     rate_limit_window_s: int = 60
     trusted_proxy_hops: int = 1  # nginx in compose; ingress in k8s
