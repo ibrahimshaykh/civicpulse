@@ -1,0 +1,21 @@
+diff --cc backend/app/core/config.py
+index f1115ca,0baf591..0000000
+--- a/backend/app/core/config.py
++++ b/backend/app/core/config.py
+@@@ -29,10 -29,9 +29,16 @@@ class Settings(BaseSettings)
+      redis_password: SecretStr
+      redis_db: int = 0
+  
+++<<<<<<< HEAD
+ +    # Raised from 30s to 60s: stats are read-heavy and only change on new
+ +    # complaints, so a longer TTL reduces Redis round-trips without stale data
+ +    # risk — the write path already invalidates the cache on POST.
+ +    stats_cache_ttl_s: int = 60
+++=======
++     # Bump to 45s: a compromise between freshness (demo needs visible updates)
++     # and efficiency (halving Redis GETs vs the 30s default).
++     stats_cache_ttl_s: int = 45
+++>>>>>>> conflict/C0-09-ttl-increase-B
+      rate_limit_per_window: int = 10
+      rate_limit_window_s: int = 60
+      trusted_proxy_hops: int = 1  # nginx in compose; ingress in k8s

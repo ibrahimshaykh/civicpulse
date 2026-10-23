@@ -1,0 +1,26 @@
+{
+  "active_provider": "llm:groq",
+  "fallback_provider": "rules",
+  "model": "llama-3.1-8b-instant",
+  "cache_hit_rate": 0.25,
+  "recent": [
+    {
+      "complaint_id": "4f1c2a9e-7c1b-4d3e-9a55-2b8f6f0f8e11",
+      "provider": "llm:groq",
+      "latency_ms": 412,
+      "fallback": false,
+      "cache_hit": false,
+      "error_class": null,
+      "at": "2026-10-05T04:12:33.120Z"
+    },
+    {
+      "complaint_id": "0b7e9d4c-3a2f-4e61-8c5d-9f1a2b3c4d5e",
+      "provider": "rules:fallback",
+      "latency_ms": 10012,
+      "fallback": true,
+      "cache_hit": false,
+      "error_class": "APITimeoutError",
+      "at": "2026-10-05T04:10:02.004Z"
+    }
+  ]
+}

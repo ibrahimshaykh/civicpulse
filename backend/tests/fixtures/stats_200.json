@@ -1,0 +1,7 @@
+{
+  "total": 33,
+  "by_category": {"water": 9, "electricity": 7, "sanitation": 6, "roads": 5, "streetlights": 4, "other": 2},
+  "by_priority": {"high": 8, "normal": 17, "low": 8},
+  "by_status": {"open": 18, "in_progress": 9, "resolved": 4, "rejected": 2},
+  "generated_at": "2026-10-05T04:12:33.120Z"
+}

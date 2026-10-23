@@ -1,0 +1,35 @@
+DK-03/DK-04 network isolation evidence (task G3: "two networks, internal:
+true, frontend provably can't reach DB").
+
+Setup: `docker compose up -d --build` (compose.yaml). `database` and `cache`
+sit on the `data` network (internal: true, no published ports). `backend`
+is attached to both `data` and `app`. `frontend` is attached to `app` only
+-- never `data`.
+
+1) The frontend genuinely cannot resolve the database's hostname:
+
+    $ docker exec civicpulse-frontend-1 sh -c "getent hosts database"
+    UNREACHABLE
+
+    $ docker exec civicpulse-frontend-1 sh -c "wget -q -T2 -O- http://database:5432"
+    wget: bad address 'database:5432'
+    UNREACHABLE
+
+2) The backend, which IS on the `data` network, resolves and reaches it
+   fine (proven throughout this session -- e.g. `/ready` reporting
+   {"status":"ready","checks":{"postgres":"ok","redis":"ok"}} while
+   attached to both networks).
+
+3) The `data` network is declared `internal: true` in compose.yaml, and
+   neither `database` nor `cache` publishes a host port (`docker compose
+   ps` shows no PORTS column entry for either) -- confirmed independently
+   with an unrelated throwaway container (not attached to `data` at all):
+
+    $ docker run --rm alpine ping -c1 -W1 database
+    ping: bad address 'database'
+    UNREACHABLE (expected: this container is not on civicpulse_data)
+
+Conclusion: a container has to be explicitly attached to the `data`
+network to reach Postgres or Redis at all -- the frontend is not, and the
+host is not (no published ports), so both are genuinely isolated from the
+database tier, not just nominally.

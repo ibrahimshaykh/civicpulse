@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+.vite/
+.playwright-mcp/
+# tests/ is NOT excluded: src/main.tsx dynamically imports tests/msw/browser
+# (dead-code-eliminated from the actual bundle by Vite, but tsc -b still
+# needs the module on disk to resolve the import at build time).
+.git/
+.gitignore
+*.log
+Dockerfile
+.dockerignore

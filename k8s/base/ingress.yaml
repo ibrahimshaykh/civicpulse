@@ -1,0 +1,22 @@
+# k3d/k3s ship Traefik by default -- no separate ingress controller install
+# needed for local dev. /api goes straight to the backend (routes already
+# expect the /api prefix themselves, same as nginx's proxy_pass in compose);
+# everything else falls through to the frontend's own SPA routing.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: civicpulse
+  namespace: civicpulse
+spec:
+  ingressClassName: traefik
+  rules:
+    - http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service: { name: backend, port: { number: 8000 } }
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: frontend, port: { number: 8080 } }

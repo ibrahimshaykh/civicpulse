@@ -1,0 +1,210 @@
+name: ci
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [dev]
+  workflow_call: {} # cd.yml (CI-04) reuses this whole workflow as its own test gate
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TRIAGE_PROVIDER: simulated
+
+jobs:
+  lint-and-type:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { enable-cache: true }
+      - name: Backend lint and types
+        working-directory: backend
+        run: |
+          uv sync --frozen
+          uv run ruff check .
+          uv run ruff format --check .
+          uv run mypy app
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - name: Frontend lint and types
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run lint
+          npm run typecheck
+
+  contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - name: Regenerate OpenAPI and client, fail on drift
+        env:
+          POSTGRES_PASSWORD: ci-only-placeholder
+          REDIS_PASSWORD: ci-only-placeholder
+        run: |
+          cd backend && uv sync --frozen && uv run python -m app.cli export-openapi > openapi.json && cd ..
+          cd frontend && npm ci && npm run gen:api && cd ..
+          git diff --exit-code -- backend/openapi.json frontend/src/api/schema.d.ts
+
+  status:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: STATUS.md must match docs/progress.toml
+        run: python scripts/update_status.py --check
+
+  test-backend:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { enable-cache: true }
+      - name: pytest (testcontainers uses the runner's Docker)
+        working-directory: backend
+        env:
+          TRIAGE_PROVIDER: simulated
+          POSTGRES_PASSWORD: ci-only-placeholder
+          REDIS_PASSWORD: ci-only-placeholder
+        run: |
+          uv sync --frozen
+          # HTTPS_PROXY scoped to just the test run, not `uv sync` above: uv still
+          # needs real network to fetch packages on a cache miss, but the tests
+          # themselves must make zero outbound calls -- any accidental one now
+          # fails fast instead of silently succeeding against the real network.
+          # -m "not integration": tests needing a live Postgres/Redis wait for
+          # CI-02's Compose integration job; conftest.py has no testcontainers
+          # wiring yet (BE-07), so this runner has nothing for them to reach.
+          HTTPS_PROXY=http://127.0.0.1:9 uv run pytest -q -m "not integration" --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=70
+      - uses: actions/upload-artifact@v4
+        with: { name: backend-coverage, path: backend/coverage.xml, retention-days: 7 }
+
+  test-frontend:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - working-directory: frontend
+        run: |
+          npm ci
+          npm run test:ci
+          npm run build
+
+  integration:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create CI .env (throwaway values, never real secrets)
+        run: |
+          cp .env.example .env
+          sed -i "s/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=ci-$(openssl rand -hex 8)/" .env
+          sed -i "s/^REDIS_PASSWORD=.*/REDIS_PASSWORD=ci-$(openssl rand -hex 8)/" .env
+          echo "TRIAGE_PROVIDER=simulated" >> .env
+      - name: Bring the whole stack up (data tier, migrate, seed, backend, frontend)
+        run: |
+          # `--wait` fails the whole command if ANY container it's told to
+          # wait for exits -- including migrate/seed, which are *supposed*
+          # to exit 0. Restricting --wait to the long-running services
+          # avoids that false failure; migrate still runs first regardless
+          # (backend's own service_completed_successfully dependency on it
+          # is unaffected by which services are named here). `seed` isn't a
+          # dependency of anything, so it needs its own explicit `up` to
+          # run at all -- issued without --wait so its exit doesn't fail
+          # this step either.
+          docker compose up -d --build --wait --wait-timeout 180 database cache backend frontend
+          docker compose up -d seed
+      - name: Smoke test through nginx (the real user path, not a bypass to the backend's own port)
+        run: |
+          set -euo pipefail
+          B=http://127.0.0.1:8080
+          # No /healthz here: default.conf.template only proxies "location /api/",
+          # so anything outside that prefix falls through to the SPA's
+          # try_files and would return the frontend's index.html either way --
+          # a "passing" curl that proves nothing about the backend. The POST
+          # below is the first real check, and it already implies the backend
+          # is reachable through the proxy.
+          id=$(curl -fsS -X POST "$B/api/complaints" -H 'Content-Type: application/json' \
+               -d '{"text":"Burst water main flooding the street since morning","location":"Street 12, G-9/2"}' | jq -r .id)
+          test -n "$id"
+          got=$(curl -fsS "$B/api/complaints/$id" | jq -r .category)
+          echo "category=$got"
+          test "$got" = "water"
+          c1=$(curl -fsS -D - -o /dev/null "$B/api/stats" | awk -F': ' 'tolower($1)=="x-cache"{print $2}' | tr -d '\r')
+          c2=$(curl -fsS -D - -o /dev/null "$B/api/stats" | awk -F': ' 'tolower($1)=="x-cache"{print $2}' | tr -d '\r')
+          echo "x-cache: $c1 then $c2"
+          test "$c1" = "MISS" && test "$c2" = "HIT"
+          # `seed` is a one-shot service with no healthcheck of its own, so
+          # --wait above only guarantees it has *started*, not that its
+          # inserts have landed yet -- poll instead of asserting once.
+          total=0
+          for _ in $(seq 1 20); do
+            total=$(curl -fsS "$B/api/complaints?page_size=1" | jq .total)
+            [ "$total" -ge 31 ] && break   # 30+ seed rows + our POST above
+            sleep 3
+          done
+          echo "total=$total"
+          test "$total" -ge 31
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs --no-color | tail -n 300
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
+
+  image-scan:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image
+        run: docker build -t civicpulse-backend:ci -f backend/Dockerfile backend
+      - name: Build frontend image
+        run: docker build -t civicpulse-frontend:ci -f frontend/Dockerfile frontend
+      # CRITICAL only, not HIGH: this scans the exact base images the plan
+      # pins (python:3.12-slim, node:22-alpine/nginx-unprivileged), and a
+      # HIGH-severity gate on someone else's base image would block every
+      # PR on CVEs this project has no way to fix by Monday night. CRITICAL
+      # is the bar that's actually enforceable.
+      - name: Trivy -- backend
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: civicpulse-backend:ci
+          severity: CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+      - name: Trivy -- frontend
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: civicpulse-frontend:ci
+          severity: CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+
+  manifest-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: kubeconform (K8s manifests, once they exist)
+        run: |
+          # No-op, not a failure, until K8-01+ commit manifests under k8s/ --
+          # the job exists now so CI-05's later gate on it needs no new wiring.
+          files=$(find k8s -name '*.yaml' -o -name '*.yml' 2>/dev/null || true)
+          if [ -z "$files" ]; then
+            echo "no k8s manifests yet -- nothing to validate"
+            exit 0
+          fi
+          curl -sSL https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz | tar xz kubeconform
+          # -ignore-missing-schemas: the VPA manifest (K8-04) is a CRD kind
+          # (autoscaling.k8s.io/v1 VerticalPodAutoscaler) kubeconform has no
+          # bundled schema for -- that's a missing schema, not an invalid one.
+          echo "$files" | xargs ./kubeconform -strict -ignore-missing-schemas -summary

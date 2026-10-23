@@ -1,0 +1,16 @@
+{
+  "id": "4f1c2a9e-7c1b-4d3e-9a55-2b8f6f0f8e11",
+  "text": "Burst water main flooding Street 12 since fajr, water entering ground floors",
+  "location": "Street 12, G-9/2, Islamabad",
+  "reporter_contact": "0300-1234567",
+  "category": "water",
+  "priority": "high",
+  "status": "open",
+  "ai_summary": "Burst water main flooding Street 12 homes since dawn.",
+  "triaged_by": "llm:groq",
+  "triage_latency_ms": 412,
+  "triage_confidence": 0.93,
+  "created_at": "2026-10-05T04:12:33.120Z",
+  "updated_at": "2026-10-05T04:12:33.120Z",
+  "allowed_transitions": ["in_progress", "rejected"]
+}

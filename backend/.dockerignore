@@ -1,0 +1,22 @@
+# Anything here would bloat the build context and/or the image; the .venv
+# entries also stop a host-built venv from ever shadowing the one uv builds
+# inside the image.
+.venv/
+.venv313/
+.venv*/
+tests/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+__pycache__/
+*.pyc
+.git/
+.gitignore
+.env
+.env.*
+*.log
+Dockerfile
+.dockerignore
