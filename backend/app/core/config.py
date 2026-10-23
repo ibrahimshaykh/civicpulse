@@ -29,9 +29,11 @@ class Settings(BaseSettings):
     redis_password: SecretStr
     redis_db: int = 0
 
-    # Raised from 30s to 60s: stats are read-heavy and only change on new
-    # complaints, so a longer TTL reduces Redis round-trips without stale data
-    # risk — the write path already invalidates the cache on POST.
+    # Conflict resolution (C0-09): kept 60s over 45s — the write path already
+    # invalidates the cache on every POST /api/complaints, so freshness is not
+    # gated by the TTL at all; the only effect of a shorter TTL is more Redis
+    # GETs for the same stale-until-invalidated data.  60s halves those GETs
+    # compared to the original 30s default without any user-visible downside.
     stats_cache_ttl_s: int = 60
     rate_limit_per_window: int = 10
     rate_limit_window_s: int = 60
