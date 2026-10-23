@@ -29,7 +29,9 @@ class Settings(BaseSettings):
     redis_password: SecretStr
     redis_db: int = 0
 
-    stats_cache_ttl_s: int = 30
+    # Bump to 45s: a compromise between freshness (demo needs visible updates)
+    # and efficiency (halving Redis GETs vs the 30s default).
+    stats_cache_ttl_s: int = 45
     rate_limit_per_window: int = 10
     rate_limit_window_s: int = 60
     trusted_proxy_hops: int = 1  # nginx in compose; ingress in k8s
